@@ -485,13 +485,33 @@ declaration_list
 
 
 %%
-#include <stdio.h>
+#include <cstdio>
 
-extern char yytext[];
-extern int column;
+extern char* yytext;
+extern int col;
+extern FILE* yyin;
+extern FILE* yyout;
+GrammarTreeNode* root;
+extern int yylineno;
 
-void yyerror(char const *s)
-{
+void yyerror(char const *s){
 	fflush(stdout);
-	printf("\n%*s\n%*s\n", column, "^", column, s);
+	printf("\n%*s\n%*s\n", col, "^", col, s);
+}
+
+int main(int argc, char* argv[]){
+    if(argc>1){
+        yyin=fopen(argv[1],"r");
+    }else{
+        yyin=stdin;
+    }
+    yyparse();
+    printf("\n");
+    treePrint(root,0);
+    
+    treeNodeFree(root);
+
+    fclose(yyin);
+
+    return 0;
 }
