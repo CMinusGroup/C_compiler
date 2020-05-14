@@ -1,6 +1,7 @@
 %{
 #include<cstdio>
-#include"y.tab.h"
+#include "y.tab.h"
+#include "grammartree.cpp"
 
 void col_count();
 void mutiline_comment();
