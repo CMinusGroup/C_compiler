@@ -23,6 +23,7 @@ postfix_expression
 	| 	postfix_expression OP_DEC
 	;
 
+// 参数表
 argument_expression_list
 	:	assignment_expression
 	| 	argument_expression_list ',' assignment_expression
@@ -59,7 +60,7 @@ additive_expression
 	| 	additive_expression '-' multiplicative_expression
 	;
 
-// 左移右移
+// 移位表达式
 shift_expression
 	:	additive_expression
 	| 	shift_expression OP_LEFTSHIFT additive_expression

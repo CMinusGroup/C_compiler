@@ -3,6 +3,14 @@
 #include <vector>
 #include <string>
 #include "grammartree.cpp"
+#include <cstdio>
+
+extern char* yytext;
+extern int col;
+extern FILE* yyin;
+extern FILE* yyout;
+GrammarTreeNode* root;
+extern int yylineno;
 
 
 %}
@@ -33,11 +41,11 @@
 %token <gtn> OP_INC OP_DEC OP_PTR
 %token <gtn> OP_AND OP_OR OP_LE OP_GE OP_EQ OP_NE
 
-%token <gtn> ';' ',' ':' '.' 
-%token <gtn> '&' '|' '~' '^'
-%token <gtn> '+' '-' '*' '/' '%'
-%token <gtn> '>' '<' '?' '!' '='
-%token <gtn> '(' ')' '[' ']' '{' '}'
+%token <gtn> ';' ',' ':' '.' 			
+%token <gtn> '&' '|' '~' '^'			
+%token <gtn> '+' '-' '*' '/' '%'		
+%token <gtn> '>' '<' '?' '!' '='		
+%token <gtn> '(' ')' '[' ']' '{' '}'	
 
 %start program
 %%
@@ -75,7 +83,7 @@ unary_expression
 	: postfix_expression
 	| OP_INC unary_expression
 	| OP_DEC unary_expression
-	| unary_operator cast_expression
+	| unary_operator cast_expression 
 	| SIZEOF unary_expression
 	| SIZEOF '(' type_name ')'
 	;
@@ -96,9 +104,9 @@ cast_expression
 
 multiplicative_expression
 	: cast_expression
-	| multiplicative_expression '*' cast_expression
-	| multiplicative_expression '/' cast_expression
-	| multiplicative_expression '%' cast_expression
+	| multiplicative_expression '*' cast_expression	
+	| multiplicative_expression '/' cast_expression	
+	| multiplicative_expression '%' cast_expression	
 	;
 
 additive_expression
@@ -490,14 +498,6 @@ declaration_list
 
 
 %%
-#include <cstdio>
-
-extern char* yytext;
-extern int col;
-extern FILE* yyin;
-extern FILE* yyout;
-GrammarTreeNode* root;
-extern int yylineno;
 
 void yyerror(char const *s){
 	fflush(stdout);
