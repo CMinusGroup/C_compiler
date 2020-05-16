@@ -51,113 +51,113 @@ extern int yylineno;
 %%
 
 program
-    : translation_unit { $$ = treeCreate("program",1,$1);root = $$}
+    : translation_unit         { $$ = treeCreate("program",1,$1);root = $$}
 	;
 
 primary_expression
-	: IDENTIFIER
-	| CONSTANT
-	| STRING_LITERAL
-	| '(' expression ')'
+	: IDENTIFIER				{$$ = treeCreate("primary_expression",1,$1);}
+	| CONSTANT					{$$ = treeCreate("primary_expression",1,$1);}
+	| STRING_LITERAL			{$$ = treeCreate("primary_expression",1,$1);}
+	| '(' expression ')'		{$$ = treeCreate("primary_expression",3,$1,$2,$3);}
 	;
 
 postfix_expression
-	: primary_expression
-	| postfix_expression '[' expression ']'
-	| postfix_expression '(' ')'
-	| postfix_expression '(' argument_expression_list ')'
-	| postfix_expression '.' IDENTIFIER
-	| postfix_expression OP_PTR IDENTIFIER
-	| postfix_expression OP_INC
-	| postfix_expression OP_DEC
-	| '(' type_name ')' '{' initializer_list '}'
-	| '(' type_name ')' '{' initializer_list ',' '}'
+	: primary_expression									{$$ = treeCreate("postfix_expression",1,$1);}
+	| postfix_expression '[' expression ']'					{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4);}	
+	| postfix_expression '(' ')'							{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
+	| postfix_expression '(' argument_expression_list ')'	{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4)}
+	| postfix_expression '.' IDENTIFIER						{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
+	| postfix_expression OP_PTR IDENTIFIER					{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
+	| postfix_expression OP_INC								{$$ = treeCreate("postfix_expression",2,$1,$2);}
+	| postfix_expression OP_DEC								{$$ = treeCreate("postfix_expression",2,$1,$2);}
+	| '(' type_name ')' '{' initializer_list '}'			{$$ = treeCreate("postfix_expression",6,$1,$2,$3,$4,$5,$6);}
+	| '(' type_name ')' '{' initializer_list ',' '}'		{$$ = treeCreate("postfix_expression",7,$1,$2,$3,$4,$5,$6,$7);}
 	;
 
 argument_expression_list
-	: assignment_expression
-	| argument_expression_list ',' assignment_expression
+	: assignment_expression									{$$ = treeCreate("argument_expression_list",1,$1);}
+	| argument_expression_list ',' assignment_expression	{$$ = treeCreate("argument_expression_list",3,$1,$2,$3);}
 	;
 
 unary_expression
-	: postfix_expression
-	| OP_INC unary_expression
-	| OP_DEC unary_expression
-	| unary_operator cast_expression 
-	| SIZEOF unary_expression
-	| SIZEOF '(' type_name ')'
+	: postfix_expression				{$$ = treeCreate("unary_expression",1,$1);}
+	| OP_INC unary_expression			{$$ = treeCreate("unary_expression",2,$1,$2);}
+	| OP_DEC unary_expression			{$$ = treeCreate("unary_expression",2,$1,$2);}
+	| unary_operator cast_expression 	{$$ = treeCreate("unary_expression",2,$1,$2);}
+	| SIZEOF unary_expression			{$$ = treeCreate("unary_expression",2,$1,$2);}
+	| SIZEOF '(' type_name ')'			{$$ = treeCreate("unary_expression",4,$1,$2,$3,$4);}
 	;
 
 unary_operator
-	: '&'
-	| '*'
-	| '+'
-	| '-'
-	| '~'
-	| '!'
+	: '&'		{$$ = treeCreate("unary_operator",1,$1);}
+	| '*'		{$$ = treeCreate("unary_operator",1,$1);}
+	| '+'		{$$ = treeCreate("unary_operator",1,$1);}
+	| '-'		{$$ = treeCreate("unary_operator",1,$1);}
+	| '~'		{$$ = treeCreate("unary_operator",1,$1);}
+	| '!'		{$$ = treeCreate("unary_operator",1,$1);}
 	;
 
 cast_expression
-	: unary_expression
-	| '(' type_name ')' cast_expression
+	: unary_expression								{$$ = treeCreate("cast_expression",1,$1);}
+	| '(' type_name ')' cast_expression				{$$ = treeCreate("cast_expression",4,$1,$2,$3,$4);}
 	;
 
 multiplicative_expression
-	: cast_expression
-	| multiplicative_expression '*' cast_expression	
-	| multiplicative_expression '/' cast_expression	
-	| multiplicative_expression '%' cast_expression	
+	: cast_expression									{$$ = treeCreate("multiplicative_expression",1,$1);}
+	| multiplicative_expression '*' cast_expression		{$$ = treeCreate("multiplicative_expression",3,$1,$2,$3);}
+	| multiplicative_expression '/' cast_expression		{$$ = treeCreate("multiplicative_expression",3,$1,$2,$3);}
+	| multiplicative_expression '%' cast_expression		{$$ = treeCreate("multiplicative_expression",3,$1,$2,$3);}
 	;
 
 additive_expression
-	: multiplicative_expression
-	| additive_expression '+' multiplicative_expression
-	| additive_expression '-' multiplicative_expression
+	: multiplicative_expression								{$$ = treeCreate("additive_expression",1,$1);}
+	| additive_expression '+' multiplicative_expression		{$$ = treeCreate("additive_expression",3,$1,$2,$3);}
+	| additive_expression '-' multiplicative_expression		{$$ = treeCreate("additive_expression",3,$1,$2,$3);}
 	;
 
 shift_expression
-	: additive_expression
-	| shift_expression OP_LEFTSHIFT additive_expression
-	| shift_expression OP_RIGHTSHIFT additive_expression
+	: additive_expression									{$$ = treeCreate("shift_expression",1,$1);}
+	| shift_expression OP_LEFTSHIFT additive_expression		{$$ = treeCreate("shift_expression",3,$1,$2,$3);}
+	| shift_expression OP_RIGHTSHIFT additive_expression	{$$ = treeCreate("shift_expression",3,$1,$2,$3);}
 	;
 
 relational_expression
-	: shift_expression
-	| relational_expression '<' shift_expression
-	| relational_expression '>' shift_expression
-	| relational_expression OP_LE shift_expression
-	| relational_expression OP_GE shift_expression
+	: shift_expression									{$$ = treeCreate("relational_expression",1,$1);}
+	| relational_expression '<' shift_expression		{$$ = treeCreate("relational_expression",3,$1,$2,$3);}
+	| relational_expression '>' shift_expression		{$$ = treeCreate("relational_expression",3,$1,$2,$3);}
+	| relational_expression OP_LE shift_expression		{$$ = treeCreate("relational_expression",3,$1,$2,$3);}
+	| relational_expression OP_GE shift_expression		{$$ = treeCreate("relational_expression",3,$1,$2,$3);}
 	;
 
 equality_expression
-	: relational_expression
-	| equality_expression OP_EQ relational_expression
-	| equality_expression OP_NE relational_expression
+	: relational_expression								{$$ = treeCreate("equality_expression",1,$1);}
+	| equality_expression OP_EQ relational_expression	{$$ = treeCreate("equality_expression",3,$1,$2,$3);}
+	| equality_expression OP_NE relational_expression	{$$ = treeCreate("equality_expression",3,$1,$2,$3);}
 	;
 
 and_expression
-	: equality_expression
-	| and_expression '&' equality_expression
+	: equality_expression							{$$ = treeCreate("and_expression",1,$1);}
+	| and_expression '&' equality_expression		{$$ = treeCreate("and_expression",3,$1,$2,$3);}
 	;
 
 exclusive_or_expression
-	: and_expression
-	| exclusive_or_expression '^' and_expression
+	: and_expression								{$$ = treeCreate("exclusive_or_expression",1,$1);}
+	| exclusive_or_expression '^' and_expression	{$$ = treeCreate("exclusive_or_expression",3,$1,$2,$3);}
 	;
 
 inclusive_or_expression
-	: exclusive_or_expression
-	| inclusive_or_expression '|' exclusive_or_expression
+	: exclusive_or_expression								{$$ = treeCreate("inclusive_or_expression",1,$1);}
+	| inclusive_or_expression '|' exclusive_or_expression	{$$ = treeCreate("inclusive_or_expression",3,$1,$2,$3);}
 	;
 
 logical_and_expression
-	: inclusive_or_expression
-	| logical_and_expression OP_AND inclusive_or_expression
+	: inclusive_or_expression									{$$ = treeCreate("logical_and_expression",1,$1);}
+	| logical_and_expression OP_AND inclusive_or_expression		{$$ = treeCreate("logical_and_expression",3,$1,$2,$3);}
 	;
 
 logical_or_expression
-	: logical_and_expression
-	| logical_or_expression OP_OR logical_and_expression
+	: logical_and_expression								{$$ = treeCreate("logical_or_expression",1,$1);}
+	| logical_or_expression OP_OR logical_and_expression	{$$ = treeCreate("logical_or_expression",3,$1,$2,$3);}
 	;
 
 conditional_expression
@@ -172,25 +172,25 @@ assignment_expression
 
 assignment_operator
 	: '='					{$$ = treeCreate("assignment_operator",1,$1);}
-	| ASSIGN_MUL
-	| ASSIGN_DIV
-	| ASSIGN_MOD
-	| ASSIGN_ADD
-	| ASSIGN_SUB 
-	| ASSIGN_LEFTSHIFT
-	| ASSIGN_RIGHTSHIFT
-	| ASSIGN_AND
-	| ASSIGN_XOR
-	| ASSIGN_OR
+	| ASSIGN_MUL			{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_DIV			{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_MOD			{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_ADD			{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_SUB 			{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_LEFTSHIFT		{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_RIGHTSHIFT		{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_AND			{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_XOR			{$$ = treeCreate("assignment_operator",1,$1);}
+	| ASSIGN_OR				{$$ = treeCreate("assignment_operator",1,$1);}
 	;
 
 expression
-	: assignment_expression
-	| expression ',' assignment_expression
+	: assignment_expression						{$$ = treeCreate("expression",1,$1);}
+	| expression ',' assignment_expression		{$$ = treeCreate("expression",3,$1,$2,$3);}
 	;
 
 constant_expression
-	: conditional_expression
+	: conditional_expression					{$$ = treeCreate("constant_expression",1,$1);}
 	;
 
 declaration
@@ -199,14 +199,14 @@ declaration
 	;
 
 declaration_specifiers
-	: storage_class_specifier
-	| storage_class_specifier declaration_specifiers
-	| type_specifier
+	: storage_class_specifier								{$$ = treeCreate("declaration_specifiers",1,$1);}
+	| storage_class_specifier declaration_specifiers		{$$ = treeCreate("declaration_specifiers",2,$1,$2);}
+	| type_specifier										{$$ = treeCreate("declaration_specifiers",1,$1);}
 	| type_specifier declaration_specifiers					{$$ = treeCreate("declaration_specifiers",2,$1,$2);}
-	| type_qualifier
-	| type_qualifier declaration_specifiers
-	| function_specifier
-	| function_specifier declaration_specifiers
+	| type_qualifier										{$$ = treeCreate("declaration_specifiers",1,$1);}
+	| type_qualifier declaration_specifiers					{$$ = treeCreate("declaration_specifiers",2,$1,$2);}
+	| function_specifier									{$$ = treeCreate("declaration_specifiers",1,$1);}
+	| function_specifier declaration_specifiers				{$$ = treeCreate("declaration_specifiers",2,$1,$2);}
 	;
 
 init_declarator_list
@@ -220,75 +220,75 @@ init_declarator
 	;
 
 storage_class_specifier
-	: TYPEDEF
-	| EXTERN
-	| STATIC
-	| AUTO
-	| REGISTER
-	;
+	: TYPEDEF				{$$ = treeCreate("storage_class_specifier",1,$1);}
+	| EXTERN				{$$ = treeCreate("storage_class_specifier",1,$1);}
+	| STATIC				{$$ = treeCreate("storage_class_specifier",1,$1);}
+	| AUTO					{$$ = treeCreate("storage_class_specifier",1,$1);}
+	| REGISTER				{$$ = treeCreate("storage_class_specifier",1,$1);}
+	;	
 
 type_specifier
-	: VOID
-	| CHAR
-	| SHORT
+	: VOID								{$$ = treeCreate("type_specifier",1,$1);}
+	| CHAR								{$$ = treeCreate("type_specifier",1,$1);}
+	| SHORT								{$$ = treeCreate("type_specifier",1,$1);}
 	| INT								{$$ = treeCreate("type_specifier",1,$1);}
-	| LONG
-	| FLOAT
-	| DOUBLE
-	| SIGNED
-	| UNSIGNED
-	| BOOL
-	| COMPLEX
-	| IMAGINARY
-	| struct_or_union_specifier
-	| enum_specifier
-	| TYPE_NAME
+	| LONG								{$$ = treeCreate("type_specifier",1,$1);}
+	| FLOAT								{$$ = treeCreate("type_specifier",1,$1);}
+	| DOUBL								{$$ = treeCreate("type_specifier",1,$1);}
+	| SIGNED							{$$ = treeCreate("type_specifier",1,$1);}
+	| UNSIGNED							{$$ = treeCreate("type_specifier",1,$1);}
+	| BOOL								{$$ = treeCreate("type_specifier",1,$1);}
+	| COMPLEX							{$$ = treeCreate("type_specifier",1,$1);}
+	| IMAGINARY							{$$ = treeCreate("type_specifier",1,$1);}
+	| struct_or_union_specifier			{$$ = treeCreate("type_specifier",1,$1);}
+	| enum_specifier					{$$ = treeCreate("type_specifier",1,$1);}
+	| TYPE_NAME							{$$ = treeCreate("type_specifier",1,$1);}
 	;
 
 struct_or_union_specifier
-	: struct_or_union IDENTIFIER '{' struct_declaration_list '}'
-	| struct_or_union '{' struct_declaration_list '}'
-	| struct_or_union IDENTIFIER
+	: struct_or_union IDENTIFIER '{' struct_declaration_list '}'	{$$ = treeCreate("struct_or_union_specifier",5,$1,$2,$3,$4,$5);}
+	| struct_or_union '{' struct_declaration_list '}'				{$$ = treeCreate("struct_or_union_specifier",4,$1,$2,$3,$4);}
+	| struct_or_union IDENTIFIER									{$$ = treeCreate("struct_or_union_specifier",2,$1,$2);}
 	;
 
 struct_or_union
-	: STRUCT
-	| UNION
-	;
+	: STRUCT										{$$ = treeCreate("struct_or_union",1,$1);}
+	| UNION											{$$ = treeCreate("struct_or_union",1,$1);}
+	;		
 
 struct_declaration_list
-	: struct_declaration
-	| struct_declaration_list struct_declaration
+	: struct_declaration							{$$ = treeCreate("struct_declarator_list",1,$1);}
+	| struct_declaration_list struct_declaration	{$$ = treeCreate("struct_declarator_list",2,$1,$2);}
 	;
 
 struct_declaration
-	: specifier_qualifier_list struct_declarator_list ';'
+	: specifier_qualifier_list struct_declarator_list ';'	{$$ = treeCreate("struct_declaration",3,$1,$2,$3);}
 	;
 
 specifier_qualifier_list
-	: type_specifier specifier_qualifier_list
-	| type_specifier
-	| type_qualifier specifier_qualifier_list
-	| type_qualifier
+	: type_specifier specifier_qualifier_list		{$$ = treeCreate("specifier_qualifier_list",2,$1,$2);}
+	| type_specifier								{$$ = treeCreate("specifier_qualifier_list",1,$1);}
+	| type_qualifier specifier_qualifier_list		{$$ = treeCreate("specifier_qualifier_list",2,$1,$2);}
+	| type_qualifier								{$$ = treeCreate("specifier_qualifier_list",1,$1);}
 	;
 
 struct_declarator_list
-	: struct_declarator
-	| struct_declarator_list ',' struct_declarator
+	: struct_declarator								{$$ = treeCreate("struct_declarator_list",1,$1);}
+	| struct_declarator_list ',' struct_declarator	{$$ = treeCreate("struct_declarator_list",3,$1,$2,$3);}
 	;
 
 struct_declarator
-	: declarator
-	| ':' constant_expression
-	| declarator ':' constant_expression
+	: declarator									{$$ = treeCreate("struct_declarator",1,$1);}
+	| ':' constant_expression						{$$ = treeCreate("struct_declarator",2,$1,$2);}
+	| declarator ':' constant_expression			{$$ = treeCreate("struct_declarator",3,$1,$2,$3);}
 	;
 
 enum_specifier
-	: ENUM '{' enumerator_list '}'
-	| ENUM IDENTIFIER '{' enumerator_list '}'
-	| ENUM '{' enumerator_list ',' '}'
-	| ENUM IDENTIFIER '{' enumerator_list ',' '}'
-	| ENUM IDENTIFIER
+	: ENUM '{' enumerator_list '}'					{$$ = treeCreate("enum_specifier",4,$1,$2,$3,$4);}
+	| ENUM IDENTIFIER '{' enumerator_list '}'		{$$ = treeCreate("enum_specifier",5,$1,$2,$3,$4,$5);}
+	| ENUM '{' enumerator_list ',' '}'				{$$ = treeCreate("enum_specifier",5,$1,$2,$3,$4,$5);}
+	| ENUM IDENTIFIER '{' enumerator_list ',' '}'	{$$ = treeCreate("enum_specifier",6,$1,$2,$3,$4,$5,$6);}
+	| ENUM IDENTIFIER								{$$ = treeCreate("enum_specifier",2,$1,$2);}
 	;
 
 enumerator_list
