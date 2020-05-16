@@ -51,7 +51,7 @@ extern int yylineno;
 %%
 
 program
-    : translation_unit
+    : translation_unit { $$ = treeCreate("program",1,$1);root = $$}
 	;
 
 primary_expression
@@ -161,17 +161,17 @@ logical_or_expression
 	;
 
 conditional_expression
-	: logical_or_expression
-	| logical_or_expression '?' expression ':' conditional_expression
+	: logical_or_expression												{$$ = treeCreate("conditional_expression",1,$1);}
+	| logical_or_expression '?' expression ':' conditional_expression	{$$ = treeCreate("conditional_expression",)}
 	;
 
 assignment_expression
-	: conditional_expression
-	| unary_expression assignment_operator assignment_expression
+	: conditional_expression										{$$ = treeCreate("assignment_expression",1,$1);}
+	| unary_expression assignment_operator assignment_expression	{$$ = treeCreate("assignment_expression",3,$1,$2,$3);}
 	;
 
 assignment_operator
-	: '='
+	: '='					{$$ = treeCreate("assignment_operator",1,$1);}
 	| ASSIGN_MUL
 	| ASSIGN_DIV
 	| ASSIGN_MOD
@@ -194,15 +194,15 @@ constant_expression
 	;
 
 declaration
-	: declaration_specifiers ';'
-	| declaration_specifiers init_declarator_list ';'
+	: declaration_specifiers ';'							{$$ = treeCreate("declaration",2,$1,$2);}
+	| declaration_specifiers init_declarator_list ';'		{$$ = treeCreate("declaration",3,$1,$2,$3);}
 	;
 
 declaration_specifiers
 	: storage_class_specifier
 	| storage_class_specifier declaration_specifiers
 	| type_specifier
-	| type_specifier declaration_specifiers
+	| type_specifier declaration_specifiers					{$$ = treeCreate("declaration_specifiers",2,$1,$2);}
 	| type_qualifier
 	| type_qualifier declaration_specifiers
 	| function_specifier
@@ -210,13 +210,13 @@ declaration_specifiers
 	;
 
 init_declarator_list
-	: init_declarator
-	| init_declarator_list ',' init_declarator
+	: init_declarator										{$$ = treeCreate("init_declarator_list",1,$1);}
+	| init_declarator_list ',' init_declarator				{$$ = treeCreate("init_declarator_list",3,$1,$2,$3);}
 	;
 
 init_declarator
-	: declarator
-	| declarator '=' initializer
+	: declarator											{$$ = treeCreate("init_declarator",1,$1);}
+	| declarator '=' initializer							{$$ = treeCreate("init_declarator",3,$1,$2,$3);}
 	;
 
 storage_class_specifier
@@ -231,7 +231,7 @@ type_specifier
 	: VOID
 	| CHAR
 	| SHORT
-	| INT
+	| INT								{$$ = treeCreate("type_specifier",1,$1);}
 	| LONG
 	| FLOAT
 	| DOUBLE
@@ -312,12 +312,12 @@ function_specifier
 	;
 
 declarator
-	: pointer direct_declarator
-	| direct_declarator
+	: pointer direct_declarator		{$$ = treeCreate("declarator",2,$1,$2);}
+	| direct_declarator				{$$ = treeCreate("declarator",1,$1);}
 	;
 
 direct_declarator
-	: IDENTIFIER
+	: IDENTIFIER					{$$ = treeCreate("direct_declarator",1,$1);}
 	| '(' declarator ')'
 	| direct_declarator '[' type_qualifier_list assignment_expression ']'
 	| direct_declarator '[' type_qualifier_list ']'
@@ -392,9 +392,9 @@ direct_abstract_declarator
 	;
 
 initializer
-	: assignment_expression
-	| '{' initializer_list '}'
-	| '{' initializer_list ',' '}'
+	: assignment_expression				{$$ = treeCreate("initializer",1,$1);}
+	| '{' initializer_list '}'			{$$ = treeCreate("initializer",3,$1,$2,$3);}
+	| '{' initializer_list ',' '}'		{$$ = treeCreate("initializer",4,$1,$2,$3,$4);}
 	;
 
 initializer_list
@@ -477,13 +477,13 @@ jump_statement
 	;
 
 translation_unit
-	: external_declaration
-	| translation_unit external_declaration
+	: external_declaration   					 {$$ = treeCreate("translation_unit",1,$1);}
+	| translation_unit external_declaration 	 {$$ = treeCreate("translation_unit",2,$1,$2);}
 	;
 
 external_declaration
 	: function_definition
-	| declaration
+	| declaration	{$$ = treeCreate("external_declaration",1,$1);}
 	;
 
 function_definition
