@@ -9,21 +9,17 @@ extern char* yytext;
 extern int col;
 extern FILE* yyin;
 extern FILE* yyout;
-GrammarTreeNode* root;
+GrammarTreeNode* root = NULL;
 extern int yylineno;
 
 
 %}
 
-%union{
-    struct GrammarTreeNode* gtn;
-}
-
 %token <gtn> AUTO SIZEOF GOTO RETURN
 
 %token <gtn> DO WHILE FOR CONTINUE BREAK SWITCH DEFAULT CASE IF ELSE
 
-%token <gtn> FLOAT DOUBLE CHAR VOID INT LONG BOOL SHORT 
+%token <gtn> FLOAT DOUBLE CHAR VOID INT LONG BOOL SHORT VOLATILE
 %token <gtn> CONST SIGNED UNSIGNED
 
 %token <gtn> STATIC EXTERN INLINE TYPEDEF STRUCT ENUM UNION
@@ -33,9 +29,9 @@ extern int yylineno;
 
 %token <gtn> ASSIGN_RIGHTSHIFT ASSIGN_LEFTSHIFT
 %token <gtn> ASSIGN_ADD ASSIGN_SUB ASSIGN_MUL ASSIGN_DIV ASSIGN_MOD
-%token <gtn> ASSIGN_AND ASSIGN_OR ASSIGN_OR
+%token <gtn> ASSIGN_AND ASSIGN_OR TYPE_NAME ASSIGN_XOR
 
-%token <gtn> ELLIPSIS
+%token <gtn> IDENTIFIER
 
 %token <gtn> OP_RIGHTSHIFT OP_LEFTSHIFT
 %token <gtn> OP_INC OP_DEC OP_PTR
@@ -47,11 +43,29 @@ extern int yylineno;
 %token <gtn> '>' '<' '?' '!' '='		
 %token <gtn> '(' ')' '[' ']' '{' '}'	
 
+%token <gtn> program primary_expression postfix_expression argument_expression_list unary_expression
+%token <gtn> unary_operator cast_expression multiplicative_expression additive_expression shift_expression
+%token <gtn> relational_expression equality_expression and_expression exclusive_or_expression inclusive_or_expression
+%token <gtn> logical_and_expression logical_or_expression conditional_expression assignment_expression
+%token <gtn> assignment_operator expression constant_expression declaration declaration_specifiers init_declarator_list
+%token <gtn> init_declarator storage_class_specifier type_specifier struct_or_union_specifier struct_or_union
+%token <gtn> struct_declaration_list struct_declaration specifier_qualifier_list struct_declarator_list struct_declarator
+%token <gtn> enum_specifier enumerator_list enumerator type_qualifier function_specifier declarator direct_declarator
+%token <gtn> pointer type_qualifier_list parameter_type_list parameter_list parameter_declaration identifier_list
+%token <gtn> type_name abstract_declarator direct_abstract_declarator initializer initializer_list designation
+%token <gtn> designator_list designator statement labeled_statement compound_statement block_item_list block_item
+%token <gtn> expression_statement selection_statement iteration_statement jump_statement translation_unit
+%token <gtn> external_declaration function_definition declaration_list
 %start program
+
+%union{
+    GrammarTreeNode* gtn;
+}
+
 %%
 
 program
-    : translation_unit         { $$ = treeCreate("program",1,$1);root = $$}
+    : translation_unit         { $$ = treeCreate("program",1,$1);root = $$;}
 	;
 
 primary_expression
@@ -65,7 +79,7 @@ postfix_expression
 	: primary_expression									{$$ = treeCreate("postfix_expression",1,$1);}
 	| postfix_expression '[' expression ']'					{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4);}	
 	| postfix_expression '(' ')'							{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
-	| postfix_expression '(' argument_expression_list ')'	{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4)}
+	| postfix_expression '(' argument_expression_list ')'	{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4);}
 	| postfix_expression '.' IDENTIFIER						{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
 	| postfix_expression OP_PTR IDENTIFIER					{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
 	| postfix_expression OP_INC								{$$ = treeCreate("postfix_expression",2,$1,$2);}
@@ -162,7 +176,7 @@ logical_or_expression
 
 conditional_expression
 	: logical_or_expression												{$$ = treeCreate("conditional_expression",1,$1);}
-	| logical_or_expression '?' expression ':' conditional_expression	{$$ = treeCreate("conditional_expression",)}
+	| logical_or_expression '?' expression ':' conditional_expression	{$$ = treeCreate("conditional_expression",5,$1,$2,$3,$4,$5);}
 	;
 
 assignment_expression
@@ -188,7 +202,7 @@ expression
 	: assignment_expression						{$$ = treeCreate("expression",1,$1);}
 	| expression ',' assignment_expression		{$$ = treeCreate("expression",3,$1,$2,$3);}
 	;
-
+ 
 constant_expression
 	: conditional_expression					{$$ = treeCreate("constant_expression",1,$1);}
 	;
@@ -224,7 +238,7 @@ storage_class_specifier
 	| EXTERN				{$$ = treeCreate("storage_class_specifier",1,$1);}
 	| STATIC				{$$ = treeCreate("storage_class_specifier",1,$1);}
 	| AUTO					{$$ = treeCreate("storage_class_specifier",1,$1);}
-	| REGISTER				{$$ = treeCreate("storage_class_specifier",1,$1);}
+	// | REGISTER				{$$ = treeCreate("storage_class_specifier",1,$1);}
 	;	
 
 type_specifier
@@ -234,15 +248,15 @@ type_specifier
 	| INT								{$$ = treeCreate("type_specifier",1,$1);}
 	| LONG								{$$ = treeCreate("type_specifier",1,$1);}
 	| FLOAT								{$$ = treeCreate("type_specifier",1,$1);}
-	| DOUBL								{$$ = treeCreate("type_specifier",1,$1);}
+	| DOUBLE								{$$ = treeCreate("type_specifier",1,$1);}
 	| SIGNED							{$$ = treeCreate("type_specifier",1,$1);}
 	| UNSIGNED							{$$ = treeCreate("type_specifier",1,$1);}
 	| BOOL								{$$ = treeCreate("type_specifier",1,$1);}
-	| COMPLEX							{$$ = treeCreate("type_specifier",1,$1);}
-	| IMAGINARY							{$$ = treeCreate("type_specifier",1,$1);}
+	// | COMPLEX							{$$ = treeCreate("type_specifier",1,$1);}
+	// | IMAGINARY							{$$ = treeCreate("type_specifier",1,$1);}
 	| struct_or_union_specifier			{$$ = treeCreate("type_specifier",1,$1);}
 	| enum_specifier					{$$ = treeCreate("type_specifier",1,$1);}
-	| TYPE_NAME							{$$ = treeCreate("type_specifier",1,$1);}
+	// | TYPE_NAME							{$$ = treeCreate("type_specifier",1,$1);}
 	;
 
 struct_or_union_specifier
@@ -292,23 +306,23 @@ enum_specifier
 	;
 
 enumerator_list
-	: enumerator
-	| enumerator_list ',' enumerator
+	: enumerator									{$$ = treeCreate("enumerator_list",1,$1);}
+	| enumerator_list ',' enumerator				{$$ = treeCreate("enumerator_list",3,$1,$2,$3);}
 	;
 
 enumerator
-	: IDENTIFIER
-	| IDENTIFIER '=' constant_expression
+	: IDENTIFIER									{$$ = treeCreate("enumerator",1,$1);}
+	| IDENTIFIER '=' constant_expression			{$$ = treeCreate("enumerator",3,$1,$2,$3);}
 	;
 
 type_qualifier
-	: CONST
-	| RESTRICT
-	| VOLATILE
+	: CONST											{$$ = treeCreate("type_qualifier",1,$1);}
+	// | RESTRICT										{$$ = treeCreate("type_qualifier",1,$1);}
+	| VOLATILE										{$$ = treeCreate("type_qualifier",1,$1);}
 	;
 
 function_specifier
-	: INLINE
+	: INLINE						{$$ = treeCreate("function_specifier",1,$1);}
 	;
 
 declarator
@@ -318,67 +332,67 @@ declarator
 
 direct_declarator
 	: IDENTIFIER					{$$ = treeCreate("direct_declarator",1,$1);}
-	| '(' declarator ')'
-	| direct_declarator '[' type_qualifier_list assignment_expression ']'
-	| direct_declarator '[' type_qualifier_list ']'
-	| direct_declarator '[' assignment_expression ']'
-	| direct_declarator '[' STATIC type_qualifier_list assignment_expression ']'
-	| direct_declarator '[' type_qualifier_list STATIC assignment_expression ']'
-	| direct_declarator '[' type_qualifier_list '*' ']'
-	| direct_declarator '[' '*' ']'
-	| direct_declarator '[' ']'
-	| direct_declarator '(' parameter_type_list ')'
-	| direct_declarator '(' identifier_list ')'
-	| direct_declarator '(' ')'
+	| '(' declarator ')'			{$$ = treeCreate("direct_declarator",3,$1,$2,$3);}
+	| direct_declarator '[' type_qualifier_list assignment_expression ']'   {$$ = treeCreate("direct_declarator",5,$1,$2,$3,$4,$5);}
+	| direct_declarator '[' type_qualifier_list ']'							{$$ = treeCreate("direct_declarator",4,$1,$2,$3,$4);}
+	| direct_declarator '[' assignment_expression ']'						{$$ = treeCreate("direct_declarator",4,$1,$2,$3,$4);}
+	| direct_declarator '[' STATIC type_qualifier_list assignment_expression ']' {$$ = treeCreate("direct_declarator",6,$1,$2,$3,$4,$5,$6);}
+	| direct_declarator '[' type_qualifier_list STATIC assignment_expression ']' {$$ = treeCreate("direct_declarator",6,$1,$2,$3,$4,$5,$6);}
+	| direct_declarator '[' type_qualifier_list '*' ']'						{$$ = treeCreate("direct_declarator",5,$1,$2,$3,$4,$5);}
+	| direct_declarator '[' '*' ']'											{$$ = treeCreate("direct_declarator",4,$1,$2,$3,$4);}
+	| direct_declarator '[' ']'												{$$ = treeCreate("direct_declarator",3,$1,$2,$3);}
+	| direct_declarator '(' parameter_type_list ')'							{$$ = treeCreate("direct_declarator",4,$1,$2,$3,$4);}
+	| direct_declarator '(' identifier_list ')'								{$$ = treeCreate("direct_declarator",4,$1,$2,$3,$4);}
+	| direct_declarator '(' ')'												{$$ = treeCreate("direct_declarator",3,$1,$2,$3);}
 	;
 
 pointer
-	: '*'
-	| '*' type_qualifier_list
-	| '*' pointer
-	| '*' type_qualifier_list pointer
+	: '*'										{$$ = treeCreate("pointer",1,$1);}
+	| '*' type_qualifier_list					{$$ = treeCreate("pointer",2,$1,$2);}
+	| '*' pointer								{$$ = treeCreate("pointer",2,$1,$2);}
+	| '*' type_qualifier_list pointer			{$$ = treeCreate("pointer",3,$1,$2,$3);}
 	;
 
 type_qualifier_list
-	: type_qualifier
-	| type_qualifier_list type_qualifier
+	: type_qualifier							{$$ = treeCreate("type_qualifier_list",1,$1);}
+	| type_qualifier_list type_qualifier		{$$ = treeCreate("type_qualifier_list",2,$2);}
 	;
 
 
 parameter_type_list
-	: parameter_list
-	| parameter_list ',' ELLIPSIS
+	: parameter_list							{$$ = treeCreate("parameter_type_list",1,$1);}
+	| parameter_list ',' ELLIPSIS				{$$ = treeCreate("parameter_type_list",3,$1,$2,$3);}
 	;
 
 parameter_list
-	: parameter_declaration
-	| parameter_list ',' parameter_declaration
+	: parameter_declaration						{$$ = treeCreate("parameter_list",1,$1);}
+	| parameter_list ',' parameter_declaration	{$$ = treeCreate("parameter_list",3,$1,$2,$3);}
 	;
 
 parameter_declaration
-	: declaration_specifiers declarator
-	| declaration_specifiers abstract_declarator
-	| declaration_specifiers
+	: declaration_specifiers declarator				{$$ = treeCreate("parameter_declaration",2,$1,$2);}	
+	| declaration_specifiers abstract_declarator	{$$ = treeCreate("parameter_declaration",2,$1,$2);}
+	| declaration_specifiers						{$$ = treeCreate("parameter_declaration",1,$1);}
 	;
 
 identifier_list
-	: IDENTIFIER
-	| identifier_list ',' IDENTIFIER
+	: IDENTIFIER						{$$ = treeCreate("identifier_list",1,$1);}
+	| identifier_list ',' IDENTIFIER	{$$ = treeCreate("identifier_list",3,$1,$2,$3);}
 	;
 
 type_name
-	: specifier_qualifier_list
-	| specifier_qualifier_list abstract_declarator
+	: specifier_qualifier_list						{$$ = treeCreate("type_name",1,$1);}
+	| specifier_qualifier_list abstract_declarator	{$$ = treeCreate("type_name",2,$1,$2);}
 	;
 
 abstract_declarator
-	: pointer
-	| direct_abstract_declarator
-	| pointer direct_abstract_declarator
+	: pointer								{$$ = treeCreate("abstract_declarator",1,$1);}
+	| direct_abstract_declarator			{$$ = treeCreate("abstract_declarator",1,$1);}
+	| pointer direct_abstract_declarator	{$$ = treeCreate("abstract_declarator",2,$1,$2);}
 	;
 
 direct_abstract_declarator
-	: '(' abstract_declarator ')'
+	: '(' abstract_declarator ')'			
 	| '[' ']'
 	| '[' assignment_expression ']'
 	| direct_abstract_declarator '[' ']'
@@ -397,83 +411,83 @@ initializer
 	| '{' initializer_list ',' '}'		{$$ = treeCreate("initializer",4,$1,$2,$3,$4);}
 	;
 
-initializer_list
-	: initializer
-	| designation initializer
-	| initializer_list ',' initializer
-	| initializer_list ',' designation initializer
+initializer_list		
+	: initializer									{$$ = treeCreate("initializer_list",1,$1);}
+	| designation initializer						{$$ = treeCreate("initializer_list",2,$1,$2);}
+	| initializer_list ',' initializer				{$$ = treeCreate("initializer_list",3,$1,$2,$3);}
+	| initializer_list ',' designation initializer	{$$ = treeCreate("initializer_list",4,$1,$2,$3,$4);}
 	;
 
 designation
-	: designator_list '='
+	: designator_list '='				{$$ = treeCreate("designation",2,$1,$2);}
 	;
 
 designator_list
-	: designator
-	| designator_list designator
+	: designator						{$$ = treeCreate("designator_list",1,$1);}
+	| designator_list designator		{$$ = treeCreate("designator_list",2,$1,$2);}
 	;
 
 designator
-	: '[' constant_expression ']'
-	| '.' IDENTIFIER
+	: '[' constant_expression ']'		{$$ = treeCreate("designator",3,$1,$2,$3);}
+	| '.' IDENTIFIER					{$$ = treeCreate("designator",2,$1,$2);}
 	;
 
 statement
-	: labeled_statement
-	| compound_statement
-	| expression_statement
-	| selection_statement
-	| iteration_statement
-	| jump_statement
+	: labeled_statement					{$$ = treeCreate("statement",1,$1);}
+	| compound_statement				{$$ = treeCreate("statement",1,$1);}
+	| expression_statement				{$$ = treeCreate("statement",1,$1);}
+	| selection_statement				{$$ = treeCreate("statement",1,$1);}
+	| iteration_statement				{$$ = treeCreate("statement",1,$1);}
+	| jump_statement					{$$ = treeCreate("statement",1,$1);}
 	;
 
-labeled_statement
-	: IDENTIFIER ':' statement
-	| CASE constant_expression ':' statement
-	| DEFAULT ':' statement
+labeled_statement								
+	: IDENTIFIER ':' statement					{$$ = treeCreate("labeled_statement",3,$1,$2,$3);}
+	| CASE constant_expression ':' statement	{$$ = treeCreate("labeled_statement",4,$1,$2,$3,$4);}
+	| DEFAULT ':' statement						{$$ = treeCreate("labeled_statement",3,$1,$2,$3);}
 	;
 
 compound_statement
-	: '{' '}'
-	| '{' block_item_list '}'
+	: '{' '}'							{$$ = treeCreate("compound_statement",2,$1,$2);}
+	| '{' block_item_list '}'			{$$ = treeCreate("compound_statement",3,$1,$2,$3);}
 	;
 
 block_item_list
-	: block_item
-	| block_item_list block_item
+	: block_item					{$$ = treeCreate("block_item_list",1,$1);}
+	| block_item_list block_item	{$$ = treeCreate("block_item_list",2,$1,$2);}
 	;
 
 block_item
-	: declaration
-	| statement
+	: declaration					{$$ = treeCreate("block_item",1,$1);}
+	| statement			 			{$$ = treeCreate("block_item",1,$1);}
 	;
 
 expression_statement
-	: ';'
-	| expression ';'
+	: ';'							{$$ = treeCreate("expression_statement",1,$1);}
+	| expression ';'				{$$ = treeCreate("expression_statement",2,$1,$2);}
 	;
 
 selection_statement
-	: IF '(' expression ')' statement
-	| IF '(' expression ')' statement ELSE statement
-	| SWITCH '(' expression ')' statement
+	: IF '(' expression ')' statement					{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
+	| IF '(' expression ')' statement ELSE statement	{$$ = treeCreate("selection_statement",7,$1,$2,$3,$4,$5,$6,$7);}
+	| SWITCH '(' expression ')' statement				{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
 	;
 
 iteration_statement
-	: WHILE '(' expression ')' statement
-	| DO statement WHILE '(' expression ')' ';'
-	| FOR '(' expression_statement expression_statement ')' statement
-	| FOR '(' expression_statement expression_statement expression ')' statement
-	| FOR '(' declaration expression_statement ')' statement
-	| FOR '(' declaration expression_statement expression ')' statement
+	: WHILE '(' expression ')' statement				{$$ = treeCreate("iteration_statement",5,$1,$2,$3,$4,$5);}
+	| DO statement WHILE '(' expression ')' ';'			{$$ = treeCreate("iteration_statement",7,$1,$2,$3,$4,$5,$6,$7);}
+	| FOR '(' expression_statement expression_statement ')' statement				{$$ = treeCreate("iteration_statement",6,$1,$2,$3,$4,$5,$6);}
+	| FOR '(' expression_statement expression_statement expression ')' statement	{$$ = treeCreate("iteration_statement",7,$1,$2,$3,$4,$5,$6,$7);}
+	| FOR '(' declaration expression_statement ')' statement						{$$ = treeCreate("iteration_statement",6,$1,$2,$3,$4,$5,$6);}
+	| FOR '(' declaration expression_statement expression ')' statement				{$$ = treeCreate("iteration_statement",7,$1,$2,$3,$4,$5,$6,$7);}
 	;
 
 jump_statement
-	: GOTO IDENTIFIER ';'
-	| CONTINUE ';'
-	| BREAK ';'
-	| RETURN ';'
-	| RETURN expression ';'
+	: GOTO IDENTIFIER ';'			{$$ = treeCreate("jump_statement",3,$1,$2,$3);}
+	| CONTINUE ';'					{$$ = treeCreate("jump_statement",2,$1,$2);}
+	| BREAK ';'						{$$ = treeCreate("jump_statement",2,$1,$2);}
+	| RETURN ';'					{$$ = treeCreate("jump_statement",2,$1,$2);}
+	| RETURN expression ';'			{$$ = treeCreate("jump_statement",3,$1,$2,$3);}
 	;
 
 translation_unit
@@ -482,18 +496,18 @@ translation_unit
 	;
 
 external_declaration
-	: function_definition
-	| declaration	{$$ = treeCreate("external_declaration",1,$1);}
+	: function_definition	{$$ = treeCreate("external_declaration",1,$1);}
+	| declaration	        {$$ = treeCreate("external_declaration",1,$1);}
 	;
 
 function_definition
-	: declaration_specifiers declarator declaration_list compound_statement
-	| declaration_specifiers declarator compound_statement
+	: declaration_specifiers declarator declaration_list compound_statement		{$$ = treeCreate("function_definition",4,$1,$2,$3,$4);}
+	| declaration_specifiers declarator compound_statement						{$$ = treeCreate("function_definition",3,$1,$2,$3);}
 	;
 
 declaration_list
-	: declaration
-	| declaration_list declaration
+	: declaration						{$$ = treeCreate("declaration_list",1,$1);}
+	| declaration_list declaration		{$$ = treeCreate("declaration_list",2,$1,$2);}
 	;
 
 
