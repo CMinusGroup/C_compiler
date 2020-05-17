@@ -1,8 +1,26 @@
-#include"grammartree.h"
+#include"grammartree.hpp"
 #include<cstring>
+#include<iostream>
+#include<string>
+#include<stdlib.h>
+#include<stdio.h>
+
 using namespace std;
 
-GrammerTreeNode::GrammerTreeNode(){
+string to_string(int a){
+    if(a == 0)return "0";
+    string ret = "";
+    while(a){
+        int t = a%10;
+        a/=10;
+        char c[] = "0";
+        c[0]+=t;
+        ret = string(c) + ret; 
+    }
+    return ret;
+}
+
+GrammarTreeNode::GrammarTreeNode(){
     left=NULL;
     right=NULL;
     content="";
@@ -12,26 +30,26 @@ GrammerTreeNode::GrammerTreeNode(){
 
 // arg_cnt represents the number of following paras
 // 0: followed by current line number
-GrammerTreeNode* treeCreate(string name, int arg_cnt,...){
+GrammarTreeNode* treeCreate(string name, int arg_cnt,...){
     va_list valist;
-    GrammerTreeNode* head=new GrammerTreeNode();
+    GrammarTreeNode* head=new GrammarTreeNode();
     if(!head){
         printf("out of space\n");
         exit(0);
     }
 
-    GrammerTreeNode* tmp=NULL;
+    GrammarTreeNode* tmp=NULL;
     head->name=name;
     va_start(valist,arg_cnt);
     if(arg_cnt>0){
-        tmp=va_arg(valist,GrammerTreeNode*);
+        tmp=va_arg(valist,GrammarTreeNode*);
         head->left=tmp;
         head->line_no=tmp->line_no;
         if(arg_cnt==1){
             head->content=tmp->content;
         }else{
             for(int i=1;i<arg_cnt;i++){
-                tmp->right=va_arg(valist,GrammerTreeNode*);
+                tmp->right=va_arg(valist,GrammarTreeNode*);
                 tmp=tmp->right;
             }
         }
@@ -64,7 +82,7 @@ GrammerTreeNode* treeCreate(string name, int arg_cnt,...){
     return head;
 }
 
-void treeNodeFree(GrammerTreeNode* node){
+void treeNodeFree(GrammarTreeNode* node){
     if(node==NULL){
         return;
     }
@@ -73,7 +91,7 @@ void treeNodeFree(GrammerTreeNode* node){
     delete node;
 }
 
-void treePrint(GrammerTreeNode* node, int level){
+void treePrint(GrammarTreeNode* node, int level){
     if(node==NULL){
         return;
     }

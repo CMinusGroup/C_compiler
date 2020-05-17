@@ -43,23 +43,23 @@ extern int yylineno;
 %token <gtn> '>' '<' '?' '!' '='		
 %token <gtn> '(' ')' '[' ']' '{' '}'	
 
-%token <gtn> program primary_expression postfix_expression argument_expression_list unary_expression
-%token <gtn> unary_operator cast_expression multiplicative_expression additive_expression shift_expression
-%token <gtn> relational_expression equality_expression and_expression exclusive_or_expression inclusive_or_expression
-%token <gtn> logical_and_expression logical_or_expression conditional_expression assignment_expression
-%token <gtn> assignment_operator expression constant_expression declaration declaration_specifiers init_declarator_list
-%token <gtn> init_declarator storage_class_specifier type_specifier struct_or_union_specifier struct_or_union
-%token <gtn> struct_declaration_list struct_declaration specifier_qualifier_list struct_declarator_list struct_declarator
-%token <gtn> enum_specifier enumerator_list enumerator type_qualifier function_specifier declarator direct_declarator
-%token <gtn> pointer type_qualifier_list parameter_type_list parameter_list parameter_declaration identifier_list
-%token <gtn> type_name abstract_declarator direct_abstract_declarator initializer initializer_list designation
-%token <gtn> designator_list designator statement labeled_statement compound_statement block_item_list block_item
-%token <gtn> expression_statement selection_statement iteration_statement jump_statement translation_unit
-%token <gtn> external_declaration function_definition declaration_list
+%type <gtn> program primary_expression postfix_expression argument_expression_list unary_expression
+%type <gtn> unary_operator cast_expression multiplicative_expression additive_expression shift_expression
+%type <gtn> relational_expression equality_expression and_expression exclusive_or_expression inclusive_or_expression
+%type <gtn> logical_and_expression logical_or_expression conditional_expression assignment_expression
+%type <gtn> assignment_operator expression constant_expression declaration declaration_specifiers init_declarator_list
+%type <gtn> init_declarator storage_class_specifier type_specifier struct_or_union_specifier struct_or_union
+%type <gtn> struct_declaration_list struct_declaration specifier_qualifier_list struct_declarator_list struct_declarator
+%type <gtn> enum_specifier enumerator_list enumerator type_qualifier function_specifier declarator direct_declarator
+%type <gtn> pointer type_qualifier_list parameter_type_list parameter_list parameter_declaration identifier_list
+%type <gtn> type_name abstract_declarator direct_abstract_declarator initializer initializer_list designation
+%type <gtn> designator_list designator statement labeled_statement compound_statement block_item_list block_item
+%type <gtn> expression_statement selection_statement iteration_statement jump_statement translation_unit
+%type <gtn> external_declaration function_definition declaration_list
 %start program
 
 %union{
-    GrammarTreeNode* gtn;
+    struct GrammarTreeNode* gtn;
 }
 
 %%

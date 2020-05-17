@@ -14,4 +14,4 @@ clean:
 	rm scanner.c scanner parser.cpp out.txt y.output y.tab.h y.tab.c parser parser.cpp parser.hpp parser.output scanner.cpp
 
 run:
-	make && ./parser in.cm
+	make && ./parser demo.cl
