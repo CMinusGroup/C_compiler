@@ -66,13 +66,13 @@ GrammarTreeNode* treeCreate(string name, int arg_cnt,...){
             }else{
                 int_value=atoi(yytext);
             }
-            head->content=to_string(int_value);
+            head->content=::to_string(int_value);
         }else if(head->name=="CONSTANT_DOUBLE"){
             head->content=yytext;
         }else if(head->name=="TRUE"){
-            head->content=to_string(1);
+            head->content=::to_string(1);
         }else if(head->name=="FALSE"){
-            head->content=to_string(0);
+            head->content=::to_string(0);
         }else if(head->name=="STRING_LITERAL"){
             head->content=yytext;
         }else{

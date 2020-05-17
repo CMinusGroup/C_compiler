@@ -11,7 +11,8 @@ extern FILE* yyin;
 extern FILE* yyout;
 GrammarTreeNode* root = NULL;
 extern int yylineno;
-
+extern void yyerror(const char* msg);
+extern int yylex(void);
 
 %}
 

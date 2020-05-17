@@ -10,7 +10,9 @@
 void col_count();
 void mutiline_comment();
 void singleline_comment();
-void typeCheck();
+
+
+int typeCheck();
 void unmatch();
 int col;
 const int tab_size=4;
@@ -311,11 +313,15 @@ int yywrap(){
 	return 1;
 }
 
+void yyerror(const char* msg) {
+    printf("%s,%s,Line %d", yytext, msg, yylineno);
+}
+
 void mutiline_comment(){
 	col=0;
 	char c, prv=0;
 	while(cin>>c){
-		if(c=="/" && prv=="*"){
+		if(c=='/' && prv=='*'){
 			return;
 		}
 		prv=c;
@@ -324,7 +330,7 @@ void mutiline_comment(){
 }
 
 void singleline_comment(){
-	
+
 }
 
 void col_count(){
