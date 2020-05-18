@@ -78,6 +78,7 @@ primary_expression
 	: IDENTIFIER				{$$ = treeCreate("primary_expression",1,$1);}
 	| CONSTANT					{$$ = treeCreate("primary_expression",1,$1);}
 	| CONSTANT_INT				{$$ = treeCreate("primary_expression",1,$1);}
+	| CONSTANT_DOUBLE			{$$ = treeCreate("primary_expression",1,$1);}
 	| STRING_LITERAL			{$$ = treeCreate("primary_expression",1,$1);}
 	| '(' expression ')'		{$$ = treeCreate("primary_expression",3,$1,$2,$3);}
 	;
