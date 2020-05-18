@@ -696,7 +696,7 @@ char *yytext;
 #include <string>
 #include <cstdio>
 #include "parser.hpp"
-#include "grammartree.cpp"
+#include "grammartree.h"
 #define YYSTYPE GrammarTreeNode*
 
 void col_count();
@@ -1004,252 +1004,252 @@ case 3:
 YY_RULE_SETUP
 #line 35 "scanner.l"
 {	col_count(); 
-					yylval.gtn=treeCreate("AUTO",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("AUTO",0,yylineno);
 					return(AUTO);	}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 38 "scanner.l"
 { 	col_count();
-					yylval.gtn=treeCreate("SIZEOF",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("SIZEOF",0,yylineno);
 					return(SIZEOF); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 41 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("GOTO",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("GOTO",0,yylineno);
 					return(GOTO); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 44 "scanner.l"
 {	col_count(); 
-					yylval.gtn=treeCreate("RETURN",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("RETURN",0,yylineno);
 					return(RETURN); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 48 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("DO",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("DO",0,yylineno);
 					return(DO); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 51 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("WHILE",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("WHILE",0,yylineno);
 					return(WHILE); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 54 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("FOR",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("FOR",0,yylineno);
 					return(FOR); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 57 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("CONTINUE",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("CONTINUE",0,yylineno);
 					return(CONTINUE); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 60 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("BREAK",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("BREAK",0,yylineno);
 					return(BREAK); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 63 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("SWITCH",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("SWITCH",0,yylineno);
 					return(SWITCH); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 66 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("DEFAULT",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("DEFAULT",0,yylineno);
 					return(DEFAULT); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 69 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("CASE",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("CASE",0,yylineno);
 					return(CASE); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 72 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("IF",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("IF",0,yylineno);
 					return(IF); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 75 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("ELSE",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("ELSE",0,yylineno);
 					return(ELSE); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 79 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("FLOAT",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("FLOAT",0,yylineno);
 					return(FLOAT); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 82 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("DOUBLE",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("DOUBLE",0,yylineno);
 					return(DOUBLE); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 85 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("CHAR",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("CHAR",0,yylineno);
 					return(CHAR); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 88 "scanner.l"
 {	col_count(); 
-					yylval.gtn=treeCreate("VOID",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("VOID",0,yylineno);
 					return(VOID); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 91 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("INT",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("INT",0,yylineno);
 					return(INT); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 94 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("LONG",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("LONG",0,yylineno);
 					return(LONG); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 97 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("BOOL",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("BOOL",0,yylineno);
 					return(BOOL); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 100 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("CONST",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("CONST",0,yylineno);
 					return(CONST); }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 103 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("SHORT",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("SHORT",0,yylineno);
 					return(SHORT); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 106 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("SIGNED",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("SIGNED",0,yylineno);
 					return(SIGNED); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 109 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("UNSIGNED",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("UNSIGNED",0,yylineno);
 					return(UNSIGNED); }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 113 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("STATIC",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("STATIC",0,yylineno);
 					return(STATIC); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 116 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("EXTERN",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("EXTERN",0,yylineno);
 					return(EXTERN); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 119 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("INLINE",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("INLINE",0,yylineno);
 					return(INLINE); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 122 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("TYPEDEF",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("TYPEDEF",0,yylineno);
 					return(TYPEDEF); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 125 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("STRUCT",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("STRUCT",0,yylineno);
 					return(STRUCT); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 128 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("ENUM",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("ENUM",0,yylineno);
 					return(ENUM); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 131 "scanner.l"
 {	col_count();
-					yylval.gtn=treeCreate("UNION",0,yylineno);
+					yylval.gtn=new GrammarTreeNode("UNION",0,yylineno);
 					return(UNION); }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 135 "scanner.l"
 {	col_count();
-						yylval.gtn=treeCreate("IDENTIFIER",0,yylineno);
+						yylval.gtn=new GrammarTreeNode("IDENTIFIER",0,yylineno);
 						return(typeCheck()); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 139 "scanner.l"
 {	col_count();
-						yylval.gtn=treeCreate("CONSTANT_INT",0,yylineno);
+						yylval.gtn=new GrammarTreeNode("CONSTANT_INT",0,yylineno);
 						return(CONSTANT_INT); }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 142 "scanner.l"
 {	col_count();
-						yylval.gtn=treeCreate("CONSTANT_INT",0,yylineno);
+						yylval.gtn=new GrammarTreeNode("CONSTANT_INT",0,yylineno);
 						return(CONSTANT_INT); }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 145 "scanner.l"
 {	col_count(); 
-						yylval.gtn=treeCreate("CONSTANT_INT",0,yylineno);
+						yylval.gtn=new GrammarTreeNode("CONSTANT_INT",0,yylineno);
 						return(CONSTANT_INT); }
 	YY_BREAK
 case 39:
@@ -1261,21 +1261,21 @@ case 40:
 YY_RULE_SETUP
 #line 150 "scanner.l"
 {	col_count();
-							yylval.gtn=treeCreate("CONSTANT_DOUBLE",0,yylineno);
+							yylval.gtn=new GrammarTreeNode("CONSTANT_DOUBLE",0,yylineno);
 							return(CONSTANT_DOUBLE); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 153 "scanner.l"
 {	col_count();
-							yylval.gtn=treeCreate("CONSTANT_DOUBLE",0,yylineno);
+							yylval.gtn=new GrammarTreeNode("CONSTANT_DOUBLE",0,yylineno);
 							return(CONSTANT_DOUBLE); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 156 "scanner.l"
 {	col_count();
-							yylval.gtn=treeCreate("CONSTANT_DOUBLE",0,yylineno);
+							yylval.gtn=new GrammarTreeNode("CONSTANT_DOUBLE",0,yylineno);
 							return(CONSTANT_DOUBLE); }
 	YY_BREAK
 case 43:
@@ -1297,329 +1297,329 @@ case 46:
 YY_RULE_SETUP
 #line 163 "scanner.l"
 { 	col_count();
-							yylval.gtn=treeCreate("STRING_LITERAL",0,yylineno);
+							yylval.gtn=new GrammarTreeNode("STRING_LITERAL",0,yylineno);
 							return(STRING_LITERAL); }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 167 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ELLIPSIS",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ELLIPSIS",0,yylineno);
 				return(ELLIPSIS); }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 170 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_RIGHTSHIFT",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_RIGHTSHIFT",0,yylineno);
 				return(ASSIGN_RIGHTSHIFT); }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 173 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_LEFTSHIFT",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_LEFTSHIFT",0,yylineno);
 				return(ASSIGN_LEFTSHIFT); }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 176 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_ADD",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_ADD",0,yylineno);
 				return(ASSIGN_ADD); }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 179 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_SUB",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_SUB",0,yylineno);
 				return(ASSIGN_SUB); }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 182 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_MUL",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_MUL",0,yylineno);
 				return(ASSIGN_MUL); }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 185 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_DIV",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_DIV",0,yylineno);
 				return(ASSIGN_DIV); }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 188 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_MOD",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_MOD",0,yylineno);
 				return(ASSIGN_MOD); }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 191 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_AND",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_AND",0,yylineno);
 				return(ASSIGN_AND); }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 194 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_XOR",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_XOR",0,yylineno);
 				return(ASSIGN_XOR); }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 197 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("ASSIGN_OR",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("ASSIGN_OR",0,yylineno);
 				return(ASSIGN_OR); }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 200 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_RIGHTSHIFT",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_RIGHTSHIFT",0,yylineno);
 				return(OP_RIGHTSHIFT); }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 203 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_LEFTSHIFT",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_LEFTSHIFT",0,yylineno);
 				return(OP_LEFTSHIFT); }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
 #line 206 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_INC",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_INC",0,yylineno);
 				return(OP_INC); }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
 #line 209 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_DEC",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_DEC",0,yylineno);
 				return(OP_DEC); }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
 #line 212 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_PTR",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_PTR",0,yylineno);
 				return(OP_PTR); }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
 #line 215 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_AND",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_AND",0,yylineno);
 				return(OP_AND); }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
 #line 218 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_OR",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_OR",0,yylineno);
 				return(OP_OR); }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
 #line 221 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_LE",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_LE",0,yylineno);
 				return(OP_LE); }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
 #line 224 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_GE",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_GE",0,yylineno);
 				return(OP_GE); }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
 #line 227 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_EQ",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_EQ",0,yylineno);
 				return(OP_EQ); }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
 #line 230 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("OP_NE",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("OP_NE",0,yylineno);
 				return(OP_NE); }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
 #line 234 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate(";",0,yylineno);
+				yylval.gtn=new GrammarTreeNode(";",0,yylineno);
 				return(';'); }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
 #line 237 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate(",",0,yylineno);
+				yylval.gtn=new GrammarTreeNode(",",0,yylineno);
 				return(','); }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
 #line 240 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate(":",0,yylineno);
+				yylval.gtn=new GrammarTreeNode(":",0,yylineno);
 				return(':'); }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
 #line 243 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("=",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("=",0,yylineno);
 				return('='); }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
 #line 246 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate(".",0,yylineno);
+				yylval.gtn=new GrammarTreeNode(".",0,yylineno);
 				return('.'); }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
 #line 249 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("&",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("&",0,yylineno);
 				return('&'); }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
 #line 252 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("!",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("!",0,yylineno);
 				return('!'); }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
 #line 255 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("~",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("~",0,yylineno);
 				return('~'); }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
 #line 258 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("-",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("-",0,yylineno);
 				return('-'); }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
 #line 261 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("+",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("+",0,yylineno);
 				return('+'); }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
 #line 264 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("*",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("*",0,yylineno);
 				return('*'); }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
 #line 267 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("/",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("/",0,yylineno);
 				return('/'); }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
 #line 270 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("%",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("%",0,yylineno);
 				return('%'); }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
 #line 273 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("<",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("<",0,yylineno);
 				return('<'); }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
 #line 276 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate(">",0,yylineno);
+				yylval.gtn=new GrammarTreeNode(">",0,yylineno);
 				return('>'); }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
 #line 279 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("^",0,yylineno);	
+				yylval.gtn=new GrammarTreeNode("^",0,yylineno);	
 				return('^'); }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
 #line 282 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("|",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("|",0,yylineno);
 				return('|'); }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
 #line 285 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("?",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("?",0,yylineno);
 				return('?'); }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
 #line 288 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("(",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("(",0,yylineno);
 				return('('); }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
 #line 291 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate(")",0,yylineno);
+				yylval.gtn=new GrammarTreeNode(")",0,yylineno);
 				return(')'); }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
 #line 294 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("[",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("[",0,yylineno);
 				return('['); }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
 #line 297 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("]",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("]",0,yylineno);
 				return(']'); }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
 #line 300 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("{",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("{",0,yylineno);
 				return('{'); }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
 #line 303 "scanner.l"
 {	col_count();
-				yylval.gtn=treeCreate("}",0,yylineno);
+				yylval.gtn=new GrammarTreeNode("}",0,yylineno);
 				return('}'); }
 	YY_BREAK
 case 93:
@@ -2656,9 +2656,9 @@ int yywrap(){
 	return 1;
 }
 
-void yyerror(const char* msg) {
-    printf("%s,%s,Line %d", yytext, msg, yylineno);
-}
+// void yyerror(const char* msg) {
+//     printf("%s,%s,Line %d", yytext, msg, yylineno);
+// }
 
 void mutiline_comment(){
 	col=0;

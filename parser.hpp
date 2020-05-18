@@ -172,9 +172,9 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 62 "parser.y"
+#line 67 "parser.y"
 
-    struct GrammarTreeNode* gtn;
+    class GrammarTreeNode* gtn;
 
 
 

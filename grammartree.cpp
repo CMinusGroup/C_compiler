@@ -1,13 +1,8 @@
-#include"grammartree.hpp"
-#include<cstring>
-#include<iostream>
-#include<string>
-#include<stdlib.h>
-#include<stdio.h>
-
+#pragma once
+#include "grammartree.h"
 using namespace std;
 
-string to_string(int a){
+string int2string(int a){
     if(a == 0)return "0";
     string ret = "";
     while(a){
@@ -20,13 +15,13 @@ string to_string(int a){
     return ret;
 }
 
-GrammarTreeNode::GrammarTreeNode(){
-    left=NULL;
-    right=NULL;
-    content="";
-    name="";
-    line_no=-1;
-}
+// GrammarTreeNode::GrammarTreeNode(){
+//     left=NULL;
+//     right=NULL;
+//     content="";
+//     name="";
+//     line_no=-1;
+// }
 
 // arg_cnt represents the number of following paras
 // 0: followed by current line number
@@ -66,13 +61,13 @@ GrammarTreeNode* treeCreate(string name, int arg_cnt,...){
             }else{
                 int_value=atoi(yytext);
             }
-            head->content=::to_string(int_value);
+            head->content=int2string(int_value);
         }else if(head->name=="CONSTANT_DOUBLE"){
             head->content=yytext;
         }else if(head->name=="TRUE"){
-            head->content=::to_string(1);
+            head->content=int2string(1);
         }else if(head->name=="FALSE"){
-            head->content=::to_string(0);
+            head->content=int2string(0);
         }else if(head->name=="STRING_LITERAL"){
             head->content=yytext;
         }else{

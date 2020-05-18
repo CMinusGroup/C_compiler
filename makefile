@@ -1,5 +1,5 @@
-parser: scanner.cpp parser.cpp grammartree.cpp
-	g++ scanner.cpp parser.cpp -o parser
+parser: scanner.cpp parser.cpp grammartree.h
+	g++ scanner.cpp parser.cpp -o parser -std=c++11
 
 scanner:scanner.cpp
 	gcc -o scanner.cpp
@@ -14,4 +14,4 @@ clean:
 	rm scanner.c scanner parser.cpp out.txt y.output y.tab.h y.tab.c parser parser.cpp parser.hpp parser.output scanner.cpp
 
 run:
-	make && ./parser demo.cl
+	make && ./parser demo.c
