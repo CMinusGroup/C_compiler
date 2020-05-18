@@ -1,4 +1,9 @@
+int func(int k){
+    return k * k;
+}
 int main(){
-    int k = 0;
-    k += 10;
+    int a, b = 10, c = 12;
+    // for (int i = 0; i < 10;i++){
+    //     a += func(b);
+    // }
 }

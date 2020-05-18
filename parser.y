@@ -77,6 +77,7 @@ program
 primary_expression
 	: IDENTIFIER				{$$ = treeCreate("primary_expression",1,$1);}
 	| CONSTANT					{$$ = treeCreate("primary_expression",1,$1);}
+	| CONSTANT_INT				{$$ = treeCreate("primary_expression",1,$1);}
 	| STRING_LITERAL			{$$ = treeCreate("primary_expression",1,$1);}
 	| '(' expression ')'		{$$ = treeCreate("primary_expression",3,$1,$2,$3);}
 	;
@@ -640,7 +641,7 @@ void treePrint(GrammarTreeNode *node, int level)
     }
     for (int i = 0; i < level; i++)
     {
-        cout << '.' << endl;
+        cout << "|  ";
     }
     cout << node->name;
     if (node->name == "IDENTIFIER" || node->name == "BOOL" || node->name == "INT" || node->name == "CHAR" || node->name == "DOUBLE")
@@ -661,23 +662,34 @@ void treePrint(GrammarTreeNode *node, int level)
     }
     else
     {
-        cout << "<" << node->line_no << ">";
+        cout << "   <@" << node->line_no << ">";
     }
     cout << endl;
     treePrint(node->left, level + 1);
     treePrint(node->right, level);
 };
-
+void printtree(GrammarTreeNode *head){
+    static int cnt = 0;
+    if(!head)
+        return;
+    cnt++;
+    for (int i = 0;i<cnt-1;i++)
+        cout << "|  ";
+    cout << head->name << endl;
+    printtree(head->left);
+    cnt--;
+    printtree(head->right);
+}
 int main(int argc, char* argv[]){
     if(argc>1){
         yyin=fopen(argv[1],"r");
-		std::cout<<argv[1]<<std::endl;
     }else{
         yyin=stdin;
     }
     yyparse();
     printf("\n");
     treePrint(root,0);
+	// printtree(root);
     
     treeNodeFree(root);
 

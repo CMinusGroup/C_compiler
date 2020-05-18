@@ -115,3 +115,16 @@ void treePrint(GrammarTreeNode* node, int level){
     treePrint(node->left,level+1);
     treePrint(node->right,level);
 }
+
+void printtree(GrammarTreeNode *head){
+    static int cnt = 0;
+    if(!head)
+        return;
+    cnt++;
+    for (int i = 0;i<cnt-1;i++)
+        cout << "|  ";
+    cout << head->content << endl;
+    printtree(head->left);
+    cnt--;
+    printtree(head->right);
+}

@@ -34,9 +34,12 @@ public:
 	{
 		this->name = nname;
 		this->line_no = lineNO;
+
 		if (this->name == "CONSTANT_INT")
 		{
 			int int_value;
+			// std::cout << "\nhere i am" << endl;
+
 			if (strlen(yytext) > 1 && yytext[0] == 0 && yytext[1] != 'x')
 			{
 				sscanf(yytext, "%o", &int_value);
@@ -76,5 +79,5 @@ public:
 GrammarTreeNode *treeCreate(std::string name, int num, ...);
 void treeNodeFree(GrammarTreeNode *node);
 void treePrint(GrammarTreeNode *node, int level);
-
+void printtree(GrammarTreeNode *head);
 #endif
