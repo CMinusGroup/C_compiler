@@ -45,6 +45,7 @@ public:
     int tmp_no;
     int var_no;
     int func_no;
+    int label_no;
     std::vector<Block> block_stk;
     std::map<std::string,funcNode> func_pool;
 
@@ -56,6 +57,7 @@ public:
     void code_print();
 
     void code_gen(ASTnode* root);
+    void gen_root(ASTnode* node);
 
     varNode gen_prim_expr(ASTnode* node);
     varNode gen_pstfx_expr(ASTnode* node);
@@ -75,11 +77,18 @@ public:
     varNode gen_assign_expr(ASTnode* node);
     varNode gen_expr(ASTnode* node);
 
-    void gen_selection_stmt(ASTnode* node);
     void gen_IF_stmt(ASTnode* node);
     void gen_SWITCH_stmt(ASTnode* node);
     void gen_assign_stmt(ASTnode* node);
+
+    void gen_decl(ASTnode* node);
+
     void gen_stmt(ASTnode* node);
+    void gen_slct_stmt(ASTnode* node);
+    void gen_expr_stmt(ASTnode* node);
+    void gen_jump_stmt(ASTnode* node);
+    void gen_cmpd_stmt(ASTnode* node);
+    void gen_iter_stmt(ASTnode* node);
 };
 
 #endif
