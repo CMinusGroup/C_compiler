@@ -48,6 +48,67 @@ void InterCode::code_gen(ASTnode* root){
 
 }
 
+void InterCode::gen_root(ASTnode* node){
+    if(node==NULL || node->line_no==-1){
+        return;
+    }
+    if(node->name=="declaration"){
+        gen_decl(node);
+        node=node->right;
+    }else if(node->name=="function_definition"){
+        gen_func_def(node);
+        node=node->right;
+    }else if(node->name=="statement"){
+        gen_stmt(node);
+        node=node->right;
+    }else{
+
+    }
+
+    if(node!=NULL){
+        gen_root(node->left);
+        gen_root(node->right);
+    }
+}
+
+void InterCode::gen_decl(ASTnode* node){
+    
+}
+
+void InterCode::gen_stmt(ASTnode* node){
+    if(node->left->name=="labeled_statement"){
+
+    }else if(node->left->name=="compound_statement"){
+        gen_cmpd_stmt(node->left);
+    }else if(node->left->name=="expression_statement"){
+        gen_expr_stmt(node->left);
+    }else if(node->left->name=="selection_statement"){
+        gen_slct_stmt(node->left);
+    }else if(node->left->name=="iteration_statement"){
+        gen_iter_stmt(node->left);
+    }else if(node->left->name=="jump_statememt"){
+        gen_jump_stmt(node->left);
+    }
+}
+
+void InterCode::gen_jump_stmt(ASTnode* node){
+
+}
+
+void InterCode::gen_cmpd_stmt(ASTnode* node){
+
+}
+
+void InterCode::gen_iter_stmt(ASTnode* node){
+
+}
+
+void InterCode::gen_expr_stmt(ASTnode* node){
+    if(node->left->name=="expression"){
+        gen_expr(node->left);
+    }
+}
+
 varNode InterCode::gen_prim_expr(ASTnode* node){
     if(node->left->name=="IDENTIFIER"){
         string cont=node->left->content;
@@ -343,13 +404,46 @@ varNode InterCode::gen_cond_expr(ASTnode* node){
 }
 
 varNode InterCode::gen_assign_expr(ASTnode* node){
-    if(node->left->name!="contidional_expression"){
-        error();
-    }
-    if(node->left->right==NULL){
+    if(node->left->name=="conditional_expression"){
         return gen_cond_expr(node->left);
-    }else{
-
+    }else if(node->left->name=="unary_expression"){
+        varNode vn1=gen_unary_expr(node->left);
+        varNode vn2=gen_assign_expr(node->left->right->right);
+        varNode vn3;
+        string op=node->left->right->name;
+        if(op=="="){
+            vn3=vn2;
+        }else{
+            string tmp="%"+to_string(tmp_no++);
+            string vn3_type=vn1.type;
+            vn3=varNode(tmp,vn3_type);
+            if(op=="ASSIGN_MUL"){
+                op="mul";
+            }else if(op=="ASSIGN_DIV"){
+                op="div";
+            }else if(op=="ASSIGN_MOD"){
+                op="srem";
+            }else if(op=="ASSIGN_ADD"){
+                op="add";
+            }else if(op=="ASSIGN_SUB"){
+                op="sub";
+            }else if(op=="ASSIGN_LEFTSHIFT"){
+                op="shl";
+            }else if(op=="ASSIGN_RIGHTSHIFT"){
+                op="lshr";
+            }else if(op=="ASSIGN_AND"){
+                op="and";
+            }else if(op=="ASSIGN_OR"){
+                op="or";
+            }else if(op=="ASSIGN_XOR"){
+                op="xor";
+            }
+            string tmp_code=vn3.name+" = "+op+" "+vn1.name+", "+vn2.name;
+            add_code(tmp_code);
+        }
+        string tmp_code=vn1.name+" = "+vn3.name;
+        add_code(tmp_code);
+        return vn1;
     }
 }
 
@@ -364,7 +458,7 @@ varNode InterCode::gen_expr(ASTnode* node){
     }
 }
 
-void InterCode::gen_selection_stmt(ASTnode* node){
+void InterCode::gen_slct_stmt(ASTnode* node){
     ASTnode* slct=node->left;
     if(slct->name=="IF"){
         gen_IF_stmt(slct);
@@ -375,14 +469,26 @@ void InterCode::gen_selection_stmt(ASTnode* node){
 
 void InterCode::gen_IF_stmt(ASTnode* node){
     if(node->right->right->right->right->right==NULL){
-        ASTnode* expr=node->right->right;
-        ASTnode* stmt=node->right->right->right->right;
-        string cmp_res=gen_expr(expr).name;
-        string code="br i1 "+cmp_res+",label %if.then,label %if.end";
-        add_code(code);
-        add_code("if.then:");
-        gen_stmt(stmt);
-        add_code("if.end:");
+        ASTnode* expr_n=node->right->right;
+        ASTnode* stmt_n=node->right->right->right->right;
+        varNode vn1=gen_expr(expr_n);
+        varNode vn2;
+        if(vn1.type=="i1"){
+            vn2=vn1;
+        }else{
+            string vn2_nm="%"+to_string(tmp_no++);
+            string vn2_tp="i1";
+            vn2=varNode(vn2_nm,vn2_tp);
+            string tmp_code=vn2.name+" = icmp ne i32 "+vn1.name+", 0";
+            add_code(tmp_code);
+        }
+        string lb1="%label"+to_string(label_no++);
+        string lb2="%label"+to_string(label_no++);
+        string tmp_code="br i1 "+vn2.name+", label "+lb1+", label "+lb2;
+        add_code(tmp_code);
+        add_code(lb1);
+        gen_stmt(stmt_n);
+        add_code(lb2);
     }else{
 
     }
@@ -393,9 +499,5 @@ void InterCode::gen_SWITCH_stmt(ASTnode* node){
 }
 
 void InterCode::gen_assign_stmt(ASTnode* node){
-
-}
-
-void InterCode::gen_stmt(ASTnode* node){
 
 }
