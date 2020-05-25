@@ -1,20 +1,19 @@
-/* A Bison parser, made by GNU Bison 2.4.2.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
-/* Skeleton interface for Bison's Yacc-like parsers in C
-   
-      Copyright (C) 1984, 1989-1990, 2000-2006, 2009-2010 Free Software
-   Foundation, Inc.
-   
+/* Bison interface for Yacc-like parsers in C
+
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
@@ -27,79 +26,87 @@
    special exception, which will cause the skeleton and the resulting
    Bison output files to be licensed under the GNU General Public
    License without this special exception.
-   
+
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+#ifndef YY_YY_PARSER_HPP_INCLUDED
+# define YY_YY_PARSER_HPP_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 1
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
 
-/* Tokens.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     AUTO = 258,
-     SIZEOF = 259,
-     GOTO = 260,
-     RETURN = 261,
-     DO = 262,
-     WHILE = 263,
-     FOR = 264,
-     CONTINUE = 265,
-     BREAK = 266,
-     SWITCH = 267,
-     DEFAULT = 268,
-     CASE = 269,
-     IF = 270,
-     ELSE = 271,
-     FLOAT = 272,
-     DOUBLE = 273,
-     CHAR = 274,
-     VOID = 275,
-     INT = 276,
-     LONG = 277,
-     BOOL = 278,
-     SHORT = 279,
-     VOLATILE = 280,
-     CONST = 281,
-     SIGNED = 282,
-     UNSIGNED = 283,
-     STATIC = 284,
-     EXTERN = 285,
-     INLINE = 286,
-     TYPEDEF = 287,
-     STRUCT = 288,
-     ENUM = 289,
-     UNION = 290,
-     CONSTANT = 291,
-     CONSTANT_INT = 292,
-     CONSTANT_DOUBLE = 293,
-     ELLIPSIS = 294,
-     STRING_LITERAL = 295,
-     ASSIGN_RIGHTSHIFT = 296,
-     ASSIGN_LEFTSHIFT = 297,
-     ASSIGN_ADD = 298,
-     ASSIGN_SUB = 299,
-     ASSIGN_MUL = 300,
-     ASSIGN_DIV = 301,
-     ASSIGN_MOD = 302,
-     ASSIGN_AND = 303,
-     ASSIGN_OR = 304,
-     TYPE_NAME = 305,
-     ASSIGN_XOR = 306,
-     IDENTIFIER = 307,
-     OP_RIGHTSHIFT = 308,
-     OP_LEFTSHIFT = 309,
-     OP_INC = 310,
-     OP_DEC = 311,
-     OP_PTR = 312,
-     OP_AND = 313,
-     OP_OR = 314,
-     OP_LE = 315,
-     OP_GE = 316,
-     OP_EQ = 317,
-     OP_NE = 318
-   };
+  enum yytokentype
+  {
+    AUTO = 258,
+    SIZEOF = 259,
+    GOTO = 260,
+    RETURN = 261,
+    DO = 262,
+    WHILE = 263,
+    FOR = 264,
+    CONTINUE = 265,
+    BREAK = 266,
+    SWITCH = 267,
+    DEFAULT = 268,
+    CASE = 269,
+    IF = 270,
+    ELSE = 271,
+    FLOAT = 272,
+    DOUBLE = 273,
+    CHAR = 274,
+    VOID = 275,
+    INT = 276,
+    LONG = 277,
+    BOOL = 278,
+    SHORT = 279,
+    VOLATILE = 280,
+    CONST = 281,
+    SIGNED = 282,
+    UNSIGNED = 283,
+    STATIC = 284,
+    EXTERN = 285,
+    INLINE = 286,
+    TYPEDEF = 287,
+    STRUCT = 288,
+    ENUM = 289,
+    UNION = 290,
+    CONSTANT = 291,
+    CONSTANT_INT = 292,
+    CONSTANT_DOUBLE = 293,
+    ELLIPSIS = 294,
+    STRING_LITERAL = 295,
+    ASSIGN_RIGHTSHIFT = 296,
+    ASSIGN_LEFTSHIFT = 297,
+    ASSIGN_ADD = 298,
+    ASSIGN_SUB = 299,
+    ASSIGN_MUL = 300,
+    ASSIGN_DIV = 301,
+    ASSIGN_MOD = 302,
+    ASSIGN_AND = 303,
+    ASSIGN_OR = 304,
+    TYPE_NAME = 305,
+    ASSIGN_XOR = 306,
+    IDENTIFIER = 307,
+    OP_RIGHTSHIFT = 308,
+    OP_LEFTSHIFT = 309,
+    OP_INC = 310,
+    OP_DEC = 311,
+    OP_PTR = 312,
+    OP_AND = 313,
+    OP_OR = 314,
+    OP_LE = 315,
+    OP_GE = 316,
+    OP_EQ = 317,
+    OP_NE = 318
+  };
 #endif
 /* Tokens.  */
 #define AUTO 258
@@ -164,28 +171,26 @@
 #define OP_EQ 317
 #define OP_NE 318
 
-
-
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-{
 
-/* Line 1685 of yacc.c  */
-#line 67 "parser.y"
+union YYSTYPE
+{
+#line 68 "parser.y" /* yacc.c:1909  */
 
     class GrammarTreeNode* gtn;
 
+#line 184 "parser.hpp" /* yacc.c:1909  */
+};
 
-
-/* Line 1685 of yacc.c  */
-#line 183 "parser.hpp"
-} YYSTYPE;
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
+
 extern YYSTYPE yylval;
 
+int yyparse (void);
 
+#endif /* !YY_YY_PARSER_HPP_INCLUDED  */

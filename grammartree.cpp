@@ -2,18 +2,18 @@
 #include "grammartree.h"
 using namespace std;
 
-string int2string(int a){
-    if(a == 0)return "0";
-    string ret = "";
-    while(a){
-        int t = a%10;
-        a/=10;
-        char c[] = "0";
-        c[0]+=t;
-        ret = string(c) + ret; 
-    }
-    return ret;
-}
+// string int2string(int a){
+//     if(a == 0)return "0";
+//     string ret = "";
+//     while(a){
+//         int t = a%10;
+//         a/=10;
+//         char c[] = "0";
+//         c[0]+=t;
+//         ret = string(c) + ret; 
+//     }
+//     return ret;
+// }
 
 // GrammarTreeNode::GrammarTreeNode(){
 //     left=NULL;
@@ -62,6 +62,7 @@ GrammarTreeNode* treeCreate(string name, int arg_cnt,...){
                 int_value=atoi(yytext);
             }
             head->content=int2string(int_value);
+            std::cout<<"hello"<<endl;
         }else if(head->name=="CONSTANT_DOUBLE"){
             head->content=yytext;
         }else if(head->name=="TRUE"){

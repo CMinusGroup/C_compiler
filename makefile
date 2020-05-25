@@ -1,8 +1,8 @@
-parser: scanner.cpp parser.cpp grammartree.h
-	g++ scanner.cpp parser.cpp -o parser -std=c++11
+parser: scanner.cpp parser.cpp grammartree.h func.h
+	clang++ scanner.cpp parser.cpp -o parser `llvm-config --cxxflags --ldflags --libs)` -lpthread
 
 scanner:scanner.cpp
-	gcc -o scanner.cpp
+	clang -o scanner.cpp
 
 scanner.cpp: scanner.l
 	flex -o scanner.cpp scanner.l 
@@ -14,4 +14,4 @@ clean:
 	rm scanner.c scanner parser.cpp out.txt y.output y.tab.h y.tab.c parser parser.cpp parser.hpp parser.output scanner.cpp
 
 run:
-	make && parser.exe demo.cpp
+	./parser demo.cpp
