@@ -185,7 +185,7 @@ logical_or_expression
 
 conditional_expression
 	: logical_or_expression												{$$ = treeCreate("conditional_expression",1,$1);}
-	| logical_or_expression '?' expression ':' conditional_expression	{$$ = treeCreate("conditional_expression",5,$1,$2,$3,$4,$5);}
+	| logical_or_expression '?' conditional_expression ':' conditional_expression	{$$ = treeCreate("conditional_expression",5,$1,$2,$3,$4,$5);}
 	;
 
 assignment_expression
@@ -477,9 +477,9 @@ expression_statement
 	;
 
 selection_statement
-	: IF '(' expression ')' statement					{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
-	| IF '(' expression ')' statement ELSE statement	{$$ = treeCreate("selection_statement",7,$1,$2,$3,$4,$5,$6,$7);}
-	| SWITCH '(' expression ')' statement				{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
+	: IF '(' equality_expression ')' statement					{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
+	| IF '(' equality_expression ')' statement ELSE statement	{$$ = treeCreate("selection_statement",7,$1,$2,$3,$4,$5,$6,$7);}
+	| SWITCH '(' equality_expression ')' statement				{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
 	;
 
 iteration_statement

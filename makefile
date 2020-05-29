@@ -1,5 +1,5 @@
 parser: scanner.cpp parser.cpp grammartree.h func.h
-	clang++ scanner.cpp parser.cpp -o parser `llvm-config --cxxflags --ldflags --libs)` -lpthread
+	clang++ -g scanner.cpp parser.cpp -o cmm.out `llvm-config --cxxflags --ldflags --libs)` -lpthread
 
 scanner:scanner.cpp
 	clang -o scanner.cpp
@@ -14,4 +14,4 @@ clean:
 	rm scanner.c scanner parser.cpp out.txt y.output y.tab.h y.tab.c parser parser.cpp parser.hpp parser.output scanner.cpp
 
 run:
-	./parser demo.cpp
+	./cmm.out demo.cpp

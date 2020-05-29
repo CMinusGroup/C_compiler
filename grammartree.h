@@ -26,15 +26,16 @@ string int2string(int a);
 class GrammarTreeNode
 {
 public:
-	static Module *module;
+	// static Module *module;
 	static LLVMContext MyGlobalContext;
 	static IRBuilder<> Builder(LLVMContext);
-	static std::map<std::string, Value*> NamedValues;
+	// static std::map<std::string, Value*> NamedValues;
 	std::string content;
 	std::string name;
 	int line_no,intval;
 	double douval;
 	float floval;
+	string vtype;
 	bool booval;
 	GrammarTreeNode *left;
 	GrammarTreeNode *right;
@@ -45,6 +46,7 @@ public:
 		content = "";
 		name = "";
 		line_no = -1;
+		vtype = "int";
 	};
 	GrammarTreeNode(string nname, int t, int lineNO)
 	{
@@ -77,6 +79,8 @@ public:
 			this->content = yytext;
 			char* pend;
 			this->douval = strtod(yytext,&pend);
+			this->vtype = "double";
+
 		}
 		else if (this->name == "TRUE")
 		{
@@ -98,19 +102,19 @@ public:
 		}
 	};
 
-	Value *ValueCodegen(){
-		return ConstantFP::get(MyGlobalContext,APFloat(this->douval));
-	};
+	// Value *ValueCodegen(){
+	// 	return ConstantFP::get(MyGlobalContext,APFloat(this->douval));
+	// };
 
-	Function* FuncCodegen(){
-		return nullptr;
-	};
+	// Function* FuncCodegen(){
+	// 	return nullptr;
+	// };
 
 
 
-	void genllvmir(){
-		module->print(outs(),nullptr);
-	};
+	// void genllvmir(){
+	// 	module->print(outs(),nullptr);
+	// };
 
 };
 

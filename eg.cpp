@@ -9,7 +9,7 @@ using namespace llvm;
 
 static LLVMContext ctxt;
 static IRBuilder<> builder(ctxt);
-
+static int k = 10;
 int main(int argc, char** argv) {
 
     Module* main_module = new Module("main_mddodule", ctxt);
@@ -17,8 +17,8 @@ int main(int argc, char** argv) {
 
 	std::vector<Type*> param_type(3, Type::getDoubleTy(ctxt));
 
-	FunctionType* prototype = FunctionType::get(Type::getDoubleTy(ctxt), param_type, false);
-
+	FunctionType* prototype = FunctionType::get(Type::getDoubleTy(ctxt),param_type, false);
+    
     FunctionType* func_type = FunctionType::get(builder.getInt32Ty(), false);
     Function* main_func = Function::Create(func_type,Function::ExternalLinkage, "main", main_module);
     Function* cal_func = Function::Create(prototype,Function::ExternalLinkage,"cal",main_module);
@@ -30,7 +30,8 @@ int main(int argc, char** argv) {
 	for(auto& arg : cal_func->args())
 		args.push_back(&arg);
 
-	Value* temp = builder.CreateFMul(args[0], args[1], "temp");
+
+	Value* temp = builder.CreateFMul(args[0], args[1],"temp");
 	Value* ret = builder.CreateFMul(args[2], temp, "result");
 	builder.CreateRet(ret);
 

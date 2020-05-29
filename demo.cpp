@@ -1,10 +1,23 @@
-int kk = 10;
-int f(int a,int b){
-    int c = a+ b;
-    return c;
-}
-
+// int k = 1001;
+// int dss = 121;
+// // double sdf = 10.323;
+// // int sdfddddd = 100;
 int main(){
-    // int c = f(1,2);
-    // return 0;
+    // if(12==12){
+    //     int k = 12;
+    //     k = 142 + 124*12;
+    // }else{
+    //     int d = 13;
+    // }
+    int n = 12,sum = 550;
+    sum+=n;
+    while (n<=0)
+    {
+        n = n -1;
+        break;
+        sum = sum + n;
+
+    }
+    sum -=n;
+    
 }

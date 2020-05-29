@@ -89,7 +89,7 @@ Terminals unused in grammar
    61                      | logical_or_expression OP_OR logical_and_expression
 
    62 conditional_expression: logical_or_expression
-   63                       | logical_or_expression '?' expression ':' conditional_expression
+   63                       | logical_or_expression '?' conditional_expression ':' conditional_expression
 
    64 assignment_expression: conditional_expression
    65                      | unary_expression assignment_operator assignment_expression
@@ -285,9 +285,9 @@ Terminals unused in grammar
   212 expression_statement: ';'
   213                     | expression ';'
 
-  214 selection_statement: IF '(' expression ')' statement
-  215                    | IF '(' expression ')' statement ELSE statement
-  216                    | SWITCH '(' expression ')' statement
+  214 selection_statement: IF '(' equality_expression ')' statement
+  215                    | IF '(' equality_expression ')' statement ELSE statement
+  216                    | SWITCH '(' equality_expression ')' statement
 
   217 iteration_statement: WHILE '(' expression ')' statement
   218                    | DO statement WHILE '(' expression ')' ';'
@@ -439,7 +439,7 @@ shift_expression (98)
 relational_expression (99)
     左： 44 45 46 47 48, 右： 45 46 47 48 49 50 51
 equality_expression (100)
-    左： 49 50 51, 右： 50 51 52 53
+    左： 49 50 51, 右： 50 51 52 53 214 215 216
 and_expression (101)
     左： 52 53, 右： 53 54 55
 exclusive_or_expression (102)
@@ -457,8 +457,7 @@ assignment_expression (107)
 assignment_operator (108)
     左： 66 67 68 69 70 71 72 73 74 75 76, 右： 65
 expression (109)
-    左： 77 78, 右： 7 9 63 78 213 214 215 216 217 218 220 222
-    227
+    左： 77 78, 右： 7 9 78 213 217 218 220 222 227
 constant_expression (110)
     左： 79, 右： 125 126 135 195 204
 declaration (111)
@@ -2382,7 +2381,7 @@ State 117
 
    61 logical_or_expression: logical_or_expression . OP_OR logical_and_expression
    62 conditional_expression: logical_or_expression .
-   63                       | logical_or_expression . '?' expression ':' conditional_expression
+   63                       | logical_or_expression . '?' conditional_expression ':' conditional_expression
 
     OP_OR  shift, and go to state 228
     '?'    shift, and go to state 229
@@ -2553,7 +2552,7 @@ State 127
 
 State 128
 
-  216 selection_statement: SWITCH . '(' expression ')' statement
+  216 selection_statement: SWITCH . '(' equality_expression ')' statement
 
     '('  shift, and go to state 238
 
@@ -2606,8 +2605,8 @@ State 130
 
 State 131
 
-  214 selection_statement: IF . '(' expression ')' statement
-  215                    | IF . '(' expression ')' statement ELSE statement
+  214 selection_statement: IF . '(' equality_expression ')' statement
+  215                    | IF . '(' equality_expression ')' statement ELSE statement
 
     '('  shift, and go to state 241
 
@@ -4239,7 +4238,7 @@ State 228
 
 State 229
 
-   63 conditional_expression: logical_or_expression '?' . expression ':' conditional_expression
+   63 conditional_expression: logical_or_expression '?' . conditional_expression ':' conditional_expression
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -4259,7 +4258,7 @@ State 229
 
     primary_expression         转到状态 103
     postfix_expression         转到状态 104
-    unary_expression           转到状态 105
+    unary_expression           转到状态 172
     unary_operator             转到状态 106
     cast_expression            转到状态 107
     multiplicative_expression  转到状态 108
@@ -4272,9 +4271,7 @@ State 229
     inclusive_or_expression    转到状态 115
     logical_and_expression     转到状态 116
     logical_or_expression      转到状态 117
-    conditional_expression     转到状态 118
-    assignment_expression      转到状态 135
-    expression                 转到状态 309
+    conditional_expression     转到状态 309
 
 
 State 230
@@ -4437,7 +4434,7 @@ State 237
 
 State 238
 
-  216 selection_statement: SWITCH '(' . expression ')' statement
+  216 selection_statement: SWITCH '(' . equality_expression ')' statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -4457,22 +4454,14 @@ State 238
 
     primary_expression         转到状态 103
     postfix_expression         转到状态 104
-    unary_expression           转到状态 105
+    unary_expression           转到状态 172
     unary_operator             转到状态 106
     cast_expression            转到状态 107
     multiplicative_expression  转到状态 108
     additive_expression        转到状态 109
     shift_expression           转到状态 110
     relational_expression      转到状态 111
-    equality_expression        转到状态 112
-    and_expression             转到状态 113
-    exclusive_or_expression    转到状态 114
-    inclusive_or_expression    转到状态 115
-    logical_and_expression     转到状态 116
-    logical_or_expression      转到状态 117
-    conditional_expression     转到状态 118
-    assignment_expression      转到状态 135
-    expression                 转到状态 316
+    equality_expression        转到状态 316
 
 
 State 239
@@ -4544,8 +4533,8 @@ State 240
 
 State 241
 
-  214 selection_statement: IF '(' . expression ')' statement
-  215                    | IF '(' . expression ')' statement ELSE statement
+  214 selection_statement: IF '(' . equality_expression ')' statement
+  215                    | IF '(' . equality_expression ')' statement ELSE statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -4565,22 +4554,14 @@ State 241
 
     primary_expression         转到状态 103
     postfix_expression         转到状态 104
-    unary_expression           转到状态 105
+    unary_expression           转到状态 172
     unary_operator             转到状态 106
     cast_expression            转到状态 107
     multiplicative_expression  转到状态 108
     additive_expression        转到状态 109
     shift_expression           转到状态 110
     relational_expression      转到状态 111
-    equality_expression        转到状态 112
-    and_expression             转到状态 113
-    exclusive_or_expression    转到状态 114
-    inclusive_or_expression    转到状态 115
-    logical_and_expression     转到状态 116
-    logical_or_expression      转到状态 117
-    conditional_expression     转到状态 118
-    assignment_expression      转到状态 135
-    expression                 转到状态 319
+    equality_expression        转到状态 319
 
 
 State 242
@@ -5574,10 +5555,8 @@ State 308
 
 State 309
 
-   63 conditional_expression: logical_or_expression '?' expression . ':' conditional_expression
-   78 expression: expression . ',' assignment_expression
+   63 conditional_expression: logical_or_expression '?' conditional_expression . ':' conditional_expression
 
-    ','  shift, and go to state 244
     ':'  shift, and go to state 351
 
 
@@ -5699,11 +5678,13 @@ State 315
 
 State 316
 
-   78 expression: expression . ',' assignment_expression
-  216 selection_statement: SWITCH '(' expression . ')' statement
+   50 equality_expression: equality_expression . OP_EQ relational_expression
+   51                    | equality_expression . OP_NE relational_expression
+  216 selection_statement: SWITCH '(' equality_expression . ')' statement
 
-    ','  shift, and go to state 244
-    ')'  shift, and go to state 356
+    OP_EQ  shift, and go to state 222
+    OP_NE  shift, and go to state 223
+    ')'    shift, and go to state 356
 
 
 State 317
@@ -5775,12 +5756,14 @@ State 318
 
 State 319
 
-   78 expression: expression . ',' assignment_expression
-  214 selection_statement: IF '(' expression . ')' statement
-  215                    | IF '(' expression . ')' statement ELSE statement
+   50 equality_expression: equality_expression . OP_EQ relational_expression
+   51                    | equality_expression . OP_NE relational_expression
+  214 selection_statement: IF '(' equality_expression . ')' statement
+  215                    | IF '(' equality_expression . ')' statement ELSE statement
 
-    ','  shift, and go to state 244
-    ')'  shift, and go to state 358
+    OP_EQ  shift, and go to state 222
+    OP_NE  shift, and go to state 223
+    ')'    shift, and go to state 358
 
 
 State 320
@@ -6193,7 +6176,7 @@ State 350
 
 State 351
 
-   63 conditional_expression: logical_or_expression '?' expression ':' . conditional_expression
+   63 conditional_expression: logical_or_expression '?' conditional_expression ':' . conditional_expression
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -6415,7 +6398,7 @@ State 355
 
 State 356
 
-  216 selection_statement: SWITCH '(' expression ')' . statement
+  216 selection_statement: SWITCH '(' equality_expression ')' . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -6482,8 +6465,8 @@ State 357
 
 State 358
 
-  214 selection_statement: IF '(' expression ')' . statement
-  215                    | IF '(' expression ')' . statement ELSE statement
+  214 selection_statement: IF '(' equality_expression ')' . statement
+  215                    | IF '(' equality_expression ')' . statement ELSE statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -6648,7 +6631,7 @@ State 372
 
 State 373
 
-   63 conditional_expression: logical_or_expression '?' expression ':' conditional_expression .
+   63 conditional_expression: logical_or_expression '?' conditional_expression ':' conditional_expression .
 
     $default  reduce using rule 63 (conditional_expression)
 
@@ -6809,15 +6792,15 @@ State 379
 
 State 380
 
-  216 selection_statement: SWITCH '(' expression ')' statement .
+  216 selection_statement: SWITCH '(' equality_expression ')' statement .
 
     $default  reduce using rule 216 (selection_statement)
 
 
 State 381
 
-  214 selection_statement: IF '(' expression ')' statement .
-  215                    | IF '(' expression ')' statement . ELSE statement
+  214 selection_statement: IF '(' equality_expression ')' statement .
+  215                    | IF '(' equality_expression ')' statement . ELSE statement
 
     ELSE  shift, and go to state 392
 
@@ -7045,7 +7028,7 @@ State 391
 
 State 392
 
-  215 selection_statement: IF '(' expression ')' statement ELSE . statement
+  215 selection_statement: IF '(' equality_expression ')' statement ELSE . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -7133,6 +7116,6 @@ State 396
 
 State 397
 
-  215 selection_statement: IF '(' expression ')' statement ELSE statement .
+  215 selection_statement: IF '(' equality_expression ')' statement ELSE statement .
 
     $default  reduce using rule 215 (selection_statement)

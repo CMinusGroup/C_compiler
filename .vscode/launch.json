@@ -4,28 +4,14 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
-        
         {
-            "name": "cpp.exe - 生成和调试活动文件",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "C:\\mingw\\bin\\gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "为 gdb 启用整齐打印",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "cpp.exe build active file"
+            "name": "Debug",
+            // "preLaunchTask": "clang++ build active file",
+            "program": "${workspaceFolder}/cmm.out",
+            "args": ["demo.cpp"],
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
