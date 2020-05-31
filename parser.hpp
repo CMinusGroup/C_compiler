@@ -178,7 +178,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 68 "parser.y" /* yacc.c:1909  */
+#line 69 "parser.y" /* yacc.c:1909  */
 
     class GrammarTreeNode* gtn;
 

@@ -16,6 +16,6 @@ int go(int a){
 }
 int main(){
     i = go(10);
-    println(hello %d,i);
+    println("hello,%d\0D",i);
     return 0;
 }
