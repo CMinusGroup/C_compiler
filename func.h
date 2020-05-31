@@ -33,16 +33,20 @@ static Instruction* someInst;
 static bool isptr  = false;
 std::deque<BasicBlock*> bcstk;
 llvm::ValueSymbolTable* k;
-// void expression(node head = nullptr,Module* m = nullptr);
-// void gendecl(node head = nullptr,Mosdule* m = nullptr,bool isexternal = false);
-// //return a children nodes vector
+void gen_FOR_stmt(node head,Module*m);
+void genstmt(node head ,Module* m);
+void genfuncdef(node head ,Module* module );
+Value* assignment_exp(node head ,Module* m );
+Value* expression(node head ,Module* m );
+
+LLVM::Module::getValueSymbolTable()
+
 template <typename T> static std::string Print(T* value_or_type) {
     std::string str;
     llvm::raw_string_ostream stream(str);
     value_or_type->print(stream);
     return str;
 }
-
 void kprintf(Module *mod, BasicBlock *bb, const char *format, ...)
 {
     Function *func_printf = mod->getFunction("printf");
@@ -90,10 +94,7 @@ void kprintf(Module *mod, BasicBlock *bb, const char *format, ...)
     CallInst * returncall = CallInst::Create(func_printf,builder.CreateGlobalStringPtr("\n"),"return",bb);
 }
 #define oprintf(...) kprintf(__VA_ARGS__)
-void gen_FOR_stmt(node head,Module*m);
-void genstmt(node head ,Module* m);
-void genfuncdef(node head ,Module* module );
-Value* expression(node head ,Module* m );
+
 vector<node> childs(node parent = nullptr){
     vector<node> k;
     parent =parent->left;
@@ -105,9 +106,6 @@ vector<node> childs(node parent = nullptr){
     }
     return k;
 }
-
-
-
 //return a recursive nodes vector by a -> a,b; and b1,b2,b3,b4,b5,---
 vector<node> recurchilds(node parent = nullptr){
     const string pname = parent->name;
@@ -127,9 +125,6 @@ vector<node> recurchilds(node parent = nullptr){
     return store;
 
 }
-
-Value* assignment_exp(node head ,Module* m );
-
 void genptl(vector<Type*> &ptype,vector<string>&ids,node k = nullptr){
     if(k->name==")")
         return;
@@ -146,7 +141,6 @@ void genptl(vector<Type*> &ptype,vector<string>&ids,node k = nullptr){
         }
     }
 }
-
 void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
     // head->name = 'declaration_specfifiers'
     // :isexternal , true means interl ,false means external
@@ -273,7 +267,6 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
     }
 
 }
-
 Value* primary_exp(node head = nullptr,Module* m = nullptr ){
 
     //cout<<"here,i am" << head->name<<endl;
@@ -492,7 +485,6 @@ Value* logic_and_exp(node head = nullptr,Module* m = nullptr){
     }
     
 }
-
 Value* logic_or_exp(node head = nullptr, Module* m = nullptr){
     //cout<<"expresssion: "<<head->name<<endl;
 
@@ -501,7 +493,6 @@ Value* logic_or_exp(node head = nullptr, Module* m = nullptr){
     }else
         return logic_and_exp(head->left,m);
 }
-
 Value* conditional_exp(node head = nullptr,Module* m = nullptr){
     //cout<<"expresssion: "<<head->name<<endl;
 
@@ -520,7 +511,6 @@ Value* conditional_exp(node head = nullptr,Module* m = nullptr){
         return logic_or_exp(head->left,m);
     }
 }
-
 Value* assignment_exp(node head = nullptr,Module* m = nullptr){
     //cout<<"expressddsion: "<<head->name<<endl;
 
@@ -588,7 +578,6 @@ Value* assignment_exp(node head = nullptr,Module* m = nullptr){
         // return tret;
     }
 }
-
 Value* expression(node head = nullptr,Module* m = nullptr){
     // expression -> expression,assignment_expression
     // cout<<"expresssion: "<<head->name<<endl;
@@ -610,7 +599,6 @@ Value* expression(node head = nullptr,Module* m = nullptr){
     }
     return ret;
 }
-
 void selection_statement(node head = nullptr,Module* m = nullptr){
     // head->name = "IF" or "Switch";
     node ifcond = head->right->right;
@@ -662,7 +650,6 @@ Value* gen_expr_stmt(node head = nullptr,Module* m = nullptr){
         return builder.getInt32(0);
     }
 }
-
 void gen_FOR_stmt(node head = nullptr,Module* m = nullptr){
     if(head->left->name=="expression_statement"){
         node expr_stmt1=head->left->right->right;
@@ -867,7 +854,6 @@ void print_statement(node head = nullptr,Module* m = nullptr){
     llvm_printf(formats->content.c_str(),pval);
     // Function* printfunc = module->
 }
-
 void genstmt(node head = nullptr,Module* m = nullptr){
     // head->naem = "statement"
     // cout<<"here statement:  "<<endl;here statement
@@ -923,7 +909,6 @@ void genfuncdef( node head = nullptr,Module* module = nullptr){
     }
 
 }
-
 void genfunc(node head = nullptr,Module* module = nullptr){
     std::vector<Type*> param_type;
     std::vector<std::string> ids;
@@ -972,7 +957,6 @@ void genfunc(node head = nullptr,Module* module = nullptr){
     // builder.CreateStore(builder.getInt32(580),k);
     fmap[funcname] = func;
 }
-
 void gen(GrammarTreeNode* head=nullptr,string filename = "a"){
     tmap[string("int")] = Type::getInt32Ty(ctxt);
     tmap[string("bool")] = Type::getInt1Ty(ctxt);
