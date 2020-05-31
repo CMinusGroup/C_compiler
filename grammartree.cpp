@@ -26,6 +26,7 @@ using namespace std;
 // arg_cnt represents the number of following paras
 // 0: followed by current line number
 GrammarTreeNode* treeCreate(string name, int arg_cnt,...){
+    // cout<<"hello"<<endl;
     va_list valist;
     GrammarTreeNode* head=new GrammarTreeNode();
     if(!head){
@@ -62,7 +63,7 @@ GrammarTreeNode* treeCreate(string name, int arg_cnt,...){
                 int_value=atoi(yytext);
             }
             head->content=int2string(int_value);
-            std::cout<<"hello"<<endl;
+            // std::cout<<"hello"<<endl;
         }else if(head->name=="CONSTANT_DOUBLE"){
             head->content=yytext;
         }else if(head->name=="TRUE"){

@@ -59,9 +59,11 @@ void kprintf(Module *mod, BasicBlock *bb, const char *format, ...)
 
     IRBuilder <> builder(mod->getContext());
     builder.SetInsertPoint(bb);
+    string tempchar = format;
+    int lenght = tempchar.length();
 
-    Value *str = builder.CreateGlobalStringPtr(format);
-    cout<<Print(str)<<"   "<<format<<endl;
+    Value *str = builder.CreateGlobalStringPtr(tempchar.substr(1,lenght-2));
+    // cout<<Print(str)<<"   "<<format<<endl;
     std::vector <Value *> int32_call_params;
     int32_call_params.push_back(str);
 
@@ -75,7 +77,7 @@ void kprintf(Module *mod, BasicBlock *bb, const char *format, ...)
     std::vector<llvm::Value*> extra;
     do {
         llvm::Value *op = va_arg(ap, llvm::Value*);
-        cout<<Print(op)<<endl;
+        //cout<<Print(op)<<endl;
         if (op->getType()!=Type::getInt1Ty(ctxt)) {
             int32_call_params.push_back(op);
         } else {
@@ -85,6 +87,7 @@ void kprintf(Module *mod, BasicBlock *bb, const char *format, ...)
     va_end(ap);
 
     CallInst * int32_call = CallInst::Create(func_printf, int32_call_params, "call", bb);
+    CallInst * returncall = CallInst::Create(func_printf,builder.CreateGlobalStringPtr("\n"),"return",bb);
 }
 #define oprintf(...) kprintf(__VA_ARGS__)
 
@@ -124,15 +127,9 @@ vector<node> recurchilds(node parent = nullptr){
     return store;
 
 }
-vector<node> rrecurchilds(node parent = nullptr){
-
-
-}
 
 Value* assignment_exp(node head ,Module* m );
-void genblockelem(node head = nullptr,shared_ptr<Module> m = nullptr){
-    
-}
+
 void genptl(vector<Type*> &ptype,vector<string>&ids,node k = nullptr){
     if(k->name==")")
         return;
@@ -144,7 +141,7 @@ void genptl(vector<Type*> &ptype,vector<string>&ids,node k = nullptr){
             node topstk = pchilds.back();
             pchilds.pop_back();
             ids.push_back(topstk->left->right->left->left->content);
-            // cout<<topstk->left->left->left->content<<endl;
+            // //cout<<topstk->left->left->left->content<<endl;
             ptype.push_back((tmap[topstk->left->left->left->content]));
         }
     }
@@ -156,7 +153,7 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
     node typenode = head->left;
     node templist = head->left->right;
     llvm:string type = head->left->left->content;
-    cout<<type<<endl;
+    //cout<<type<<endl;
 
     vector<node> kss = recurchilds(templist);
 
@@ -171,7 +168,7 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
     * ksss[2] = initializer b[3] = {1,2,3};
     */
     for(node item:kss){
-        cout<<item->name<<endl;
+        //cout<<item->name<<endl;
         vector<node> ksss = childs(item);
         string vname;
         int allocasize = 1;
@@ -183,7 +180,7 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
                 sizes = sizes->left;
             }
             allocasize = sizes->left->intval;
-            cout<<"arrary size: "<<allocasize<<endl;
+            //cout<<"arrary size: "<<allocasize<<endl;
         }else{
             vname = ksss[0]->left->left->content;
         }
@@ -221,13 +218,13 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
             node tempvalue = ksss[2];
 
             Value* rval = assignment_exp(tempvalue->left,m);
-            cout<<Print(rval)<<endl;
+            //cout<<Print(rval)<<endl;
 
             while (tempvalue->name !="primary_expression")
             {
                 tempvalue = tempvalue->left;
             }
-            cout<<tempvalue->left->intval<<endl;
+            //cout<<tempvalue->left->intval<<endl;
             if(!isexternal){
                 if(tempvalue->left->name =="CONSTANT_INT"){
                     auto v = new GlobalVariable(static_cast<IntegerType*>(tmap[type]),
@@ -272,18 +269,18 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
                 v->setName(vname);
             }
         }
-        cout<<vname<<":"<<Print(idmap[vname])<<endl;
+        //cout<<vname<<":"<<Print(idmap[vname])<<endl;
     }
 
 }
 
 Value* primary_exp(node head = nullptr,Module* m = nullptr ){
 
-    cout<<"here,i am" << head->name<<endl;
+    //cout<<"here,i am" << head->name<<endl;
     // head = head->left;
     if(head->left->name=="IDENTIFIER"){
         Value* k = idmap[head->left->content];
-        cout<<"k:"<<Print(k)<<endl;
+        //cout<<"k:"<<Print(k)<<endl;
         isptr = true;
         return k;
     }else if(head->left->name == "CONSTANT_INT"){
@@ -326,11 +323,11 @@ Value* postfix_exp(node head = nullptr ,Module* m = nullptr){
             // 数组
             callname = head->left->left->left->content;
             Value* idx = expression(id,m);
-            cout<<"idx :"<<Print(idx)<<endl;
+            //cout<<"idx :"<<Print(idx)<<endl;
             Value* arr = idmap[callname];
-            cout<<"arr :"<<Print(arr)<<endl;
+            //cout<<"arr :"<<Print(arr)<<endl;
             Value* ret = builder.CreateInBoundsGEP(arr,idx);
-            cout<<"ret :"<<Print(ret)<<endl;
+            //cout<<"ret :"<<Print(ret)<<endl;
             return ret;
         }else{
             return builder.getInt32(0);
@@ -342,6 +339,7 @@ Value* postfix_exp(node head = nullptr ,Module* m = nullptr){
 }
 Value* unary_exp(node head = nullptr, Module* m  =  nullptr){
     if(head->left->right){
+        return postfix_exp(head->left,m);
 
     }else{
         return postfix_exp(head->left,m);
@@ -406,6 +404,8 @@ Value* shift_exp(node head = nullptr,Module* m = nullptr){
     if(head->left->right){
         //(bool)? v1: v2
         // Value* ifcondi = 
+        return postfix_exp(head->left,m);
+
     }else{
         return additive_exp(head->left,m);
     }
@@ -448,7 +448,7 @@ Value* equality_exp(node head = nullptr, Module* m = nullptr){
 
         if(head->left->right->name=="OP_EQ"){
             Value* k =  builder.CreateICmpEQ(lval,rval,"ifequal");
-            cout<<Print(k)<<endl;
+            //cout<<Print(k)<<endl;
             return k;
         }else{
             return builder.CreateICmpNE(lval,rval,"ifnotequal");
@@ -460,6 +460,7 @@ Value* equality_exp(node head = nullptr, Module* m = nullptr){
 }
 Value* and_exp(node head = nullptr,Module* m = nullptr){
     if(head->left->right){
+        return equality_exp(head->left,m);
 
     }else{
         return equality_exp(head->left,m);
@@ -467,7 +468,7 @@ Value* and_exp(node head = nullptr,Module* m = nullptr){
 }
 Value* exclusive_or_exp(node head = nullptr, Module* m = nullptr){
     if(head->left->right){
-
+        return and_exp(head->left,m);
     }else
     {
         return and_exp(head->left,m);
@@ -476,12 +477,14 @@ Value* exclusive_or_exp(node head = nullptr, Module* m = nullptr){
 }
 Value* inclusive_or_exp(node head = nullptr, Module* m = nullptr){
     if(head->left->right){
+        return exclusive_or_exp(head->left,m);
 
     }else
         return exclusive_or_exp(head->left,m);
 }
 Value* logic_and_exp(node head = nullptr,Module* m = nullptr){
     if(head->left->right){
+        return inclusive_or_exp(head->left,m);
 
     }else
     {
@@ -491,16 +494,16 @@ Value* logic_and_exp(node head = nullptr,Module* m = nullptr){
 }
 
 Value* logic_or_exp(node head = nullptr, Module* m = nullptr){
-    cout<<"expresssion: "<<head->name<<endl;
+    //cout<<"expresssion: "<<head->name<<endl;
 
     if(head->left->right){
-
+        return logic_and_exp(head->left,m);
     }else
         return logic_and_exp(head->left,m);
 }
 
 Value* conditional_exp(node head = nullptr,Module* m = nullptr){
-    cout<<"expresssion: "<<head->name<<endl;
+    //cout<<"expresssion: "<<head->name<<endl;
 
     if(head->left->right){
         // // builder.CreateICmp();
@@ -519,18 +522,18 @@ Value* conditional_exp(node head = nullptr,Module* m = nullptr){
 }
 
 Value* assignment_exp(node head = nullptr,Module* m = nullptr){
-    cout<<"expressddsion: "<<head->name<<endl;
+    //cout<<"expressddsion: "<<head->name<<endl;
 
     if(head->left->name == "unary_expression"){
-        // cout<<"hel"<<head->left->name<<endl;
+        // //cout<<"hel"<<head->left->name<<endl;
         Value* lv =  unary_exp(head->left);
         Value* lval = builder.CreateLoad(lv);
         Value* rv =  assignment_exp(head->left->right->right,m);
         // Value* rval = isptr? builder.CreateLoad(rv):rv;
         Value* rval = rv;
-        cout<<"heeeeee"<<Print(lval)<<" "<<Print(rval)<<endl;
+        //cout<<"heeeeee"<<Print(lval)<<" "<<Print(rval)<<endl;
         Value* temp = nullptr;
-        // cout<<Print(lv)<<"\n"<<Print(rv)<<endl;
+        // //cout<<Print(lv)<<"\n"<<Print(rv)<<endl;
         string op = head->left->right->left->name;
         if(op=="="){
             temp = rv;
@@ -577,7 +580,7 @@ Value* assignment_exp(node head = nullptr,Module* m = nullptr){
         }
 
         builder.CreateStore(temp,lv);
-        cout<<"store done"<<endl;
+        //cout<<"store done"<<endl;
         return builder.CreateLoad(lv);
     }else{
         Value* tret =  conditional_exp(head->left, m);
@@ -588,15 +591,15 @@ Value* assignment_exp(node head = nullptr,Module* m = nullptr){
 
 Value* expression(node head = nullptr,Module* m = nullptr){
     // expression -> expression,assignment_expression
-    cout<<"expresssion: "<<head->name<<endl;
+    // cout<<"expresssion: "<<head->name<<endl;
     vector<node> explists = recurchilds(head);
     Value* ret = nullptr;
     while (!explists.empty())
     {
         node temp  = explists.back();   //temp->name = "assignment_expression"
 
-        cout<<temp->name<<endl;
-        cout<<"hello,how are you"<<endl;
+        // cout<<temp->name<<endl;
+        // cout<<"hello,how are you"<<endl;
 
         // vector<node> assignchilds = childs(temp);
         
@@ -729,9 +732,9 @@ void print_statement(node head = nullptr,Module* m = nullptr){
 
 void genstmt(node head = nullptr,Module* m = nullptr){
     // head->naem = "statement"
-    cout<<"here statement:  "<<endl;
+    // cout<<"here statement:  "<<endl;here statement
     string s = head->left->name;
-    cout<<s<<endl;
+    // cout<<s<<endl;
     head = head->left;
     if(s=="expression_statement"){
         if(head->left->name ==";"){ 
@@ -786,15 +789,15 @@ void genfuncdef( node head = nullptr,Module* module = nullptr){
 void genfunc(node head = nullptr,Module* module = nullptr){
     std::vector<Type*> param_type;
     std::vector<std::string> ids;
-    cout<<head->name<<endl;
+    //cout<head->name<<endl;
     head = head->left;
-    cout<<head->right->name<<endl;
+    //cout<head->right->name<<endl;
 
     string rettype = head->left->left->content;
-    cout<<"rettype: "<<rettype<<endl;
+    //cout<"rettype: "<<rettype<<endl;
 
     string funcname = head->right->left->left->left->content;
-    cout<<"func: "<<funcname<<endl;
+    //cout<"func: "<<funcname<<endl;
     node ptl = head->right->left->left->right->right;
 
     if(ptl->name!=")")
@@ -814,8 +817,8 @@ void genfunc(node head = nullptr,Module* module = nullptr){
         static int cnt = 0;
         Value* tp = &arg;
         string name = ids[cnt++];
-        cout<<"name:   "<<name<<endl;
-        cout<<"args: "<<Print(tp)<<endl;
+        //cout<"name:   "<<name<<endl;
+        //cout<"args: "<<Print(tp)<<endl;
         Value* temparg = builder.CreateAlloca(tp->getType());
         temparg->setName(name);
         builder.CreateStore(tp,temparg);
@@ -857,12 +860,12 @@ void gen(GrammarTreeNode* head=nullptr,string filename = "a"){
         node k = kt.top();
 
         if(k->left->name=="function_definition"){
-            cout<<k->left->name<<endl;
+            //cout<k->left->name<<endl;
             genfunc(k->left,(module));
 
         }
         else{
-            cout<<k->left->name<<endl;
+            //cout<k->left->name<<endl;
             gendecl(k->left,module,false);
   
         }
@@ -1023,7 +1026,7 @@ GrammarTreeNode *treeCreate(std::string name, int arg_cnt, ...)
             // cout<<int_value<<endl;
             head->content = int2string(int_value);
             head->intval = int_value;
-            std::cout<<"hello,12211111"<<std::endl;
+            // std:://cout<"hello,12211111"<<std::endl;
         }
         else if (head->name == "CONSTANT_DOUBLE")
         {

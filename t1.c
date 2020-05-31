@@ -1,5 +1,4 @@
 int ans;
-
 int gcd(int a,int b){
     if(b==0){
         return a;
@@ -10,6 +9,6 @@ int gcd(int a,int b){
 
 int main(){
     ans = gcd(9,36)*gcd(3,6);
-    println("ans = %d\n",ans);
+    println("ans = %d",ans);
     return 0;
 }

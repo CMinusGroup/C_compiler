@@ -1,4 +1,4 @@
-#include<stdio.h>
+// #include<stdio.h>
 int f,k;
 int go(int b,int a){
     int fk;
@@ -13,7 +13,7 @@ int go(int b,int a){
 int main(){
     k = 0;
     f = go(k,5);
-    println("%d\n",f);
-    println("%d\n",k);
+    println("%d",f);
+    println("%d",k);
     return 0;
 }

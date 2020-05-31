@@ -348,7 +348,7 @@ void col_count(){
 			col++;
 		}
 	}
-	ECHO;
+	// ECHO;
 }
 
 int typeCheck(){

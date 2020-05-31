@@ -2,7 +2,8 @@
 source_filename = "demo.cpp"
 
 @ans = internal global i32 0
-@0 = private unnamed_addr constant [13 x i8] c"\22ans = %d\\n\22\00", align 1
+@0 = private unnamed_addr constant [9 x i8] c"ans = %d\00", align 1
+@1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 
 define i32 @gcd(i32 %0, i32 %1) {
 entry:
@@ -36,7 +37,8 @@ entry:
   store i32 %3, i32* @ans, align 4
   %4 = load i32, i32* @ans, align 4
   %5 = load i32, i32* @ans, align 4
-  %call = call i32 (...) @printf(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @0, i32 0, i32 0), i32 %5)
+  %call = call i32 (...) @printf(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @0, i32 0, i32 0), i32 %5)
+  %return = call i32 (...) @printf(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @1, i32 0, i32 0))
   ret i32 0
 }
 
