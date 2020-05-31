@@ -67,6 +67,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib>
 #include "grammartree.h"
 #include <cstdio>
 #include "func.h"
@@ -86,7 +87,7 @@ void treeNodeFree(GrammarTreeNode *node);
 void treePrint(GrammarTreeNode *node, int level);
 
 
-#line 90 "parser.cpp" /* yacc.c:339  */
+#line 91 "parser.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -254,11 +255,11 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 68 "parser.y" /* yacc.c:355  */
+#line 69 "parser.y" /* yacc.c:355  */
 
     class GrammarTreeNode* gtn;
 
-#line 262 "parser.cpp" /* yacc.c:355  */
+#line 263 "parser.cpp" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -275,7 +276,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 279 "parser.cpp" /* yacc.c:358  */
+#line 280 "parser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -578,30 +579,30 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    75,    75,    79,    80,    81,    82,    83,    84,    88,
-      89,    90,    91,    92,    93,    94,    95,    96,    97,   101,
-     102,   106,   107,   108,   109,   110,   111,   115,   116,   117,
-     118,   119,   120,   124,   125,   129,   130,   131,   132,   136,
-     137,   138,   142,   143,   144,   148,   149,   150,   151,   152,
-     156,   157,   158,   162,   163,   167,   168,   172,   173,   177,
-     178,   182,   183,   187,   188,   192,   193,   197,   198,   199,
-     200,   201,   202,   203,   204,   205,   206,   207,   211,   212,
-     216,   220,   221,   225,   226,   227,   228,   229,   230,   231,
-     232,   236,   237,   241,   242,   246,   247,   248,   249,   254,
-     255,   256,   257,   258,   259,   260,   261,   262,   263,   266,
-     267,   272,   273,   274,   278,   279,   283,   284,   288,   292,
-     293,   294,   295,   299,   300,   304,   305,   306,   310,   311,
-     312,   313,   314,   318,   319,   323,   324,   328,   330,   334,
-     338,   339,   343,   344,   345,   346,   347,   348,   349,   350,
-     351,   352,   353,   354,   355,   359,   360,   361,   362,   366,
-     367,   372,   373,   377,   378,   382,   383,   384,   388,   389,
-     393,   394,   398,   399,   400,   404,   405,   406,   407,   408,
-     409,   410,   411,   412,   413,   414,   418,   419,   420,   424,
-     425,   426,   427,   431,   435,   436,   440,   441,   445,   446,
-     447,   448,   449,   450,   451,   455,   459,   460,   461,   465,
-     466,   470,   471,   475,   476,   480,   481,   485,   486,   487,
-     491,   492,   493,   494,   495,   496,   500,   501,   502,   503,
-     504,   508,   509,   513,   514,   518,   519,   523,   524
+       0,    76,    76,    80,    81,    82,    83,    84,    85,    89,
+      90,    91,    92,    93,    94,    95,    96,    97,    98,   102,
+     103,   107,   108,   109,   110,   111,   112,   116,   117,   118,
+     119,   120,   121,   125,   126,   130,   131,   132,   133,   137,
+     138,   139,   143,   144,   145,   149,   150,   151,   152,   153,
+     157,   158,   159,   163,   164,   168,   169,   173,   174,   178,
+     179,   183,   184,   188,   189,   193,   194,   198,   199,   200,
+     201,   202,   203,   204,   205,   206,   207,   208,   212,   213,
+     217,   221,   222,   226,   227,   228,   229,   230,   231,   232,
+     233,   237,   238,   242,   243,   247,   248,   249,   250,   255,
+     256,   257,   258,   259,   260,   261,   262,   263,   264,   267,
+     268,   273,   274,   275,   279,   280,   284,   285,   289,   293,
+     294,   295,   296,   300,   301,   305,   306,   307,   311,   312,
+     313,   314,   315,   319,   320,   324,   325,   329,   331,   335,
+     339,   340,   344,   345,   346,   347,   348,   349,   350,   351,
+     352,   353,   354,   355,   356,   360,   361,   362,   363,   367,
+     368,   373,   374,   378,   379,   383,   384,   385,   389,   390,
+     394,   395,   399,   400,   401,   405,   406,   407,   408,   409,
+     410,   411,   412,   413,   414,   415,   419,   420,   421,   425,
+     426,   427,   428,   432,   436,   437,   441,   442,   446,   447,
+     448,   449,   450,   451,   452,   456,   460,   461,   462,   466,
+     467,   471,   472,   476,   477,   481,   482,   486,   487,   488,
+     492,   493,   494,   495,   496,   497,   501,   502,   503,   504,
+     505,   509,   510,   514,   515,   519,   520,   524,   525
 };
 #endif
 
@@ -1920,1363 +1921,1363 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 75 "parser.y" /* yacc.c:1646  */
+#line 76 "parser.y" /* yacc.c:1646  */
     { (yyval.gtn) = treeCreate("program",1,(yyvsp[0].gtn));root = (yyval.gtn);}
-#line 1926 "parser.cpp" /* yacc.c:1646  */
+#line 1927 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 79 "parser.y" /* yacc.c:1646  */
+#line 80 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("primary_expression",1,(yyvsp[0].gtn));}
-#line 1932 "parser.cpp" /* yacc.c:1646  */
+#line 1933 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 80 "parser.y" /* yacc.c:1646  */
+#line 81 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("primary_expression",1,(yyvsp[0].gtn));}
-#line 1938 "parser.cpp" /* yacc.c:1646  */
+#line 1939 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 81 "parser.y" /* yacc.c:1646  */
+#line 82 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("primary_expression",1,(yyvsp[0].gtn));}
-#line 1944 "parser.cpp" /* yacc.c:1646  */
+#line 1945 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 82 "parser.y" /* yacc.c:1646  */
+#line 83 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("primary_expression",1,(yyvsp[0].gtn));}
-#line 1950 "parser.cpp" /* yacc.c:1646  */
+#line 1951 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 83 "parser.y" /* yacc.c:1646  */
+#line 84 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("primary_expression",1,(yyvsp[0].gtn));}
-#line 1956 "parser.cpp" /* yacc.c:1646  */
+#line 1957 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 84 "parser.y" /* yacc.c:1646  */
+#line 85 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("primary_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 1962 "parser.cpp" /* yacc.c:1646  */
+#line 1963 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 88 "parser.y" /* yacc.c:1646  */
+#line 89 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",1,(yyvsp[0].gtn));}
-#line 1968 "parser.cpp" /* yacc.c:1646  */
+#line 1969 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 89 "parser.y" /* yacc.c:1646  */
+#line 90 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 1974 "parser.cpp" /* yacc.c:1646  */
+#line 1975 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 90 "parser.y" /* yacc.c:1646  */
+#line 91 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 1980 "parser.cpp" /* yacc.c:1646  */
+#line 1981 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 91 "parser.y" /* yacc.c:1646  */
+#line 92 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 1986 "parser.cpp" /* yacc.c:1646  */
+#line 1987 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 92 "parser.y" /* yacc.c:1646  */
+#line 93 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 1992 "parser.cpp" /* yacc.c:1646  */
+#line 1993 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 93 "parser.y" /* yacc.c:1646  */
+#line 94 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 1998 "parser.cpp" /* yacc.c:1646  */
+#line 1999 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 94 "parser.y" /* yacc.c:1646  */
+#line 95 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2004 "parser.cpp" /* yacc.c:1646  */
+#line 2005 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 95 "parser.y" /* yacc.c:1646  */
+#line 96 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2010 "parser.cpp" /* yacc.c:1646  */
+#line 2011 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 96 "parser.y" /* yacc.c:1646  */
+#line 97 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",6,(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2016 "parser.cpp" /* yacc.c:1646  */
+#line 2017 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 97 "parser.y" /* yacc.c:1646  */
+#line 98 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("postfix_expression",7,(yyvsp[-6].gtn),(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2022 "parser.cpp" /* yacc.c:1646  */
+#line 2023 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 101 "parser.y" /* yacc.c:1646  */
+#line 102 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("argument_expression_list",1,(yyvsp[0].gtn));}
-#line 2028 "parser.cpp" /* yacc.c:1646  */
+#line 2029 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 102 "parser.y" /* yacc.c:1646  */
+#line 103 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("argument_expression_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2034 "parser.cpp" /* yacc.c:1646  */
+#line 2035 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 106 "parser.y" /* yacc.c:1646  */
+#line 107 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_expression",1,(yyvsp[0].gtn));}
-#line 2040 "parser.cpp" /* yacc.c:1646  */
+#line 2041 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 107 "parser.y" /* yacc.c:1646  */
+#line 108 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_expression",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2046 "parser.cpp" /* yacc.c:1646  */
+#line 2047 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 108 "parser.y" /* yacc.c:1646  */
+#line 109 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_expression",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2052 "parser.cpp" /* yacc.c:1646  */
+#line 2053 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 109 "parser.y" /* yacc.c:1646  */
+#line 110 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_expression",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2058 "parser.cpp" /* yacc.c:1646  */
+#line 2059 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 110 "parser.y" /* yacc.c:1646  */
+#line 111 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_expression",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2064 "parser.cpp" /* yacc.c:1646  */
+#line 2065 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 111 "parser.y" /* yacc.c:1646  */
+#line 112 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_expression",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2070 "parser.cpp" /* yacc.c:1646  */
+#line 2071 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 115 "parser.y" /* yacc.c:1646  */
+#line 116 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_operator",1,(yyvsp[0].gtn));}
-#line 2076 "parser.cpp" /* yacc.c:1646  */
+#line 2077 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 116 "parser.y" /* yacc.c:1646  */
+#line 117 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_operator",1,(yyvsp[0].gtn));}
-#line 2082 "parser.cpp" /* yacc.c:1646  */
+#line 2083 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 117 "parser.y" /* yacc.c:1646  */
+#line 118 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_operator",1,(yyvsp[0].gtn));}
-#line 2088 "parser.cpp" /* yacc.c:1646  */
+#line 2089 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 118 "parser.y" /* yacc.c:1646  */
+#line 119 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_operator",1,(yyvsp[0].gtn));}
-#line 2094 "parser.cpp" /* yacc.c:1646  */
+#line 2095 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 119 "parser.y" /* yacc.c:1646  */
+#line 120 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_operator",1,(yyvsp[0].gtn));}
-#line 2100 "parser.cpp" /* yacc.c:1646  */
+#line 2101 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 120 "parser.y" /* yacc.c:1646  */
+#line 121 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("unary_operator",1,(yyvsp[0].gtn));}
-#line 2106 "parser.cpp" /* yacc.c:1646  */
+#line 2107 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 124 "parser.y" /* yacc.c:1646  */
+#line 125 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("cast_expression",1,(yyvsp[0].gtn));}
-#line 2112 "parser.cpp" /* yacc.c:1646  */
+#line 2113 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 125 "parser.y" /* yacc.c:1646  */
+#line 126 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("cast_expression",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2118 "parser.cpp" /* yacc.c:1646  */
+#line 2119 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 129 "parser.y" /* yacc.c:1646  */
+#line 130 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("multiplicative_expression",1,(yyvsp[0].gtn));}
-#line 2124 "parser.cpp" /* yacc.c:1646  */
+#line 2125 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 130 "parser.y" /* yacc.c:1646  */
+#line 131 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("multiplicative_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2130 "parser.cpp" /* yacc.c:1646  */
+#line 2131 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 131 "parser.y" /* yacc.c:1646  */
+#line 132 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("multiplicative_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2136 "parser.cpp" /* yacc.c:1646  */
+#line 2137 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 132 "parser.y" /* yacc.c:1646  */
+#line 133 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("multiplicative_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2142 "parser.cpp" /* yacc.c:1646  */
+#line 2143 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 136 "parser.y" /* yacc.c:1646  */
+#line 137 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("additive_expression",1,(yyvsp[0].gtn));}
-#line 2148 "parser.cpp" /* yacc.c:1646  */
+#line 2149 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 137 "parser.y" /* yacc.c:1646  */
+#line 138 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("additive_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2154 "parser.cpp" /* yacc.c:1646  */
+#line 2155 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 138 "parser.y" /* yacc.c:1646  */
+#line 139 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("additive_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2160 "parser.cpp" /* yacc.c:1646  */
+#line 2161 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 142 "parser.y" /* yacc.c:1646  */
+#line 143 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("shift_expression",1,(yyvsp[0].gtn));}
-#line 2166 "parser.cpp" /* yacc.c:1646  */
+#line 2167 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 143 "parser.y" /* yacc.c:1646  */
+#line 144 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("shift_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2172 "parser.cpp" /* yacc.c:1646  */
+#line 2173 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 144 "parser.y" /* yacc.c:1646  */
+#line 145 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("shift_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2178 "parser.cpp" /* yacc.c:1646  */
+#line 2179 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 148 "parser.y" /* yacc.c:1646  */
+#line 149 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("relational_expression",1,(yyvsp[0].gtn));}
-#line 2184 "parser.cpp" /* yacc.c:1646  */
+#line 2185 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 149 "parser.y" /* yacc.c:1646  */
+#line 150 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("relational_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2190 "parser.cpp" /* yacc.c:1646  */
+#line 2191 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 150 "parser.y" /* yacc.c:1646  */
+#line 151 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("relational_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2196 "parser.cpp" /* yacc.c:1646  */
+#line 2197 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 151 "parser.y" /* yacc.c:1646  */
+#line 152 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("relational_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2202 "parser.cpp" /* yacc.c:1646  */
+#line 2203 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 152 "parser.y" /* yacc.c:1646  */
+#line 153 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("relational_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2208 "parser.cpp" /* yacc.c:1646  */
+#line 2209 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 156 "parser.y" /* yacc.c:1646  */
+#line 157 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("equality_expression",1,(yyvsp[0].gtn));}
-#line 2214 "parser.cpp" /* yacc.c:1646  */
+#line 2215 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 157 "parser.y" /* yacc.c:1646  */
+#line 158 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("equality_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2220 "parser.cpp" /* yacc.c:1646  */
+#line 2221 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 158 "parser.y" /* yacc.c:1646  */
+#line 159 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("equality_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2226 "parser.cpp" /* yacc.c:1646  */
+#line 2227 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 162 "parser.y" /* yacc.c:1646  */
+#line 163 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("and_expression",1,(yyvsp[0].gtn));}
-#line 2232 "parser.cpp" /* yacc.c:1646  */
+#line 2233 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 163 "parser.y" /* yacc.c:1646  */
+#line 164 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("and_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2238 "parser.cpp" /* yacc.c:1646  */
+#line 2239 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 167 "parser.y" /* yacc.c:1646  */
+#line 168 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("exclusive_or_expression",1,(yyvsp[0].gtn));}
-#line 2244 "parser.cpp" /* yacc.c:1646  */
+#line 2245 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 168 "parser.y" /* yacc.c:1646  */
+#line 169 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("exclusive_or_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2250 "parser.cpp" /* yacc.c:1646  */
+#line 2251 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 172 "parser.y" /* yacc.c:1646  */
+#line 173 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("inclusive_or_expression",1,(yyvsp[0].gtn));}
-#line 2256 "parser.cpp" /* yacc.c:1646  */
+#line 2257 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 173 "parser.y" /* yacc.c:1646  */
+#line 174 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("inclusive_or_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2262 "parser.cpp" /* yacc.c:1646  */
+#line 2263 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 177 "parser.y" /* yacc.c:1646  */
+#line 178 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("logical_and_expression",1,(yyvsp[0].gtn));}
-#line 2268 "parser.cpp" /* yacc.c:1646  */
+#line 2269 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 178 "parser.y" /* yacc.c:1646  */
+#line 179 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("logical_and_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2274 "parser.cpp" /* yacc.c:1646  */
+#line 2275 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 182 "parser.y" /* yacc.c:1646  */
+#line 183 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("logical_or_expression",1,(yyvsp[0].gtn));}
-#line 2280 "parser.cpp" /* yacc.c:1646  */
+#line 2281 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 183 "parser.y" /* yacc.c:1646  */
+#line 184 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("logical_or_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2286 "parser.cpp" /* yacc.c:1646  */
+#line 2287 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 187 "parser.y" /* yacc.c:1646  */
+#line 188 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("conditional_expression",1,(yyvsp[0].gtn));}
-#line 2292 "parser.cpp" /* yacc.c:1646  */
+#line 2293 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 188 "parser.y" /* yacc.c:1646  */
+#line 189 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("conditional_expression",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2298 "parser.cpp" /* yacc.c:1646  */
+#line 2299 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 192 "parser.y" /* yacc.c:1646  */
+#line 193 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_expression",1,(yyvsp[0].gtn));}
-#line 2304 "parser.cpp" /* yacc.c:1646  */
+#line 2305 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 193 "parser.y" /* yacc.c:1646  */
+#line 194 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2310 "parser.cpp" /* yacc.c:1646  */
+#line 2311 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 197 "parser.y" /* yacc.c:1646  */
+#line 198 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2316 "parser.cpp" /* yacc.c:1646  */
+#line 2317 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 198 "parser.y" /* yacc.c:1646  */
+#line 199 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2322 "parser.cpp" /* yacc.c:1646  */
+#line 2323 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 199 "parser.y" /* yacc.c:1646  */
+#line 200 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2328 "parser.cpp" /* yacc.c:1646  */
+#line 2329 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 200 "parser.y" /* yacc.c:1646  */
+#line 201 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2334 "parser.cpp" /* yacc.c:1646  */
+#line 2335 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 201 "parser.y" /* yacc.c:1646  */
+#line 202 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2340 "parser.cpp" /* yacc.c:1646  */
+#line 2341 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 202 "parser.y" /* yacc.c:1646  */
+#line 203 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2346 "parser.cpp" /* yacc.c:1646  */
+#line 2347 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 203 "parser.y" /* yacc.c:1646  */
+#line 204 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2352 "parser.cpp" /* yacc.c:1646  */
+#line 2353 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 204 "parser.y" /* yacc.c:1646  */
+#line 205 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2358 "parser.cpp" /* yacc.c:1646  */
+#line 2359 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 205 "parser.y" /* yacc.c:1646  */
+#line 206 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2364 "parser.cpp" /* yacc.c:1646  */
+#line 2365 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 206 "parser.y" /* yacc.c:1646  */
+#line 207 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2370 "parser.cpp" /* yacc.c:1646  */
+#line 2371 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 207 "parser.y" /* yacc.c:1646  */
+#line 208 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("assignment_operator",1,(yyvsp[0].gtn));}
-#line 2376 "parser.cpp" /* yacc.c:1646  */
+#line 2377 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 211 "parser.y" /* yacc.c:1646  */
+#line 212 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("expression",1,(yyvsp[0].gtn));}
-#line 2382 "parser.cpp" /* yacc.c:1646  */
+#line 2383 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 212 "parser.y" /* yacc.c:1646  */
+#line 213 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("expression",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2388 "parser.cpp" /* yacc.c:1646  */
+#line 2389 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 216 "parser.y" /* yacc.c:1646  */
+#line 217 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("constant_expression",1,(yyvsp[0].gtn));}
-#line 2394 "parser.cpp" /* yacc.c:1646  */
+#line 2395 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 220 "parser.y" /* yacc.c:1646  */
+#line 221 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2400 "parser.cpp" /* yacc.c:1646  */
+#line 2401 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 221 "parser.y" /* yacc.c:1646  */
+#line 222 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2406 "parser.cpp" /* yacc.c:1646  */
+#line 2407 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 225 "parser.y" /* yacc.c:1646  */
+#line 226 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",1,(yyvsp[0].gtn));}
-#line 2412 "parser.cpp" /* yacc.c:1646  */
+#line 2413 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 226 "parser.y" /* yacc.c:1646  */
+#line 227 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2418 "parser.cpp" /* yacc.c:1646  */
+#line 2419 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 227 "parser.y" /* yacc.c:1646  */
+#line 228 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",1,(yyvsp[0].gtn));}
-#line 2424 "parser.cpp" /* yacc.c:1646  */
+#line 2425 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 228 "parser.y" /* yacc.c:1646  */
+#line 229 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2430 "parser.cpp" /* yacc.c:1646  */
+#line 2431 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 229 "parser.y" /* yacc.c:1646  */
+#line 230 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",1,(yyvsp[0].gtn));}
-#line 2436 "parser.cpp" /* yacc.c:1646  */
+#line 2437 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 230 "parser.y" /* yacc.c:1646  */
+#line 231 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2442 "parser.cpp" /* yacc.c:1646  */
+#line 2443 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 231 "parser.y" /* yacc.c:1646  */
+#line 232 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",1,(yyvsp[0].gtn));}
-#line 2448 "parser.cpp" /* yacc.c:1646  */
+#line 2449 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 232 "parser.y" /* yacc.c:1646  */
+#line 233 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_specifiers",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2454 "parser.cpp" /* yacc.c:1646  */
+#line 2455 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 236 "parser.y" /* yacc.c:1646  */
+#line 237 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("init_declarator_list",1,(yyvsp[0].gtn));}
-#line 2460 "parser.cpp" /* yacc.c:1646  */
+#line 2461 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 237 "parser.y" /* yacc.c:1646  */
+#line 238 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("init_declarator_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2466 "parser.cpp" /* yacc.c:1646  */
+#line 2467 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 241 "parser.y" /* yacc.c:1646  */
+#line 242 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("init_declarator",1,(yyvsp[0].gtn));}
-#line 2472 "parser.cpp" /* yacc.c:1646  */
+#line 2473 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 242 "parser.y" /* yacc.c:1646  */
+#line 243 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("init_declarator",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2478 "parser.cpp" /* yacc.c:1646  */
+#line 2479 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 246 "parser.y" /* yacc.c:1646  */
+#line 247 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("storage_class_specifier",1,(yyvsp[0].gtn));}
-#line 2484 "parser.cpp" /* yacc.c:1646  */
+#line 2485 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 247 "parser.y" /* yacc.c:1646  */
+#line 248 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("storage_class_specifier",1,(yyvsp[0].gtn));}
-#line 2490 "parser.cpp" /* yacc.c:1646  */
+#line 2491 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 248 "parser.y" /* yacc.c:1646  */
+#line 249 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("storage_class_specifier",1,(yyvsp[0].gtn));}
-#line 2496 "parser.cpp" /* yacc.c:1646  */
+#line 2497 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 98:
-#line 249 "parser.y" /* yacc.c:1646  */
+#line 250 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("storage_class_specifier",1,(yyvsp[0].gtn));}
-#line 2502 "parser.cpp" /* yacc.c:1646  */
+#line 2503 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 99:
-#line 254 "parser.y" /* yacc.c:1646  */
+#line 255 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2508 "parser.cpp" /* yacc.c:1646  */
+#line 2509 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 100:
-#line 255 "parser.y" /* yacc.c:1646  */
+#line 256 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2514 "parser.cpp" /* yacc.c:1646  */
+#line 2515 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 101:
-#line 256 "parser.y" /* yacc.c:1646  */
+#line 257 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2520 "parser.cpp" /* yacc.c:1646  */
+#line 2521 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 102:
-#line 257 "parser.y" /* yacc.c:1646  */
+#line 258 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2526 "parser.cpp" /* yacc.c:1646  */
+#line 2527 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 103:
-#line 258 "parser.y" /* yacc.c:1646  */
+#line 259 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2532 "parser.cpp" /* yacc.c:1646  */
+#line 2533 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 104:
-#line 259 "parser.y" /* yacc.c:1646  */
+#line 260 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2538 "parser.cpp" /* yacc.c:1646  */
+#line 2539 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 260 "parser.y" /* yacc.c:1646  */
+#line 261 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2544 "parser.cpp" /* yacc.c:1646  */
+#line 2545 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 261 "parser.y" /* yacc.c:1646  */
+#line 262 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2550 "parser.cpp" /* yacc.c:1646  */
+#line 2551 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 262 "parser.y" /* yacc.c:1646  */
+#line 263 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2556 "parser.cpp" /* yacc.c:1646  */
+#line 2557 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 263 "parser.y" /* yacc.c:1646  */
+#line 264 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2562 "parser.cpp" /* yacc.c:1646  */
+#line 2563 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 109:
-#line 266 "parser.y" /* yacc.c:1646  */
+#line 267 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2568 "parser.cpp" /* yacc.c:1646  */
+#line 2569 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 110:
-#line 267 "parser.y" /* yacc.c:1646  */
+#line 268 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_specifier",1,(yyvsp[0].gtn));}
-#line 2574 "parser.cpp" /* yacc.c:1646  */
+#line 2575 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 111:
-#line 272 "parser.y" /* yacc.c:1646  */
+#line 273 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_or_union_specifier",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2580 "parser.cpp" /* yacc.c:1646  */
+#line 2581 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 112:
-#line 273 "parser.y" /* yacc.c:1646  */
+#line 274 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_or_union_specifier",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2586 "parser.cpp" /* yacc.c:1646  */
+#line 2587 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 113:
-#line 274 "parser.y" /* yacc.c:1646  */
+#line 275 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_or_union_specifier",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2592 "parser.cpp" /* yacc.c:1646  */
+#line 2593 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 114:
-#line 278 "parser.y" /* yacc.c:1646  */
+#line 279 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_or_union",1,(yyvsp[0].gtn));}
-#line 2598 "parser.cpp" /* yacc.c:1646  */
+#line 2599 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 115:
-#line 279 "parser.y" /* yacc.c:1646  */
+#line 280 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_or_union",1,(yyvsp[0].gtn));}
-#line 2604 "parser.cpp" /* yacc.c:1646  */
+#line 2605 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 116:
-#line 283 "parser.y" /* yacc.c:1646  */
+#line 284 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declarator_list",1,(yyvsp[0].gtn));}
-#line 2610 "parser.cpp" /* yacc.c:1646  */
+#line 2611 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 117:
-#line 284 "parser.y" /* yacc.c:1646  */
+#line 285 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declarator_list",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2616 "parser.cpp" /* yacc.c:1646  */
+#line 2617 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 118:
-#line 288 "parser.y" /* yacc.c:1646  */
+#line 289 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declaration",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2622 "parser.cpp" /* yacc.c:1646  */
+#line 2623 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 119:
-#line 292 "parser.y" /* yacc.c:1646  */
+#line 293 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("specifier_qualifier_list",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2628 "parser.cpp" /* yacc.c:1646  */
+#line 2629 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 120:
-#line 293 "parser.y" /* yacc.c:1646  */
+#line 294 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("specifier_qualifier_list",1,(yyvsp[0].gtn));}
-#line 2634 "parser.cpp" /* yacc.c:1646  */
+#line 2635 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 121:
-#line 294 "parser.y" /* yacc.c:1646  */
+#line 295 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("specifier_qualifier_list",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2640 "parser.cpp" /* yacc.c:1646  */
+#line 2641 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 122:
-#line 295 "parser.y" /* yacc.c:1646  */
+#line 296 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("specifier_qualifier_list",1,(yyvsp[0].gtn));}
-#line 2646 "parser.cpp" /* yacc.c:1646  */
+#line 2647 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 123:
-#line 299 "parser.y" /* yacc.c:1646  */
+#line 300 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declarator_list",1,(yyvsp[0].gtn));}
-#line 2652 "parser.cpp" /* yacc.c:1646  */
+#line 2653 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 124:
-#line 300 "parser.y" /* yacc.c:1646  */
+#line 301 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declarator_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2658 "parser.cpp" /* yacc.c:1646  */
+#line 2659 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 125:
-#line 304 "parser.y" /* yacc.c:1646  */
+#line 305 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declarator",1,(yyvsp[0].gtn));}
-#line 2664 "parser.cpp" /* yacc.c:1646  */
+#line 2665 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 126:
-#line 305 "parser.y" /* yacc.c:1646  */
+#line 306 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declarator",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2670 "parser.cpp" /* yacc.c:1646  */
+#line 2671 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 127:
-#line 306 "parser.y" /* yacc.c:1646  */
+#line 307 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("struct_declarator",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2676 "parser.cpp" /* yacc.c:1646  */
+#line 2677 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 128:
-#line 310 "parser.y" /* yacc.c:1646  */
+#line 311 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enum_specifier",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2682 "parser.cpp" /* yacc.c:1646  */
+#line 2683 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 129:
-#line 311 "parser.y" /* yacc.c:1646  */
+#line 312 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enum_specifier",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2688 "parser.cpp" /* yacc.c:1646  */
+#line 2689 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 130:
-#line 312 "parser.y" /* yacc.c:1646  */
+#line 313 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enum_specifier",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2694 "parser.cpp" /* yacc.c:1646  */
+#line 2695 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 131:
-#line 313 "parser.y" /* yacc.c:1646  */
+#line 314 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enum_specifier",6,(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2700 "parser.cpp" /* yacc.c:1646  */
+#line 2701 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 132:
-#line 314 "parser.y" /* yacc.c:1646  */
+#line 315 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enum_specifier",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2706 "parser.cpp" /* yacc.c:1646  */
+#line 2707 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 133:
-#line 318 "parser.y" /* yacc.c:1646  */
+#line 319 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enumerator_list",1,(yyvsp[0].gtn));}
-#line 2712 "parser.cpp" /* yacc.c:1646  */
+#line 2713 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 134:
-#line 319 "parser.y" /* yacc.c:1646  */
+#line 320 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enumerator_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2718 "parser.cpp" /* yacc.c:1646  */
+#line 2719 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 135:
-#line 323 "parser.y" /* yacc.c:1646  */
+#line 324 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enumerator",1,(yyvsp[0].gtn));}
-#line 2724 "parser.cpp" /* yacc.c:1646  */
+#line 2725 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 136:
-#line 324 "parser.y" /* yacc.c:1646  */
+#line 325 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("enumerator",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2730 "parser.cpp" /* yacc.c:1646  */
+#line 2731 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 137:
-#line 328 "parser.y" /* yacc.c:1646  */
+#line 329 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_qualifier",1,(yyvsp[0].gtn));}
-#line 2736 "parser.cpp" /* yacc.c:1646  */
+#line 2737 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 138:
-#line 330 "parser.y" /* yacc.c:1646  */
+#line 331 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_qualifier",1,(yyvsp[0].gtn));}
-#line 2742 "parser.cpp" /* yacc.c:1646  */
+#line 2743 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 139:
-#line 334 "parser.y" /* yacc.c:1646  */
+#line 335 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("function_specifier",1,(yyvsp[0].gtn));}
-#line 2748 "parser.cpp" /* yacc.c:1646  */
+#line 2749 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 140:
-#line 338 "parser.y" /* yacc.c:1646  */
+#line 339 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declarator",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2754 "parser.cpp" /* yacc.c:1646  */
+#line 2755 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 141:
-#line 339 "parser.y" /* yacc.c:1646  */
+#line 340 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declarator",1,(yyvsp[0].gtn));}
-#line 2760 "parser.cpp" /* yacc.c:1646  */
+#line 2761 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 142:
-#line 343 "parser.y" /* yacc.c:1646  */
+#line 344 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",1,(yyvsp[0].gtn));}
-#line 2766 "parser.cpp" /* yacc.c:1646  */
+#line 2767 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 143:
-#line 344 "parser.y" /* yacc.c:1646  */
+#line 345 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2772 "parser.cpp" /* yacc.c:1646  */
+#line 2773 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 144:
-#line 345 "parser.y" /* yacc.c:1646  */
+#line 346 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2778 "parser.cpp" /* yacc.c:1646  */
+#line 2779 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 145:
-#line 346 "parser.y" /* yacc.c:1646  */
+#line 347 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2784 "parser.cpp" /* yacc.c:1646  */
+#line 2785 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 146:
-#line 347 "parser.y" /* yacc.c:1646  */
+#line 348 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2790 "parser.cpp" /* yacc.c:1646  */
+#line 2791 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 147:
-#line 348 "parser.y" /* yacc.c:1646  */
+#line 349 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",6,(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2796 "parser.cpp" /* yacc.c:1646  */
+#line 2797 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 148:
-#line 349 "parser.y" /* yacc.c:1646  */
+#line 350 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",6,(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2802 "parser.cpp" /* yacc.c:1646  */
+#line 2803 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 149:
-#line 350 "parser.y" /* yacc.c:1646  */
+#line 351 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2808 "parser.cpp" /* yacc.c:1646  */
+#line 2809 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 150:
-#line 351 "parser.y" /* yacc.c:1646  */
+#line 352 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2814 "parser.cpp" /* yacc.c:1646  */
+#line 2815 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 151:
-#line 352 "parser.y" /* yacc.c:1646  */
+#line 353 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2820 "parser.cpp" /* yacc.c:1646  */
+#line 2821 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 152:
-#line 353 "parser.y" /* yacc.c:1646  */
+#line 354 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2826 "parser.cpp" /* yacc.c:1646  */
+#line 2827 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 153:
-#line 354 "parser.y" /* yacc.c:1646  */
+#line 355 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2832 "parser.cpp" /* yacc.c:1646  */
+#line 2833 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 154:
-#line 355 "parser.y" /* yacc.c:1646  */
+#line 356 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("direct_declarator",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2838 "parser.cpp" /* yacc.c:1646  */
+#line 2839 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 155:
-#line 359 "parser.y" /* yacc.c:1646  */
+#line 360 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("pointer",1,(yyvsp[0].gtn));}
-#line 2844 "parser.cpp" /* yacc.c:1646  */
+#line 2845 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 156:
-#line 360 "parser.y" /* yacc.c:1646  */
+#line 361 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("pointer",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2850 "parser.cpp" /* yacc.c:1646  */
+#line 2851 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 157:
-#line 361 "parser.y" /* yacc.c:1646  */
+#line 362 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("pointer",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2856 "parser.cpp" /* yacc.c:1646  */
+#line 2857 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 158:
-#line 362 "parser.y" /* yacc.c:1646  */
+#line 363 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("pointer",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2862 "parser.cpp" /* yacc.c:1646  */
+#line 2863 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 159:
-#line 366 "parser.y" /* yacc.c:1646  */
+#line 367 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_qualifier_list",1,(yyvsp[0].gtn));}
-#line 2868 "parser.cpp" /* yacc.c:1646  */
+#line 2869 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 160:
-#line 367 "parser.y" /* yacc.c:1646  */
+#line 368 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_qualifier_list",2,(yyvsp[0].gtn));}
-#line 2874 "parser.cpp" /* yacc.c:1646  */
+#line 2875 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 161:
-#line 372 "parser.y" /* yacc.c:1646  */
+#line 373 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("parameter_type_list",1,(yyvsp[0].gtn));}
-#line 2880 "parser.cpp" /* yacc.c:1646  */
+#line 2881 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 162:
-#line 373 "parser.y" /* yacc.c:1646  */
+#line 374 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("parameter_type_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2886 "parser.cpp" /* yacc.c:1646  */
+#line 2887 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 163:
-#line 377 "parser.y" /* yacc.c:1646  */
+#line 378 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("parameter_list",1,(yyvsp[0].gtn));}
-#line 2892 "parser.cpp" /* yacc.c:1646  */
+#line 2893 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 164:
-#line 378 "parser.y" /* yacc.c:1646  */
+#line 379 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("parameter_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2898 "parser.cpp" /* yacc.c:1646  */
+#line 2899 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 165:
-#line 382 "parser.y" /* yacc.c:1646  */
+#line 383 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("parameter_declaration",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2904 "parser.cpp" /* yacc.c:1646  */
+#line 2905 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 166:
-#line 383 "parser.y" /* yacc.c:1646  */
+#line 384 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("parameter_declaration",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2910 "parser.cpp" /* yacc.c:1646  */
+#line 2911 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 167:
-#line 384 "parser.y" /* yacc.c:1646  */
+#line 385 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("parameter_declaration",1,(yyvsp[0].gtn));}
-#line 2916 "parser.cpp" /* yacc.c:1646  */
+#line 2917 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 168:
-#line 388 "parser.y" /* yacc.c:1646  */
+#line 389 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("identifier_list",1,(yyvsp[0].gtn));}
-#line 2922 "parser.cpp" /* yacc.c:1646  */
+#line 2923 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 169:
-#line 389 "parser.y" /* yacc.c:1646  */
+#line 390 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("identifier_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2928 "parser.cpp" /* yacc.c:1646  */
+#line 2929 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 170:
-#line 393 "parser.y" /* yacc.c:1646  */
+#line 394 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_name",1,(yyvsp[0].gtn));}
-#line 2934 "parser.cpp" /* yacc.c:1646  */
+#line 2935 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 171:
-#line 394 "parser.y" /* yacc.c:1646  */
+#line 395 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("type_name",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2940 "parser.cpp" /* yacc.c:1646  */
+#line 2941 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 172:
-#line 398 "parser.y" /* yacc.c:1646  */
+#line 399 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("abstract_declarator",1,(yyvsp[0].gtn));}
-#line 2946 "parser.cpp" /* yacc.c:1646  */
+#line 2947 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 173:
-#line 399 "parser.y" /* yacc.c:1646  */
+#line 400 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("abstract_declarator",1,(yyvsp[0].gtn));}
-#line 2952 "parser.cpp" /* yacc.c:1646  */
+#line 2953 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 174:
-#line 400 "parser.y" /* yacc.c:1646  */
+#line 401 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("abstract_declarator",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2958 "parser.cpp" /* yacc.c:1646  */
+#line 2959 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 186:
-#line 418 "parser.y" /* yacc.c:1646  */
+#line 419 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("initializer",1,(yyvsp[0].gtn));}
-#line 2964 "parser.cpp" /* yacc.c:1646  */
+#line 2965 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 187:
-#line 419 "parser.y" /* yacc.c:1646  */
+#line 420 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("initializer",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2970 "parser.cpp" /* yacc.c:1646  */
+#line 2971 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 188:
-#line 420 "parser.y" /* yacc.c:1646  */
+#line 421 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("initializer",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2976 "parser.cpp" /* yacc.c:1646  */
+#line 2977 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 189:
-#line 424 "parser.y" /* yacc.c:1646  */
+#line 425 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("initializer_list",1,(yyvsp[0].gtn));}
-#line 2982 "parser.cpp" /* yacc.c:1646  */
+#line 2983 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 190:
-#line 425 "parser.y" /* yacc.c:1646  */
+#line 426 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("initializer_list",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2988 "parser.cpp" /* yacc.c:1646  */
+#line 2989 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 191:
-#line 426 "parser.y" /* yacc.c:1646  */
+#line 427 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("initializer_list",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 2994 "parser.cpp" /* yacc.c:1646  */
+#line 2995 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 192:
-#line 427 "parser.y" /* yacc.c:1646  */
+#line 428 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("initializer_list",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3000 "parser.cpp" /* yacc.c:1646  */
+#line 3001 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 193:
-#line 431 "parser.y" /* yacc.c:1646  */
+#line 432 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("designation",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3006 "parser.cpp" /* yacc.c:1646  */
+#line 3007 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 194:
-#line 435 "parser.y" /* yacc.c:1646  */
+#line 436 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("designator_list",1,(yyvsp[0].gtn));}
-#line 3012 "parser.cpp" /* yacc.c:1646  */
+#line 3013 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 195:
-#line 436 "parser.y" /* yacc.c:1646  */
+#line 437 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("designator_list",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3018 "parser.cpp" /* yacc.c:1646  */
+#line 3019 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 196:
-#line 440 "parser.y" /* yacc.c:1646  */
+#line 441 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("designator",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3024 "parser.cpp" /* yacc.c:1646  */
+#line 3025 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 197:
-#line 441 "parser.y" /* yacc.c:1646  */
+#line 442 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("designator",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3030 "parser.cpp" /* yacc.c:1646  */
+#line 3031 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 198:
-#line 445 "parser.y" /* yacc.c:1646  */
+#line 446 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("statement",1,(yyvsp[0].gtn));}
-#line 3036 "parser.cpp" /* yacc.c:1646  */
+#line 3037 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 199:
-#line 446 "parser.y" /* yacc.c:1646  */
+#line 447 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("statement",1,(yyvsp[0].gtn));}
-#line 3042 "parser.cpp" /* yacc.c:1646  */
+#line 3043 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 200:
-#line 447 "parser.y" /* yacc.c:1646  */
+#line 448 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("statement",1,(yyvsp[0].gtn));}
-#line 3048 "parser.cpp" /* yacc.c:1646  */
+#line 3049 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 201:
-#line 448 "parser.y" /* yacc.c:1646  */
+#line 449 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("statement",1,(yyvsp[0].gtn));}
-#line 3054 "parser.cpp" /* yacc.c:1646  */
+#line 3055 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 202:
-#line 449 "parser.y" /* yacc.c:1646  */
+#line 450 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("statement",1,(yyvsp[0].gtn));}
-#line 3060 "parser.cpp" /* yacc.c:1646  */
+#line 3061 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 203:
-#line 450 "parser.y" /* yacc.c:1646  */
+#line 451 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("statement",1,(yyvsp[0].gtn));}
-#line 3066 "parser.cpp" /* yacc.c:1646  */
+#line 3067 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 204:
-#line 451 "parser.y" /* yacc.c:1646  */
+#line 452 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("statement",1,(yyvsp[0].gtn));}
-#line 3072 "parser.cpp" /* yacc.c:1646  */
+#line 3073 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 205:
-#line 455 "parser.y" /* yacc.c:1646  */
+#line 456 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("print_statement",7,(yyvsp[-6].gtn),(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3078 "parser.cpp" /* yacc.c:1646  */
+#line 3079 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 206:
-#line 459 "parser.y" /* yacc.c:1646  */
+#line 460 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("labeled_statement",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3084 "parser.cpp" /* yacc.c:1646  */
+#line 3085 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 207:
-#line 460 "parser.y" /* yacc.c:1646  */
+#line 461 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("labeled_statement",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3090 "parser.cpp" /* yacc.c:1646  */
+#line 3091 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 208:
-#line 461 "parser.y" /* yacc.c:1646  */
+#line 462 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("labeled_statement",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3096 "parser.cpp" /* yacc.c:1646  */
+#line 3097 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 209:
-#line 465 "parser.y" /* yacc.c:1646  */
+#line 466 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("compound_statement",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3102 "parser.cpp" /* yacc.c:1646  */
+#line 3103 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 210:
-#line 466 "parser.y" /* yacc.c:1646  */
+#line 467 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("compound_statement",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3108 "parser.cpp" /* yacc.c:1646  */
+#line 3109 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 211:
-#line 470 "parser.y" /* yacc.c:1646  */
+#line 471 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("block_item_list",1,(yyvsp[0].gtn));}
-#line 3114 "parser.cpp" /* yacc.c:1646  */
+#line 3115 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 212:
-#line 471 "parser.y" /* yacc.c:1646  */
+#line 472 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("block_item_list",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3120 "parser.cpp" /* yacc.c:1646  */
+#line 3121 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 213:
-#line 475 "parser.y" /* yacc.c:1646  */
+#line 476 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("block_item",1,(yyvsp[0].gtn));}
-#line 3126 "parser.cpp" /* yacc.c:1646  */
+#line 3127 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 214:
-#line 476 "parser.y" /* yacc.c:1646  */
+#line 477 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("block_item",1,(yyvsp[0].gtn));}
-#line 3132 "parser.cpp" /* yacc.c:1646  */
+#line 3133 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 215:
-#line 480 "parser.y" /* yacc.c:1646  */
+#line 481 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("expression_statement",1,(yyvsp[0].gtn));}
-#line 3138 "parser.cpp" /* yacc.c:1646  */
+#line 3139 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 216:
-#line 481 "parser.y" /* yacc.c:1646  */
+#line 482 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("expression_statement",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3144 "parser.cpp" /* yacc.c:1646  */
+#line 3145 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 217:
-#line 485 "parser.y" /* yacc.c:1646  */
+#line 486 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("selection_statement",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3150 "parser.cpp" /* yacc.c:1646  */
+#line 3151 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 218:
-#line 486 "parser.y" /* yacc.c:1646  */
+#line 487 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("selection_statement",7,(yyvsp[-6].gtn),(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3156 "parser.cpp" /* yacc.c:1646  */
+#line 3157 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 219:
-#line 487 "parser.y" /* yacc.c:1646  */
+#line 488 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("selection_statement",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3162 "parser.cpp" /* yacc.c:1646  */
+#line 3163 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 220:
-#line 491 "parser.y" /* yacc.c:1646  */
+#line 492 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("iteration_statement",5,(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3168 "parser.cpp" /* yacc.c:1646  */
+#line 3169 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 221:
-#line 492 "parser.y" /* yacc.c:1646  */
+#line 493 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("iteration_statement",7,(yyvsp[-6].gtn),(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3174 "parser.cpp" /* yacc.c:1646  */
+#line 3175 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 222:
-#line 493 "parser.y" /* yacc.c:1646  */
+#line 494 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("iteration_statement",6,(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3180 "parser.cpp" /* yacc.c:1646  */
+#line 3181 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 223:
-#line 494 "parser.y" /* yacc.c:1646  */
+#line 495 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("iteration_statement",7,(yyvsp[-6].gtn),(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3186 "parser.cpp" /* yacc.c:1646  */
+#line 3187 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 224:
-#line 495 "parser.y" /* yacc.c:1646  */
+#line 496 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("iteration_statement",6,(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3192 "parser.cpp" /* yacc.c:1646  */
+#line 3193 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 225:
-#line 496 "parser.y" /* yacc.c:1646  */
+#line 497 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("iteration_statement",7,(yyvsp[-6].gtn),(yyvsp[-5].gtn),(yyvsp[-4].gtn),(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3198 "parser.cpp" /* yacc.c:1646  */
+#line 3199 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 226:
-#line 500 "parser.y" /* yacc.c:1646  */
+#line 501 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("jump_statement",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3204 "parser.cpp" /* yacc.c:1646  */
+#line 3205 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 227:
-#line 501 "parser.y" /* yacc.c:1646  */
+#line 502 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("jump_statement",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3210 "parser.cpp" /* yacc.c:1646  */
+#line 3211 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 228:
-#line 502 "parser.y" /* yacc.c:1646  */
+#line 503 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("jump_statement",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3216 "parser.cpp" /* yacc.c:1646  */
+#line 3217 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 229:
-#line 503 "parser.y" /* yacc.c:1646  */
+#line 504 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("jump_statement",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3222 "parser.cpp" /* yacc.c:1646  */
+#line 3223 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 230:
-#line 504 "parser.y" /* yacc.c:1646  */
+#line 505 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("jump_statement",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3228 "parser.cpp" /* yacc.c:1646  */
+#line 3229 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 231:
-#line 508 "parser.y" /* yacc.c:1646  */
+#line 509 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("translation_unit",1,(yyvsp[0].gtn));}
-#line 3234 "parser.cpp" /* yacc.c:1646  */
+#line 3235 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 232:
-#line 509 "parser.y" /* yacc.c:1646  */
+#line 510 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("translation_unit",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3240 "parser.cpp" /* yacc.c:1646  */
+#line 3241 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 233:
-#line 513 "parser.y" /* yacc.c:1646  */
+#line 514 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("external_declaration",1,(yyvsp[0].gtn));}
-#line 3246 "parser.cpp" /* yacc.c:1646  */
+#line 3247 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 234:
-#line 514 "parser.y" /* yacc.c:1646  */
+#line 515 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("external_declaration",1,(yyvsp[0].gtn));}
-#line 3252 "parser.cpp" /* yacc.c:1646  */
+#line 3253 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 235:
-#line 518 "parser.y" /* yacc.c:1646  */
+#line 519 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("function_definition",4,(yyvsp[-3].gtn),(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3258 "parser.cpp" /* yacc.c:1646  */
+#line 3259 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 236:
-#line 519 "parser.y" /* yacc.c:1646  */
+#line 520 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("function_definition",3,(yyvsp[-2].gtn),(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3264 "parser.cpp" /* yacc.c:1646  */
+#line 3265 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 237:
-#line 523 "parser.y" /* yacc.c:1646  */
+#line 524 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_list",1,(yyvsp[0].gtn));}
-#line 3270 "parser.cpp" /* yacc.c:1646  */
+#line 3271 "parser.cpp" /* yacc.c:1646  */
     break;
 
   case 238:
-#line 524 "parser.y" /* yacc.c:1646  */
+#line 525 "parser.y" /* yacc.c:1646  */
     {(yyval.gtn) = treeCreate("declaration_list",2,(yyvsp[-1].gtn),(yyvsp[0].gtn));}
-#line 3276 "parser.cpp" /* yacc.c:1646  */
+#line 3277 "parser.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 3280 "parser.cpp" /* yacc.c:1646  */
+#line 3281 "parser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3504,7 +3505,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 528 "parser.y" /* yacc.c:1906  */
+#line 529 "parser.y" /* yacc.c:1906  */
 
 
 void yyerror(char const *s){
@@ -3527,6 +3528,17 @@ int main(int argc, char* argv[]){
     
 	gen(root,argv[1]);
 
+	string cmd = "llc ";
+	cmd+=argv[1];
+	cmd+=".ll -o ";
+	cmd+=argv[1];
+	cmd+=".s & clang ";
+	cmd+=argv[1];
+	cmd+=".s -o ";
+	cmd+=argv[1];
+	cmd+=".out ";
+	// string cmd = "llc "+argv[1]+" -o "+ argv[1]+".s & gcc "+argv[1]+".s -o "+argv[1]+".out"
+	system(cmd.c_str());
 
     // treeNodeFree(root);
 

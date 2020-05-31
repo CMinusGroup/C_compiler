@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib>
 #include "grammartree.h"
 #include <cstdio>
 #include "func.h"
@@ -547,6 +548,17 @@ int main(int argc, char* argv[]){
     
 	gen(root,argv[1]);
 
+	string cmd = "llc ";
+	cmd+=argv[1];
+	cmd+=".ll -o ";
+	cmd+=argv[1];
+	cmd+=".s & clang ";
+	cmd+=argv[1];
+	cmd+=".s -o ";
+	cmd+=argv[1];
+	cmd+=".out ";
+	// string cmd = "llc "+argv[1]+" -o "+ argv[1]+".s & gcc "+argv[1]+".s -o "+argv[1]+".out"
+	system(cmd.c_str());
 
     // treeNodeFree(root);
 
