@@ -1,38 +1,43 @@
 ; ModuleID = 'demo.cpp'
 source_filename = "demo.cpp"
 
+@ans = internal global i32 0
+@0 = private unnamed_addr constant [13 x i8] c"\22ans = %d\\n\22\00", align 1
+
+define i32 @gcd(i32 %0, i32 %1) {
+entry:
+  %a = alloca i32, align 4
+  store i32 %0, i32* %a, align 4
+  %b = alloca i32, align 4
+  store i32 %1, i32* %b, align 4
+  %2 = load i32, i32* %b, align 4
+  %ifequal = icmp eq i32 %2, 0
+  br i1 %ifequal, label %then, label %else
+
+then:                                             ; preds = %entry
+  %3 = load i32, i32* %a, align 4
+  ret i32 %3
+
+else:                                             ; preds = %entry
+  %4 = load i32, i32* %b, align 4
+  %5 = load i32, i32* %a, align 4
+  %6 = load i32, i32* %b, align 4
+  %7 = srem i32 %5, %6
+  %8 = call i32 @gcd(i32 %4, i32 %7)
+  ret i32 %8
+}
+
 define i32 @main() {
-  %sum = alloca i32, align 4
-  store i32 550, i32* %sum, align 4
-  %n = alloca i32, align 4
-  store i32 12, i32* %n, align 4
-  %1 = load i32, i32* %sum, align 4
-  %2 = load i32, i32* %n, align 4
-  %3 = add i32 %1, %2
-  store i32 %3, i32* %sum, align 4
-  br label %con
-
-loop:                                             ; preds = %con
-  %4 = load i32, i32* %n, align 4
-  %5 = sub i32* %n, i32 1
-  %6 = load i32, i32* %5, align 4
-  store i32* %5, i32* %n, align 8
-  br label %outer
-  %7 = load i32, i32* %sum, align 4
-  %8 = add i32* %sum, %n
-  %9 = load i32, i32* %8, align 4
-  store i32* %8, i32* %sum, align 8
-  br label %con
-
-con:                                              ; preds = %loop, %0
-  %10 = load i32, i32* %n, align 4
-  %LE = fcmp ole i32 %10, 0
-  br i1 %LE, label %loop, label %outer
-
-outer:                                            ; preds = %loop, %con
-  %11 = load i32, i32* %sum, align 4
-  %12 = load i32, i32* %n, align 4
-  %13 = sub i32 %11, %12
-  store i32 %13, i32* %sum, align 4
+entry:
+  %0 = load i32, i32* @ans, align 4
+  %1 = call i32 @gcd(i32 9, i32 36)
+  %2 = call i32 @gcd(i32 3, i32 6)
+  %3 = mul i32 %1, %2
+  store i32 %3, i32* @ans, align 4
+  %4 = load i32, i32* @ans, align 4
+  %5 = load i32, i32* @ans, align 4
+  %call = call i32 (...) @printf(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @0, i32 0, i32 0), i32 %5)
   ret i32 0
 }
+
+declare i32 @printf(...)

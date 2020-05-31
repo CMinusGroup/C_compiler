@@ -49,63 +49,64 @@ extern int yydebug;
     SIZEOF = 259,
     GOTO = 260,
     RETURN = 261,
-    DO = 262,
-    WHILE = 263,
-    FOR = 264,
-    CONTINUE = 265,
-    BREAK = 266,
-    SWITCH = 267,
-    DEFAULT = 268,
-    CASE = 269,
-    IF = 270,
-    ELSE = 271,
-    FLOAT = 272,
-    DOUBLE = 273,
-    CHAR = 274,
-    VOID = 275,
-    INT = 276,
-    LONG = 277,
-    BOOL = 278,
-    SHORT = 279,
-    VOLATILE = 280,
-    CONST = 281,
-    SIGNED = 282,
-    UNSIGNED = 283,
-    STATIC = 284,
-    EXTERN = 285,
-    INLINE = 286,
-    TYPEDEF = 287,
-    STRUCT = 288,
-    ENUM = 289,
-    UNION = 290,
-    CONSTANT = 291,
-    CONSTANT_INT = 292,
-    CONSTANT_DOUBLE = 293,
-    ELLIPSIS = 294,
-    STRING_LITERAL = 295,
-    ASSIGN_RIGHTSHIFT = 296,
-    ASSIGN_LEFTSHIFT = 297,
-    ASSIGN_ADD = 298,
-    ASSIGN_SUB = 299,
-    ASSIGN_MUL = 300,
-    ASSIGN_DIV = 301,
-    ASSIGN_MOD = 302,
-    ASSIGN_AND = 303,
-    ASSIGN_OR = 304,
-    TYPE_NAME = 305,
-    ASSIGN_XOR = 306,
-    IDENTIFIER = 307,
-    OP_RIGHTSHIFT = 308,
-    OP_LEFTSHIFT = 309,
-    OP_INC = 310,
-    OP_DEC = 311,
-    OP_PTR = 312,
-    OP_AND = 313,
-    OP_OR = 314,
-    OP_LE = 315,
-    OP_GE = 316,
-    OP_EQ = 317,
-    OP_NE = 318
+    println = 262,
+    DO = 263,
+    WHILE = 264,
+    FOR = 265,
+    CONTINUE = 266,
+    BREAK = 267,
+    SWITCH = 268,
+    DEFAULT = 269,
+    CASE = 270,
+    IF = 271,
+    ELSE = 272,
+    FLOAT = 273,
+    DOUBLE = 274,
+    CHAR = 275,
+    VOID = 276,
+    INT = 277,
+    LONG = 278,
+    BOOL = 279,
+    SHORT = 280,
+    VOLATILE = 281,
+    CONST = 282,
+    SIGNED = 283,
+    UNSIGNED = 284,
+    STATIC = 285,
+    EXTERN = 286,
+    INLINE = 287,
+    TYPEDEF = 288,
+    STRUCT = 289,
+    ENUM = 290,
+    UNION = 291,
+    CONSTANT = 292,
+    CONSTANT_INT = 293,
+    CONSTANT_DOUBLE = 294,
+    ELLIPSIS = 295,
+    STRING_LITERAL = 296,
+    ASSIGN_RIGHTSHIFT = 297,
+    ASSIGN_LEFTSHIFT = 298,
+    ASSIGN_ADD = 299,
+    ASSIGN_SUB = 300,
+    ASSIGN_MUL = 301,
+    ASSIGN_DIV = 302,
+    ASSIGN_MOD = 303,
+    ASSIGN_AND = 304,
+    ASSIGN_OR = 305,
+    TYPE_NAME = 306,
+    ASSIGN_XOR = 307,
+    IDENTIFIER = 308,
+    OP_RIGHTSHIFT = 309,
+    OP_LEFTSHIFT = 310,
+    OP_INC = 311,
+    OP_DEC = 312,
+    OP_PTR = 313,
+    OP_AND = 314,
+    OP_OR = 315,
+    OP_LE = 316,
+    OP_GE = 317,
+    OP_EQ = 318,
+    OP_NE = 319
   };
 #endif
 /* Tokens.  */
@@ -113,63 +114,64 @@ extern int yydebug;
 #define SIZEOF 259
 #define GOTO 260
 #define RETURN 261
-#define DO 262
-#define WHILE 263
-#define FOR 264
-#define CONTINUE 265
-#define BREAK 266
-#define SWITCH 267
-#define DEFAULT 268
-#define CASE 269
-#define IF 270
-#define ELSE 271
-#define FLOAT 272
-#define DOUBLE 273
-#define CHAR 274
-#define VOID 275
-#define INT 276
-#define LONG 277
-#define BOOL 278
-#define SHORT 279
-#define VOLATILE 280
-#define CONST 281
-#define SIGNED 282
-#define UNSIGNED 283
-#define STATIC 284
-#define EXTERN 285
-#define INLINE 286
-#define TYPEDEF 287
-#define STRUCT 288
-#define ENUM 289
-#define UNION 290
-#define CONSTANT 291
-#define CONSTANT_INT 292
-#define CONSTANT_DOUBLE 293
-#define ELLIPSIS 294
-#define STRING_LITERAL 295
-#define ASSIGN_RIGHTSHIFT 296
-#define ASSIGN_LEFTSHIFT 297
-#define ASSIGN_ADD 298
-#define ASSIGN_SUB 299
-#define ASSIGN_MUL 300
-#define ASSIGN_DIV 301
-#define ASSIGN_MOD 302
-#define ASSIGN_AND 303
-#define ASSIGN_OR 304
-#define TYPE_NAME 305
-#define ASSIGN_XOR 306
-#define IDENTIFIER 307
-#define OP_RIGHTSHIFT 308
-#define OP_LEFTSHIFT 309
-#define OP_INC 310
-#define OP_DEC 311
-#define OP_PTR 312
-#define OP_AND 313
-#define OP_OR 314
-#define OP_LE 315
-#define OP_GE 316
-#define OP_EQ 317
-#define OP_NE 318
+#define println 262
+#define DO 263
+#define WHILE 264
+#define FOR 265
+#define CONTINUE 266
+#define BREAK 267
+#define SWITCH 268
+#define DEFAULT 269
+#define CASE 270
+#define IF 271
+#define ELSE 272
+#define FLOAT 273
+#define DOUBLE 274
+#define CHAR 275
+#define VOID 276
+#define INT 277
+#define LONG 278
+#define BOOL 279
+#define SHORT 280
+#define VOLATILE 281
+#define CONST 282
+#define SIGNED 283
+#define UNSIGNED 284
+#define STATIC 285
+#define EXTERN 286
+#define INLINE 287
+#define TYPEDEF 288
+#define STRUCT 289
+#define ENUM 290
+#define UNION 291
+#define CONSTANT 292
+#define CONSTANT_INT 293
+#define CONSTANT_DOUBLE 294
+#define ELLIPSIS 295
+#define STRING_LITERAL 296
+#define ASSIGN_RIGHTSHIFT 297
+#define ASSIGN_LEFTSHIFT 298
+#define ASSIGN_ADD 299
+#define ASSIGN_SUB 300
+#define ASSIGN_MUL 301
+#define ASSIGN_DIV 302
+#define ASSIGN_MOD 303
+#define ASSIGN_AND 304
+#define ASSIGN_OR 305
+#define TYPE_NAME 306
+#define ASSIGN_XOR 307
+#define IDENTIFIER 308
+#define OP_RIGHTSHIFT 309
+#define OP_LEFTSHIFT 310
+#define OP_INC 311
+#define OP_DEC 312
+#define OP_PTR 313
+#define OP_AND 314
+#define OP_OR 315
+#define OP_LE 316
+#define OP_GE 317
+#define OP_EQ 318
+#define OP_NE 319
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -180,7 +182,7 @@ union YYSTYPE
 
     class GrammarTreeNode* gtn;
 
-#line 184 "parser.hpp" /* yacc.c:1909  */
+#line 186 "parser.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

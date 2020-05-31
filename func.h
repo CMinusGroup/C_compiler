@@ -42,8 +42,55 @@ template <typename T> static std::string Print(T* value_or_type) {
     value_or_type->print(stream);
     return str;
 }
+
+void kprintf(Module *mod, BasicBlock *bb, const char *format, ...)
+{
+    Function *func_printf = mod->getFunction("printf");
+    if (!func_printf) {
+        PointerType *Pty = PointerType::get(IntegerType::get(mod->getContext(), 8), 0);
+        FunctionType *FuncTy9 = FunctionType::get(IntegerType::get(mod->getContext(), 32), true);
+
+        func_printf = Function::Create(FuncTy9, GlobalValue::ExternalLinkage, "printf", mod);
+        func_printf->setCallingConv(CallingConv::C);
+
+        AttributeList func_printf_PAL;
+        func_printf->setAttributes(func_printf_PAL);
+    }
+
+    IRBuilder <> builder(mod->getContext());
+    builder.SetInsertPoint(bb);
+
+    Value *str = builder.CreateGlobalStringPtr(format);
+    cout<<Print(str)<<"   "<<format<<endl;
+    std::vector <Value *> int32_call_params;
+    int32_call_params.push_back(str);
+
+    va_list ap;
+    va_start(ap, format);
+
+    // char *str_ptr = format;
+    // Value *format_ptr = builder.CreateGlobalStringPtr(format);
+    // int32_call_params.push_back(format_ptr);
+
+    std::vector<llvm::Value*> extra;
+    do {
+        llvm::Value *op = va_arg(ap, llvm::Value*);
+        cout<<Print(op)<<endl;
+        if (op->getType()!=Type::getInt1Ty(ctxt)) {
+            int32_call_params.push_back(op);
+        } else {
+            break;
+        }
+    } while (1);
+    va_end(ap);
+
+    CallInst * int32_call = CallInst::Create(func_printf, int32_call_params, "call", bb);
+}
+#define oprintf(...) kprintf(__VA_ARGS__)
+
 void genstmt(node head ,Module* m);
 void genfuncdef(node head ,Module* module );
+Value* expression(node head ,Module* m );
 vector<node> childs(node parent = nullptr){
     vector<node> k;
     parent =parent->left;
@@ -55,6 +102,8 @@ vector<node> childs(node parent = nullptr){
     }
     return k;
 }
+
+
 
 //return a recursive nodes vector by a -> a,b; and b1,b2,b3,b4,b5,---
 vector<node> recurchilds(node parent = nullptr){
@@ -80,6 +129,7 @@ vector<node> rrecurchilds(node parent = nullptr){
 
 }
 
+Value* assignment_exp(node head ,Module* m );
 void genblockelem(node head = nullptr,shared_ptr<Module> m = nullptr){
     
 }
@@ -93,7 +143,7 @@ void genptl(vector<Type*> &ptype,vector<string>&ids,node k = nullptr){
         {
             node topstk = pchilds.back();
             pchilds.pop_back();
-            ids.push_back(topstk->left->left->left->name);
+            ids.push_back(topstk->left->right->left->left->content);
             // cout<<topstk->left->left->left->content<<endl;
             ptype.push_back((tmap[topstk->left->left->left->content]));
         }
@@ -116,15 +166,27 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
     // builder.CreateStore(builder.getInt32(1024), variable);
 
     /*
-    * ksss[0] = declarator
-    * ksss[1] = =
-    * ksss[2] = initializer
+    * ksss[0] = declarator  a = 3;
+    * ksss[1] = =   
+    * ksss[2] = initializer b[3] = {1,2,3};
     */
     for(node item:kss){
         cout<<item->name<<endl;
         vector<node> ksss = childs(item);
-        string vname = ksss[0]->left->left->content;
-
+        string vname;
+        int allocasize = 1;
+        if(ksss[0]->left->left->right){
+            vname = ksss[0]->left->left->left->content;
+            node sizes = ksss[0]->left->left->right->right;
+            while (sizes->name!="primary_expression")
+            {
+                sizes = sizes->left;
+            }
+            allocasize = sizes->left->intval;
+            cout<<"arrary size: "<<allocasize<<endl;
+        }else{
+            vname = ksss[0]->left->left->content;
+        }
         if(ksss.size()==1){
             if(!isexternal){
                 auto v = new GlobalVariable(static_cast<IntegerType*>(tmap[type]),
@@ -136,14 +198,31 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
                 idmap[vname] = v;
             }
             else{
-                Value* v = builder.CreateAlloca(tmap[type],nullptr,vname);
-                builder.CreateStore(builder.getInt32(0),v);
+                Value* v = nullptr;
+                if(allocasize==1){
+                    v = builder.CreateAlloca(tmap[type],nullptr,vname);
+                    if(type=="int")
+                        builder.CreateStore(builder.getInt32(0), v);
+                    else
+                        builder.CreateStore(ConstantFP::get(tmap[type],APFloat(0.0)),v);
+
+                }else{
+                    v = builder.CreateAlloca(ArrayType::get(tmap[type],allocasize));
+                    if(type=="int")
+                        builder.CreateMemSet(v,builder.getInt32(0),allocasize,MaybeAlign(64));
+                    else
+                        builder.CreateMemSet(v,ConstantFP::get(tmap[type],APFloat(0.0)),allocasize,MaybeAlign(64));
+                }
                 idmap[vname] = v;            
             }
 
 
         }else{
             node tempvalue = ksss[2];
+
+            Value* rval = assignment_exp(tempvalue->left,m);
+            cout<<Print(rval)<<endl;
+
             while (tempvalue->name !="primary_expression")
             {
                 tempvalue = tempvalue->left;
@@ -171,17 +250,26 @@ void gendecl(node head = nullptr,Module* m = nullptr,bool isexternal = true){
             }else{
                 Value* v = nullptr;
                 if(type=="int"){
-                    v = builder.CreateAlloca(Type::getInt32Ty(ctxt));
-                    idmap[vname] = v;
-                    builder.CreateStore(builder.getInt32(tempvalue->left->intval), v);
-                    v->setName(vname);
+                    v = allocasize==1 ? 
+                            builder.CreateAlloca(Type::getInt32Ty(ctxt)):
+                            builder.CreateAlloca(ArrayType::get(Type::getInt32Ty(ctxt),allocasize));
+                    if(allocasize==1){
+                        builder.CreateStore(rval, v);
+                    }else{
+                        builder.CreateMemSet(v,rval,allocasize,MaybeAlign(16));
+                    }
                 }
                 else{
-                    v = builder.CreateAlloca(Type::getDoubleTy(ctxt));
-                    builder.CreateStore(ConstantFP::get(ctxt,APFloat(tempvalue->left->douval)),v);
-                    v->setName(vname);
-                    idmap[vname] = v;
+                    if(allocasize==1){
+                        v = builder.CreateAlloca(Type::getDoubleTy(ctxt));
+                        builder.CreateStore(rval,v);
+                    }else{
+                        v = builder.CreateAlloca(ArrayType::get(Type::getDoubleTy(ctxt),allocasize));
+                        builder.CreateMemSet(v,rval,allocasize,MaybeAlign(64));
+                    }
                 }
+                idmap[vname] = v;
+                v->setName(vname);
             }
         }
         cout<<vname<<":"<<Print(idmap[vname])<<endl;
@@ -211,7 +299,43 @@ Value* primary_exp(node head = nullptr,Module* m = nullptr ){
 }
 Value* postfix_exp(node head = nullptr ,Module* m = nullptr){
     if(head->left->right){
-        node ifcon = head->left->right;
+        // node ifcon = head->left->right;
+        // func(a,b);
+        string callname ;
+        string idname = head->left->right->name;
+        node id = head->left->right->right;
+        if(idname=="("){
+            // 函数
+            callname = head->left->content;
+            Function* funccall = fmap[callname];
+            vector<Value*> func_args;
+            vector<node> args = recurchilds(head->left->right->right);
+
+            while (!args.empty())
+            {
+                node topitem = args.back();
+                Value* argv = assignment_exp(topitem,m);
+                func_args.push_back(argv);
+
+                args.pop_back();
+            }
+            
+
+            return builder.CreateCall(funccall,func_args);
+        }else if(idname =="["){
+            // 数组
+            callname = head->left->left->left->content;
+            Value* idx = expression(id,m);
+            cout<<"idx :"<<Print(idx)<<endl;
+            Value* arr = idmap[callname];
+            cout<<"arr :"<<Print(arr)<<endl;
+            Value* ret = builder.CreateInBoundsGEP(arr,idx);
+            cout<<"ret :"<<Print(ret)<<endl;
+            return ret;
+        }else{
+            return builder.getInt32(0);
+
+        }
     }else{
         return primary_exp(head->left,m);
     }
@@ -229,23 +353,27 @@ Value* cast_exp(node head = nullptr,Module* m = nullptr){
 Value* multiplicative_exp(node head = nullptr, Module* m = nullptr){
     if(head->left->right){
         Value* l = multiplicative_exp(head->left,m);
+        Value* lval = isptr?builder.CreateLoad(l):l;
         Value* r = cast_exp(head->left->right->right);
+        Value* rval = isptr?builder.CreateLoad(r):r;
+        isptr = false;
         if(head->left->right->name=="*")
             if(head->vtype=="int"){
-                return builder.CreateMul(l,r);
+                return builder.CreateMul(lval,rval);
             }else{
-                return builder.CreateFMul(l,r);
+                return builder.CreateFMul(lval,rval);
             }
         else if(head->left->right->name=="/")
             if(head->vtype=="int"){
                 // 整数除法
-                return builder.CreateSDiv(l,r);
+                return builder.CreateSDiv(lval,rval);
             }else
-                return builder.CreateFDiv(l,r);
+                return builder.CreateFDiv(lval,rval);
         else {
-            Value* quotient = builder.CreateSDiv(l,r);
-            Value* multiquo = builder.CreateMul(quotient,r);
-            return builder.CreateSub(l,multiquo);
+            // Value* quotient = builder.CreateSDiv(lval,rval);
+            // Value* multiquo = builder.CreateMul(quotient,r);
+            // return builder.CreateSub(l,multiquo);
+            return builder.CreateSRem(lval,rval);
         }
     }else{
         return cast_exp(head->left,m);
@@ -254,18 +382,21 @@ Value* multiplicative_exp(node head = nullptr, Module* m = nullptr){
 Value* additive_exp(node head = nullptr, Module* m = nullptr){
     if(head->left->right){
         Value* l = additive_exp(head->left,m);
+        Value* lval = isptr?builder.CreateLoad(l):l;
         Value* r = multiplicative_exp(head->left->right->right);
+        Value* rval = isptr?builder.CreateLoad(r):r;
         string type = head->vtype;
+        isptr =false;
         if(head->left->right->name=="+"){
             if(type=="int")
-                return builder.CreateAdd(l,r);
+                return builder.CreateAdd(lval,rval);
             else
-                return builder.CreateFAdd(l,r);
+                return builder.CreateFAdd(lval,rval);
         }else{
             if(type=="int")
-                return builder.CreateSub(l,r);
+                return builder.CreateSub(lval,rval);
             else
-                return builder.CreateFSub(l,r);
+                return builder.CreateFSub(lval,rval);
         }
     }else{
         return multiplicative_exp(head->left,m);
@@ -287,19 +418,19 @@ Value* relational_exp(node head = nullptr, Module* m = nullptr){
         Value* rval = isptr ? builder.CreateLoad(r) : r;
         node op = head->left->right;
         if(op->name =="<"){
-            return head->left->vtype=="int"? 
+            return lval->getType()==Type::getInt32Ty(ctxt)? 
                         builder.CreateICmpSLT(lval,rval,"less"):
                         builder.CreateFCmpOLT(lval,rval,"less");
         }else if(op->name == ">"){
-            return head->left->vtype=="int"?
+            return lval->getType()==Type::getInt32Ty(ctxt)?
                         builder.CreateICmpSGT(lval,rval,"greater"):
                         builder.CreateFCmpOGT(lval,rval,"greater");
         }else if(op->name == "OP_LE"){
-            return head->left->vtype=="int"?
+            return lval->getType()==Type::getInt32Ty(ctxt)?
                         builder.CreateICmpSLE(lval,rval,"LE"):
                         builder.CreateFCmpOLE(lval,rval,"LE");
         }else{
-            return head->left->vtype=="int"?
+            return lval->getType()==Type::getInt32Ty(ctxt)?
                         builder.CreateICmpSGE(lval,rval,"GE"):
                         builder.CreateFCmpOGE(lval,rval,"GE");
         }
@@ -387,7 +518,6 @@ Value* conditional_exp(node head = nullptr,Module* m = nullptr){
     }
 }
 
-
 Value* assignment_exp(node head = nullptr,Module* m = nullptr){
     cout<<"expressddsion: "<<head->name<<endl;
 
@@ -396,7 +526,8 @@ Value* assignment_exp(node head = nullptr,Module* m = nullptr){
         Value* lv =  unary_exp(head->left);
         Value* lval = builder.CreateLoad(lv);
         Value* rv =  assignment_exp(head->left->right->right,m);
-        Value* rval = builder.CreateLoad(rv);
+        // Value* rval = isptr? builder.CreateLoad(rv):rv;
+        Value* rval = rv;
         cout<<"heeeeee"<<Print(lval)<<" "<<Print(rval)<<endl;
         Value* temp = nullptr;
         // cout<<Print(lv)<<"\n"<<Print(rv)<<endl;
@@ -447,9 +578,11 @@ Value* assignment_exp(node head = nullptr,Module* m = nullptr){
 
         builder.CreateStore(temp,lv);
         cout<<"store done"<<endl;
-        return lv;
+        return builder.CreateLoad(lv);
     }else{
-        return conditional_exp(head->left, m);
+        Value* tret =  conditional_exp(head->left, m);
+        return isptr? builder.CreateLoad(tret) :tret;
+        // return tret;
     }
 }
 
@@ -478,9 +611,8 @@ Value* expression(node head = nullptr,Module* m = nullptr){
 void selection_statement(node head = nullptr,Module* m = nullptr){
     // head->name = "IF" or "Switch";
     node ifcond = head->right->right;
-    Value* kk = builder.getInt1(false);
     Value* ifval = equality_exp(ifcond,m);
-    builder.CreateStore(ifval,kk);
+    // builder.CreateStore(ifval,kk);
     // cout<<ifval->getRawSubclassOptionalData()<<endl;
     if(head->name == "IF"){
 
@@ -574,7 +706,7 @@ void jump_statement(node head = nullptr,Module* m = nullptr){
     }else{
         // name = return 0
         if(head->left->right->right){
-            Value* ret = expression(head->left->right->right);
+            Value* ret = expression(head->left->right,m);
             builder.CreateRet(ret);
         }else{
             builder.CreateRetVoid();
@@ -582,6 +714,19 @@ void jump_statement(node head = nullptr,Module* m = nullptr){
         return ;
     }
 }
+void print_statement(node head = nullptr,Module* m = nullptr){
+    node formats = head->left->right->right;
+    node printval = head->left->right->right->right->right;
+    Value* pval = expression(printval);
+    // vector<Value*> funcargs;
+    // funcargs.push_back(format);
+    // funcargs.push_back(pval);
+    BasicBlock* curr = builder.GetInsertBlock();
+    #define llvm_printf(...) oprintf(m, curr, __VA_ARGS__, builder.getInt1(true))
+    llvm_printf(formats->content.c_str(),pval);
+    // Function* printfunc = module->
+}
+
 void genstmt(node head = nullptr,Module* m = nullptr){
     // head->naem = "statement"
     cout<<"here statement:  "<<endl;
@@ -607,12 +752,15 @@ void genstmt(node head = nullptr,Module* m = nullptr){
     }else if(s=="compound_statement"){
 
         genfuncdef(head,m);
-    }else{
+    }else if(s=="jump_statement"){
         //s = jump_statement
         jump_statement(head,m);
+    }else{
+        // s = print_statement;
+        print_statement(head,m);
     }
 }
-void genfuncdef(node head = nullptr,Module* module = nullptr){
+void genfuncdef( node head = nullptr,Module* module = nullptr){
     // generate the codes for block_item in the compound_statement
     // head->name = "compound_statement"
     // cout<<head->name<<endl;
@@ -641,9 +789,7 @@ void genfunc(node head = nullptr,Module* module = nullptr){
     cout<<head->name<<endl;
     head = head->left;
     cout<<head->right->name<<endl;
-    // cout<<head->name<<"\n"<<head->left->right->name<<endl;
-        // <<head->left->name<<"\n";
-        // <<head->left->right->name<<endl;
+
     string rettype = head->left->left->content;
     cout<<"rettype: "<<rettype<<endl;
 
@@ -658,21 +804,31 @@ void genfunc(node head = nullptr,Module* module = nullptr){
 
     FunctionType* functp = FunctionType::get(builder.getInt32Ty(),param_type,false);
     Function* func = Function::Create(functp,Function::ExternalLinkage,funcname,module);
-    BasicBlock* fbc = BasicBlock::Create(ctxt,"",func);
-    builder.SetInsertPoint(fbc);
+    BasicBlock* fbc = BasicBlock::Create(ctxt,"entry",func);
 
+    fmap[funcname] = func;
+
+    builder.SetInsertPoint(fbc);
+    // builder.getinser
     for(auto& arg : func->args()){
-        // idmap[(&arg)->getName()] = arg;
-        // cout<<&arg->name<<endl;
-    
+        static int cnt = 0;
+        Value* tp = &arg;
+        string name = ids[cnt++];
+        cout<<"name:   "<<name<<endl;
+        cout<<"args: "<<Print(tp)<<endl;
+        Value* temparg = builder.CreateAlloca(tp->getType());
+        temparg->setName(name);
+        builder.CreateStore(tp,temparg);
+        idmap[name] = temparg;
     }
         // arg.setName("sdf");
     // if(ptl->left->name!="{")
     genfuncdef(head->right->right,module);
 
+    // builder.CreateCall()
+
     // Value* k = builder.CreateAlloca(tmap[rettype]);
     // builder.CreateStore(builder.getInt32(580),k);
-    builder.CreateRet(builder.getInt32(0));
     fmap[funcname] = func;
 }
 

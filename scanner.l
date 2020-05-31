@@ -32,6 +32,10 @@ IS		((u|U)|(u|U)?(l|L|ll|LL)|(l|L|ll|LL)(u|U))
 "/*"			{ mutiline_comment(); }
 "//"[^\n]*      { singleline_comment(); }
 
+"println"	    {   col_count();
+					yylval.gtn=new GrammarTreeNode("println",0,yylineno);
+					return(println);}
+
 "auto"			{	col_count(); 
 					yylval.gtn=new GrammarTreeNode("AUTO",0,yylineno);
 					return(AUTO);	}
@@ -303,6 +307,7 @@ L?\"(\\.|[^\\"\n])*\"	{ 	col_count();
 "}"			{	col_count();
 				yylval.gtn=new GrammarTreeNode("}",0,yylineno);
 				return('}'); }
+
 
 [\t\v\n\f]	{ 	col_count();}
 .			{ 	unmatch();	}

@@ -22,7 +22,7 @@ void treePrint(GrammarTreeNode *node, int level);
 
 %}
 
-%token <gtn> AUTO SIZEOF GOTO RETURN
+%token <gtn> AUTO SIZEOF GOTO RETURN println
 
 %token <gtn> DO WHILE FOR CONTINUE BREAK SWITCH DEFAULT CASE IF ELSE
 
@@ -62,7 +62,7 @@ void treePrint(GrammarTreeNode *node, int level);
 %type <gtn> type_name abstract_declarator direct_abstract_declarator initializer initializer_list designation
 %type <gtn> designator_list designator statement labeled_statement compound_statement block_item_list block_item
 %type <gtn> expression_statement selection_statement iteration_statement jump_statement translation_unit
-%type <gtn> external_declaration function_definition declaration_list
+%type <gtn> external_declaration function_definition declaration_list print_statement
 %start program
 
 %union{
@@ -87,8 +87,8 @@ primary_expression
 postfix_expression
 	: primary_expression									{$$ = treeCreate("postfix_expression",1,$1);}
 	| postfix_expression '[' expression ']'					{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4);}	
-	| postfix_expression '(' ')'							{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
-	| postfix_expression '(' argument_expression_list ')'	{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4);}
+	| IDENTIFIER '(' ')'							{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
+	| IDENTIFIER '(' argument_expression_list ')'	{$$ = treeCreate("postfix_expression",4,$1,$2,$3,$4);}
 	| postfix_expression '.' IDENTIFIER						{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
 	| postfix_expression OP_PTR IDENTIFIER					{$$ = treeCreate("postfix_expression",3,$1,$2,$3);}
 	| postfix_expression OP_INC								{$$ = treeCreate("postfix_expression",2,$1,$2);}
@@ -448,6 +448,11 @@ statement
 	| selection_statement				{$$ = treeCreate("statement",1,$1);}
 	| iteration_statement				{$$ = treeCreate("statement",1,$1);}
 	| jump_statement					{$$ = treeCreate("statement",1,$1);}
+	| print_statement  					{$$ = treeCreate("statement",1,$1);}
+	;
+	
+print_statement
+	: println '(' STRING_LITERAL ',' expression ')'';' {$$ = treeCreate("print_statement",7,$1,$2,$3,$4,$5,$6,$7);}
 	;
 
 labeled_statement								
