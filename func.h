@@ -90,7 +90,7 @@ void kprintf(Module *mod, BasicBlock *bb, const char *format, ...)
     CallInst * returncall = CallInst::Create(func_printf,builder.CreateGlobalStringPtr("\n"),"return",bb);
 }
 #define oprintf(...) kprintf(__VA_ARGS__)
-
+void gen_FOR_stmt(node head,Module*m);
 void genstmt(node head ,Module* m);
 void genfuncdef(node head ,Module* module );
 Value* expression(node head ,Module* m );
@@ -645,12 +645,149 @@ void selection_statement(node head = nullptr,Module* m = nullptr){
             
         }else{
             //pure if
-            
         }
 
     }else{
         // switch-case selection_statement;
 
+    }
+}
+Value* gen_expr_stmt(node head = nullptr,Module* m = nullptr){
+    if(head->left->name==";"){
+        return expression(head,m);
+
+    }else if(head->left->name=="expression"){
+        return expression(head,m);
+    }else{
+        return builder.getInt32(0);
+    }
+}
+
+void gen_FOR_stmt(node head = nullptr,Module* m = nullptr){
+    if(head->left->name=="expression_statement"){
+        node expr_stmt1=head->left->right->right;
+        node expr_stmt2=expr_stmt1->right;
+        if(expr_stmt2->right->name==")"){
+            node stmt=expr_stmt2->right->right;
+            Value* loopcondition = builder.getInt1(false);
+            Function *TheFunction = builder.GetInsertBlock()->getParent();
+            //获得插入的点
+            BasicBlock *BC = builder.GetInsertBlock();
+            //这里就是将loop:给插入到TheFunction当中
+            BasicBlock *LoopBB = BasicBlock::Create(ctxt, "loop", TheFunction);
+            BasicBlock *CondBB = BasicBlock::Create(ctxt,"con",TheFunction);
+            BasicBlock *AfteBB = BasicBlock::Create(ctxt,"outer",TheFunction);
+            bcstk.push_back(CondBB);
+            bcstk.push_back(LoopBB);
+            bcstk.push_back(AfteBB);
+            // LoopBB->
+
+            gen_expr_stmt(expr_stmt1,m);
+
+            builder.CreateBr(CondBB);
+            //设置插入点为loop块
+            builder.SetInsertPoint(CondBB);
+            loopcondition = gen_expr_stmt(expr_stmt2,m);
+            builder.CreateCondBr(loopcondition,LoopBB,AfteBB);
+
+            builder.SetInsertPoint(LoopBB);
+            genstmt(stmt,m);
+            builder.CreateBr(CondBB);
+
+            builder.SetInsertPoint(AfteBB);
+        }else if(expr_stmt2->right->name=="expression"){
+            node expr=expr_stmt2->right;
+            node stmt=expr->right->right;
+            Value* loopcondition = builder.getInt1(false);
+            Function *TheFunction = builder.GetInsertBlock()->getParent();
+            //获得插入的点
+            BasicBlock *BC = builder.GetInsertBlock();
+            //这里就是将loop:给插入到TheFunction当中
+            BasicBlock *LoopBB = BasicBlock::Create(ctxt, "loop", TheFunction);
+            BasicBlock *CondBB = BasicBlock::Create(ctxt,"con",TheFunction);
+            BasicBlock *AfteBB = BasicBlock::Create(ctxt,"outer",TheFunction);
+            bcstk.push_back(CondBB);
+            bcstk.push_back(LoopBB);
+            bcstk.push_back(AfteBB);
+            // LoopBB->
+
+            gen_expr_stmt(expr_stmt1,m);
+
+            builder.CreateBr(CondBB);
+            //设置插入点为loop块
+            builder.SetInsertPoint(CondBB);
+            loopcondition = expression(expr_stmt2,m);
+            builder.CreateCondBr(loopcondition,LoopBB,AfteBB);
+
+            builder.SetInsertPoint(LoopBB);
+            genstmt(stmt,m);
+            expression(expr);
+            builder.CreateBr(CondBB);
+
+            builder.SetInsertPoint(AfteBB);
+        }
+    }else if(head->left->name=="declaration"){
+        node decl=head->left->right->right;
+        node expr_stmt=decl->right;
+        if(expr_stmt->right->name==")"){
+            node stmt=expr_stmt->right->right;
+            Value* loopcondition = builder.getInt1(false);
+            Function *TheFunction = builder.GetInsertBlock()->getParent();
+            //获得插入的点
+            BasicBlock *BC = builder.GetInsertBlock();
+            //这里就是将loop:给插入到TheFunction当中
+            BasicBlock *LoopBB = BasicBlock::Create(ctxt, "loop", TheFunction);
+            BasicBlock *CondBB = BasicBlock::Create(ctxt,"con",TheFunction);
+            BasicBlock *AfteBB = BasicBlock::Create(ctxt,"outer",TheFunction);
+            bcstk.push_back(CondBB);
+            bcstk.push_back(LoopBB);
+            bcstk.push_back(AfteBB);
+            // LoopBB->
+
+            gendecl(decl,m);
+
+            builder.CreateBr(CondBB);
+            //设置插入点为loop块
+            builder.SetInsertPoint(CondBB);
+            loopcondition = gen_expr_stmt(expr_stmt,m);
+            builder.CreateCondBr(loopcondition,LoopBB,AfteBB);
+
+            builder.SetInsertPoint(LoopBB);
+            genstmt(stmt,m);
+            builder.CreateBr(CondBB);
+
+            builder.SetInsertPoint(AfteBB);
+        }else if(expr_stmt->right->name=="expression"){
+            node expr=expr_stmt->right;
+            node stmt=expr->right->right;
+            Value* loopcondition = builder.getInt1(false);
+            Function *TheFunction = builder.GetInsertBlock()->getParent();
+            //获得插入的点
+            BasicBlock *BC = builder.GetInsertBlock();
+            //这里就是将loop:给插入到TheFunction当中
+            BasicBlock *LoopBB = BasicBlock::Create(ctxt, "loop", TheFunction);
+            BasicBlock *CondBB = BasicBlock::Create(ctxt,"con",TheFunction);
+            BasicBlock *AfteBB = BasicBlock::Create(ctxt,"outer",TheFunction);
+            bcstk.push_back(CondBB);
+            bcstk.push_back(LoopBB);
+            bcstk.push_back(AfteBB);
+            // LoopBB->
+
+            gendecl(decl,m);
+
+            builder.CreateBr(CondBB);
+            //设置插入点为loop块
+            builder.SetInsertPoint(CondBB);
+            loopcondition = expression(expr_stmt,m);
+            builder.CreateCondBr(loopcondition,LoopBB,AfteBB);
+
+            builder.SetInsertPoint(LoopBB);
+            gen_expr_stmt(stmt,m);
+            expression(expr);
+            builder.CreateBr(CondBB);
+
+            builder.SetInsertPoint(AfteBB);
+        }
     }
 }
 void iteration_statement(node head = nullptr,Module* m = nullptr){
@@ -684,6 +821,7 @@ void iteration_statement(node head = nullptr,Module* m = nullptr){
 
     }else{
         //For循环
+        gen_FOR_stmt(head,m);
 
     }
 }
