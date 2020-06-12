@@ -3,9 +3,6 @@ Terminals unused in grammar
    TYPE_NAME
 
 
-状态 387 conflicts: 1 shift/reduce
-
-
 语法
 
     0 $accept: program $end
@@ -288,34 +285,33 @@ Terminals unused in grammar
   214 expression_statement: ';'
   215                     | expression ';'
 
-  216 selection_statement: IF '(' equality_expression ')' statement
-  217                    | IF '(' equality_expression ')' statement ELSE statement
-  218                    | SWITCH '(' equality_expression ')' statement
+  216 selection_statement: IF '(' equality_expression ')' statement ELSE statement
+  217                    | SWITCH '(' equality_expression ')' statement
 
-  219 iteration_statement: WHILE '(' expression ')' statement
-  220                    | DO statement WHILE '(' expression ')' ';'
-  221                    | FOR '(' expression_statement expression_statement ')' statement
-  222                    | FOR '(' expression_statement expression_statement expression ')' statement
-  223                    | FOR '(' declaration expression_statement ')' statement
-  224                    | FOR '(' declaration expression_statement expression ')' statement
+  218 iteration_statement: WHILE '(' expression ')' statement
+  219                    | DO statement WHILE '(' expression ')' ';'
+  220                    | FOR '(' expression_statement expression_statement ')' statement
+  221                    | FOR '(' expression_statement expression_statement expression ')' statement
+  222                    | FOR '(' declaration expression_statement ')' statement
+  223                    | FOR '(' declaration expression_statement expression ')' statement
 
-  225 jump_statement: GOTO IDENTIFIER ';'
-  226               | CONTINUE ';'
-  227               | BREAK ';'
-  228               | RETURN ';'
-  229               | RETURN expression ';'
+  224 jump_statement: GOTO IDENTIFIER ';'
+  225               | CONTINUE ';'
+  226               | BREAK ';'
+  227               | RETURN ';'
+  228               | RETURN expression ';'
 
-  230 translation_unit: external_declaration
-  231                 | translation_unit external_declaration
+  229 translation_unit: external_declaration
+  230                 | translation_unit external_declaration
 
-  232 external_declaration: function_definition
-  233                     | declaration
+  231 external_declaration: function_definition
+  232                     | declaration
 
-  234 function_definition: declaration_specifiers declarator declaration_list compound_statement
-  235                    | declaration_specifiers declarator compound_statement
+  233 function_definition: declaration_specifiers declarator declaration_list compound_statement
+  234                    | declaration_specifiers declarator compound_statement
 
-  236 declaration_list: declaration
-  237                 | declaration_list declaration
+  235 declaration_list: declaration
+  236                 | declaration_list declaration
 
 
 Terminals, with rules where they appear
@@ -325,9 +321,9 @@ $end (0) 0
 '%' (37) 37
 '&' (38) 26 53
 '(' (40) 7 10 11 16 17 25 33 142 151 152 153 174 181 182 183 184 204
-    216 217 218 219 220 221 222 223 224
+    216 217 218 219 220 221 222 223
 ')' (41) 7 10 11 16 17 25 33 142 151 152 153 174 181 182 183 184 204
-    216 217 218 219 220 221 222 223 224
+    216 217 218 219 220 221 222 223
 '*' (42) 27 35 148 149 154 155 156 157 179 180
 '+' (43) 28 39
 ',' (44) 17 19 78 91 123 129 130 133 161 163 168 187 190 191 204
@@ -335,7 +331,7 @@ $end (0) 0
 '.' (46) 12 196
 '/' (47) 36
 ':' (58) 63 125 126 205 206 207
-';' (59) 80 81 117 204 214 215 220 225 226 227 228 229
+';' (59) 80 81 117 204 214 215 219 224 225 226 227 228
 '<' (60) 45
 '=' (61) 66 93 135 192
 '>' (62) 46
@@ -352,19 +348,19 @@ $end (0) 0
 error (256)
 AUTO (258) 97
 SIZEOF (259) 24 25
-GOTO (260) 225
-RETURN (261) 228 229
+GOTO (260) 224
+RETURN (261) 227 228
 println (262) 204
-DO (263) 220
-WHILE (264) 219 220
-FOR (265) 221 222 223 224
-CONTINUE (266) 226
-BREAK (267) 227
-SWITCH (268) 218
+DO (263) 219
+WHILE (264) 218 219
+FOR (265) 220 221 222 223
+CONTINUE (266) 225
+BREAK (267) 226
+SWITCH (268) 217
 DEFAULT (269) 207
 CASE (270) 206
-IF (271) 216 217
-ELSE (272) 217
+IF (271) 216
+ELSE (272) 216
 FLOAT (273) 103
 DOUBLE (274) 104
 CHAR (275) 99
@@ -401,7 +397,7 @@ ASSIGN_OR (305) 76
 TYPE_NAME (306)
 ASSIGN_XOR (307) 75
 IDENTIFIER (308) 2 10 11 12 13 110 112 128 130 131 134 135 141 167
-    168 196 205 225
+    168 196 205 224
 OP_RIGHTSHIFT (309) 43
 OP_LEFTSHIFT (310) 42
 OP_INC (311) 14 21
@@ -442,7 +438,7 @@ shift_expression (99)
 relational_expression (100)
     左： 44 45 46 47 48, 右： 45 46 47 48 49 50 51
 equality_expression (101)
-    左： 49 50 51, 右： 50 51 52 53 216 217 218
+    左： 49 50 51, 右： 50 51 52 53 216 217
 and_expression (102)
     左： 52 53, 右： 53 54 55
 exclusive_or_expression (103)
@@ -460,14 +456,14 @@ assignment_expression (108)
 assignment_operator (109)
     左： 66 67 68 69 70 71 72 73 74 75 76, 右： 65
 expression (110)
-    左： 77 78, 右： 7 9 78 204 215 219 220 222 224 229
+    左： 77 78, 右： 7 9 78 204 215 218 219 221 223 228
 constant_expression (111)
     左： 79, 右： 125 126 135 195 206
 declaration (112)
-    左： 80 81, 右： 212 223 224 233 236 237
+    左： 80 81, 右： 212 222 223 232 235 236
 declaration_specifiers (113)
     左： 82 83 84 85 86 87 88 89, 右： 80 81 83 85 87 89 164 165
-    166 234 235
+    166 233 234
 init_declarator_list (114)
     左： 90 91, 右： 81 91
 init_declarator (115)
@@ -502,7 +498,7 @@ type_qualifier (128)
 function_specifier (129)
     左： 138, 右： 88 89
 declarator (130)
-    左： 139 140, 右： 92 93 124 126 142 164 234 235
+    左： 139 140, 右： 92 93 124 126 142 164 233 234
 direct_declarator (131)
     左： 141 142 143 144 145 146 147 148 149 150 151 152 153, 右：
     139 140 143 144 145 146 147 148 149 150 151 152 153
@@ -537,33 +533,33 @@ designator (145)
     左： 195 196, 右： 193 194
 statement (146)
     左： 197 198 199 200 201 202 203, 右： 205 206 207 213 216
-    217 218 219 220 221 222 223 224
+    217 218 219 220 221 222 223
 print_statement (147)
     左： 204, 右： 203
 labeled_statement (148)
     左： 205 206 207, 右： 197
 compound_statement (149)
-    左： 208 209, 右： 198 234 235
+    左： 208 209, 右： 198 233 234
 block_item_list (150)
     左： 210 211, 右： 209 211
 block_item (151)
     左： 212 213, 右： 210 211
 expression_statement (152)
-    左： 214 215, 右： 199 221 222 223 224
+    左： 214 215, 右： 199 220 221 222 223
 selection_statement (153)
-    左： 216 217 218, 右： 200
+    左： 216 217, 右： 200
 iteration_statement (154)
-    左： 219 220 221 222 223 224, 右： 201
+    左： 218 219 220 221 222 223, 右： 201
 jump_statement (155)
-    左： 225 226 227 228 229, 右： 202
+    左： 224 225 226 227 228, 右： 202
 translation_unit (156)
-    左： 230 231, 右： 1 231
+    左： 229 230, 右： 1 230
 external_declaration (157)
-    左： 232 233, 右： 230 231
+    左： 231 232, 右： 229 230
 function_definition (158)
-    左： 234 235, 右： 232
+    左： 233 234, 右： 231
 declaration_list (159)
-    左： 236 237, 右： 234 237
+    左： 235 236, 右： 233 236
 
 
 State 0
@@ -760,17 +756,17 @@ State 21
 
 State 22
 
-  233 external_declaration: declaration .
+  232 external_declaration: declaration .
 
-    $default  reduce using rule 233 (external_declaration)
+    $default  reduce using rule 232 (external_declaration)
 
 
 State 23
 
    80 declaration: declaration_specifiers . ';'
    81            | declaration_specifiers . init_declarator_list ';'
-  234 function_definition: declaration_specifiers . declarator declaration_list compound_statement
-  235                    | declaration_specifiers . declarator compound_statement
+  233 function_definition: declaration_specifiers . declarator declaration_list compound_statement
+  234                    | declaration_specifiers . declarator compound_statement
 
     IDENTIFIER  shift, and go to state 37
     ';'         shift, and go to state 38
@@ -963,7 +959,7 @@ State 30
 State 31
 
     1 program: translation_unit .
-  231 translation_unit: translation_unit . external_declaration
+  230 translation_unit: translation_unit . external_declaration
 
     AUTO      shift, and go to state 1
     FLOAT     shift, and go to state 2
@@ -1003,16 +999,16 @@ State 31
 
 State 32
 
-  230 translation_unit: external_declaration .
+  229 translation_unit: external_declaration .
 
-    $default  reduce using rule 230 (translation_unit)
+    $default  reduce using rule 229 (translation_unit)
 
 
 State 33
 
-  232 external_declaration: function_definition .
+  231 external_declaration: function_definition .
 
-    $default  reduce using rule 232 (external_declaration)
+    $default  reduce using rule 231 (external_declaration)
 
 
 State 34
@@ -1109,8 +1105,8 @@ State 43
 
    92 init_declarator: declarator .
    93                | declarator . '=' initializer
-  234 function_definition: declaration_specifiers declarator . declaration_list compound_statement
-  235                    | declaration_specifiers declarator . compound_statement
+  233 function_definition: declaration_specifiers declarator . declaration_list compound_statement
+  234                    | declaration_specifiers declarator . compound_statement
 
     AUTO      shift, and go to state 1
     FLOAT     shift, and go to state 2
@@ -1251,9 +1247,9 @@ State 51
 
 State 52
 
-  231 translation_unit: translation_unit external_declaration .
+  230 translation_unit: translation_unit external_declaration .
 
-    $default  reduce using rule 231 (translation_unit)
+    $default  reduce using rule 230 (translation_unit)
 
 
 State 53
@@ -1490,9 +1486,9 @@ State 64
 
 State 65
 
-  236 declaration_list: declaration .
+  235 declaration_list: declaration .
 
-    $default  reduce using rule 236 (declaration_list)
+    $default  reduce using rule 235 (declaration_list)
 
 
 State 66
@@ -1514,15 +1510,15 @@ State 66
 
 State 67
 
-  235 function_definition: declaration_specifiers declarator compound_statement .
+  234 function_definition: declaration_specifiers declarator compound_statement .
 
-    $default  reduce using rule 235 (function_definition)
+    $default  reduce using rule 234 (function_definition)
 
 
 State 68
 
-  234 function_definition: declaration_specifiers declarator declaration_list . compound_statement
-  237 declaration_list: declaration_list . declaration
+  233 function_definition: declaration_specifiers declarator declaration_list . compound_statement
+  236 declaration_list: declaration_list . declaration
 
     AUTO      shift, and go to state 1
     FLOAT     shift, and go to state 2
@@ -2420,15 +2416,15 @@ State 120
 
 State 121
 
-  225 jump_statement: GOTO . IDENTIFIER ';'
+  224 jump_statement: GOTO . IDENTIFIER ';'
 
     IDENTIFIER  shift, and go to state 232
 
 
 State 122
 
-  228 jump_statement: RETURN . ';'
-  229               | RETURN . expression ';'
+  227 jump_statement: RETURN . ';'
+  228               | RETURN . expression ';'
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -2476,7 +2472,7 @@ State 123
 
 State 124
 
-  220 iteration_statement: DO . statement WHILE '(' expression ')' ';'
+  219 iteration_statement: DO . statement WHILE '(' expression ')' ';'
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -2538,38 +2534,38 @@ State 124
 
 State 125
 
-  219 iteration_statement: WHILE . '(' expression ')' statement
+  218 iteration_statement: WHILE . '(' expression ')' statement
 
     '('  shift, and go to state 237
 
 
 State 126
 
-  221 iteration_statement: FOR . '(' expression_statement expression_statement ')' statement
-  222                    | FOR . '(' expression_statement expression_statement expression ')' statement
-  223                    | FOR . '(' declaration expression_statement ')' statement
-  224                    | FOR . '(' declaration expression_statement expression ')' statement
+  220 iteration_statement: FOR . '(' expression_statement expression_statement ')' statement
+  221                    | FOR . '(' expression_statement expression_statement expression ')' statement
+  222                    | FOR . '(' declaration expression_statement ')' statement
+  223                    | FOR . '(' declaration expression_statement expression ')' statement
 
     '('  shift, and go to state 238
 
 
 State 127
 
-  226 jump_statement: CONTINUE . ';'
+  225 jump_statement: CONTINUE . ';'
 
     ';'  shift, and go to state 239
 
 
 State 128
 
-  227 jump_statement: BREAK . ';'
+  226 jump_statement: BREAK . ';'
 
     ';'  shift, and go to state 240
 
 
 State 129
 
-  218 selection_statement: SWITCH . '(' equality_expression ')' statement
+  217 selection_statement: SWITCH . '(' equality_expression ')' statement
 
     '('  shift, and go to state 241
 
@@ -2622,8 +2618,7 @@ State 131
 
 State 132
 
-  216 selection_statement: IF . '(' equality_expression ')' statement
-  217                    | IF . '(' equality_expression ')' statement ELSE statement
+  216 selection_statement: IF . '(' equality_expression ')' statement ELSE statement
 
     '('  shift, and go to state 244
 
@@ -2837,16 +2832,16 @@ State 148
 
 State 149
 
-  237 declaration_list: declaration_list declaration .
+  236 declaration_list: declaration_list declaration .
 
-    $default  reduce using rule 237 (declaration_list)
+    $default  reduce using rule 236 (declaration_list)
 
 
 State 150
 
-  234 function_definition: declaration_specifiers declarator declaration_list compound_statement .
+  233 function_definition: declaration_specifiers declarator declaration_list compound_statement .
 
-    $default  reduce using rule 234 (function_definition)
+    $default  reduce using rule 233 (function_definition)
 
 
 State 151
@@ -4305,22 +4300,22 @@ State 231
 
 State 232
 
-  225 jump_statement: GOTO IDENTIFIER . ';'
+  224 jump_statement: GOTO IDENTIFIER . ';'
 
     ';'  shift, and go to state 313
 
 
 State 233
 
-  228 jump_statement: RETURN ';' .
+  227 jump_statement: RETURN ';' .
 
-    $default  reduce using rule 228 (jump_statement)
+    $default  reduce using rule 227 (jump_statement)
 
 
 State 234
 
    78 expression: expression . ',' assignment_expression
-  229 jump_statement: RETURN expression . ';'
+  228 jump_statement: RETURN expression . ';'
 
     ';'  shift, and go to state 314
     ','  shift, and go to state 247
@@ -4335,14 +4330,14 @@ State 235
 
 State 236
 
-  220 iteration_statement: DO statement . WHILE '(' expression ')' ';'
+  219 iteration_statement: DO statement . WHILE '(' expression ')' ';'
 
     WHILE  shift, and go to state 316
 
 
 State 237
 
-  219 iteration_statement: WHILE '(' . expression ')' statement
+  218 iteration_statement: WHILE '(' . expression ')' statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -4382,10 +4377,10 @@ State 237
 
 State 238
 
-  221 iteration_statement: FOR '(' . expression_statement expression_statement ')' statement
-  222                    | FOR '(' . expression_statement expression_statement expression ')' statement
-  223                    | FOR '(' . declaration expression_statement ')' statement
-  224                    | FOR '(' . declaration expression_statement expression ')' statement
+  220 iteration_statement: FOR '(' . expression_statement expression_statement ')' statement
+  221                    | FOR '(' . expression_statement expression_statement expression ')' statement
+  222                    | FOR '(' . declaration expression_statement ')' statement
+  223                    | FOR '(' . declaration expression_statement expression ')' statement
 
     AUTO             shift, and go to state 1
     SIZEOF           shift, and go to state 87
@@ -4456,21 +4451,21 @@ State 238
 
 State 239
 
-  226 jump_statement: CONTINUE ';' .
+  225 jump_statement: CONTINUE ';' .
 
-    $default  reduce using rule 226 (jump_statement)
+    $default  reduce using rule 225 (jump_statement)
 
 
 State 240
 
-  227 jump_statement: BREAK ';' .
+  226 jump_statement: BREAK ';' .
 
-    $default  reduce using rule 227 (jump_statement)
+    $default  reduce using rule 226 (jump_statement)
 
 
 State 241
 
-  218 selection_statement: SWITCH '(' . equality_expression ')' statement
+  217 selection_statement: SWITCH '(' . equality_expression ')' statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -4571,8 +4566,7 @@ State 243
 
 State 244
 
-  216 selection_statement: IF '(' . equality_expression ')' statement
-  217                    | IF '(' . equality_expression ')' statement ELSE statement
+  216 selection_statement: IF '(' . equality_expression ')' statement ELSE statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -5602,16 +5596,16 @@ State 312
 
 State 313
 
-  225 jump_statement: GOTO IDENTIFIER ';' .
+  224 jump_statement: GOTO IDENTIFIER ';' .
 
-    $default  reduce using rule 225 (jump_statement)
+    $default  reduce using rule 224 (jump_statement)
 
 
 State 314
 
-  229 jump_statement: RETURN expression ';' .
+  228 jump_statement: RETURN expression ';' .
 
-    $default  reduce using rule 229 (jump_statement)
+    $default  reduce using rule 228 (jump_statement)
 
 
 State 315
@@ -5623,7 +5617,7 @@ State 315
 
 State 316
 
-  220 iteration_statement: DO statement WHILE . '(' expression ')' ';'
+  219 iteration_statement: DO statement WHILE . '(' expression ')' ';'
 
     '('  shift, and go to state 357
 
@@ -5631,7 +5625,7 @@ State 316
 State 317
 
    78 expression: expression . ',' assignment_expression
-  219 iteration_statement: WHILE '(' expression . ')' statement
+  218 iteration_statement: WHILE '(' expression . ')' statement
 
     ','  shift, and go to state 247
     ')'  shift, and go to state 358
@@ -5639,8 +5633,8 @@ State 317
 
 State 318
 
-  223 iteration_statement: FOR '(' declaration . expression_statement ')' statement
-  224                    | FOR '(' declaration . expression_statement expression ')' statement
+  222 iteration_statement: FOR '(' declaration . expression_statement ')' statement
+  223                    | FOR '(' declaration . expression_statement expression ')' statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -5682,8 +5676,8 @@ State 318
 
 State 319
 
-  221 iteration_statement: FOR '(' expression_statement . expression_statement ')' statement
-  222                    | FOR '(' expression_statement . expression_statement expression ')' statement
+  220 iteration_statement: FOR '(' expression_statement . expression_statement ')' statement
+  221                    | FOR '(' expression_statement . expression_statement expression ')' statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -5727,7 +5721,7 @@ State 320
 
    50 equality_expression: equality_expression . OP_EQ relational_expression
    51                    | equality_expression . OP_NE relational_expression
-  218 selection_statement: SWITCH '(' equality_expression . ')' statement
+  217 selection_statement: SWITCH '(' equality_expression . ')' statement
 
     OP_EQ  shift, and go to state 224
     OP_NE  shift, and go to state 225
@@ -5807,8 +5801,7 @@ State 323
 
    50 equality_expression: equality_expression . OP_EQ relational_expression
    51                    | equality_expression . OP_NE relational_expression
-  216 selection_statement: IF '(' equality_expression . ')' statement
-  217                    | IF '(' equality_expression . ')' statement ELSE statement
+  216 selection_statement: IF '(' equality_expression . ')' statement ELSE statement
 
     OP_EQ  shift, and go to state 224
     OP_NE  shift, and go to state 225
@@ -6303,7 +6296,7 @@ State 356
 
 State 357
 
-  220 iteration_statement: DO statement WHILE '(' . expression ')' ';'
+  219 iteration_statement: DO statement WHILE '(' . expression ')' ';'
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -6343,7 +6336,7 @@ State 357
 
 State 358
 
-  219 iteration_statement: WHILE '(' expression ')' . statement
+  218 iteration_statement: WHILE '(' expression ')' . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -6405,8 +6398,8 @@ State 358
 
 State 359
 
-  223 iteration_statement: FOR '(' declaration expression_statement . ')' statement
-  224                    | FOR '(' declaration expression_statement . expression ')' statement
+  222 iteration_statement: FOR '(' declaration expression_statement . ')' statement
+  223                    | FOR '(' declaration expression_statement . expression ')' statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -6447,8 +6440,8 @@ State 359
 
 State 360
 
-  221 iteration_statement: FOR '(' expression_statement expression_statement . ')' statement
-  222                    | FOR '(' expression_statement expression_statement . expression ')' statement
+  220 iteration_statement: FOR '(' expression_statement expression_statement . ')' statement
+  221                    | FOR '(' expression_statement expression_statement . expression ')' statement
 
     SIZEOF           shift, and go to state 87
     CONSTANT         shift, and go to state 88
@@ -6489,7 +6482,7 @@ State 360
 
 State 361
 
-  218 selection_statement: SWITCH '(' equality_expression ')' . statement
+  217 selection_statement: SWITCH '(' equality_expression ')' . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -6558,8 +6551,7 @@ State 362
 
 State 363
 
-  216 selection_statement: IF '(' equality_expression ')' . statement
-  217                    | IF '(' equality_expression ')' . statement ELSE statement
+  216 selection_statement: IF '(' equality_expression ')' . statement ELSE statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -6743,7 +6735,7 @@ State 379
 State 380
 
    78 expression: expression . ',' assignment_expression
-  220 iteration_statement: DO statement WHILE '(' expression . ')' ';'
+  219 iteration_statement: DO statement WHILE '(' expression . ')' ';'
 
     ','  shift, and go to state 247
     ')'  shift, and go to state 394
@@ -6751,14 +6743,14 @@ State 380
 
 State 381
 
-  219 iteration_statement: WHILE '(' expression ')' statement .
+  218 iteration_statement: WHILE '(' expression ')' statement .
 
-    $default  reduce using rule 219 (iteration_statement)
+    $default  reduce using rule 218 (iteration_statement)
 
 
 State 382
 
-  223 iteration_statement: FOR '(' declaration expression_statement ')' . statement
+  222 iteration_statement: FOR '(' declaration expression_statement ')' . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -6821,7 +6813,7 @@ State 382
 State 383
 
    78 expression: expression . ',' assignment_expression
-  224 iteration_statement: FOR '(' declaration expression_statement expression . ')' statement
+  223 iteration_statement: FOR '(' declaration expression_statement expression . ')' statement
 
     ','  shift, and go to state 247
     ')'  shift, and go to state 396
@@ -6829,7 +6821,7 @@ State 383
 
 State 384
 
-  221 iteration_statement: FOR '(' expression_statement expression_statement ')' . statement
+  220 iteration_statement: FOR '(' expression_statement expression_statement ')' . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -6892,7 +6884,7 @@ State 384
 State 385
 
    78 expression: expression . ',' assignment_expression
-  222 iteration_statement: FOR '(' expression_statement expression_statement expression . ')' statement
+  221 iteration_statement: FOR '(' expression_statement expression_statement expression . ')' statement
 
     ','  shift, and go to state 247
     ')'  shift, and go to state 398
@@ -6900,20 +6892,16 @@ State 385
 
 State 386
 
-  218 selection_statement: SWITCH '(' equality_expression ')' statement .
+  217 selection_statement: SWITCH '(' equality_expression ')' statement .
 
-    $default  reduce using rule 218 (selection_statement)
+    $default  reduce using rule 217 (selection_statement)
 
 
 State 387
 
-  216 selection_statement: IF '(' equality_expression ')' statement .
-  217                    | IF '(' equality_expression ')' statement . ELSE statement
+  216 selection_statement: IF '(' equality_expression ')' statement . ELSE statement
 
     ELSE  shift, and go to state 399
-
-    ELSE      [reduce using rule 216 (selection_statement)]
-    $default  reduce using rule 216 (selection_statement)
 
 
 State 388
@@ -7002,21 +6990,21 @@ State 393
 
 State 394
 
-  220 iteration_statement: DO statement WHILE '(' expression ')' . ';'
+  219 iteration_statement: DO statement WHILE '(' expression ')' . ';'
 
     ';'  shift, and go to state 402
 
 
 State 395
 
-  223 iteration_statement: FOR '(' declaration expression_statement ')' statement .
+  222 iteration_statement: FOR '(' declaration expression_statement ')' statement .
 
-    $default  reduce using rule 223 (iteration_statement)
+    $default  reduce using rule 222 (iteration_statement)
 
 
 State 396
 
-  224 iteration_statement: FOR '(' declaration expression_statement expression ')' . statement
+  223 iteration_statement: FOR '(' declaration expression_statement expression ')' . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -7078,14 +7066,14 @@ State 396
 
 State 397
 
-  221 iteration_statement: FOR '(' expression_statement expression_statement ')' statement .
+  220 iteration_statement: FOR '(' expression_statement expression_statement ')' statement .
 
-    $default  reduce using rule 221 (iteration_statement)
+    $default  reduce using rule 220 (iteration_statement)
 
 
 State 398
 
-  222 iteration_statement: FOR '(' expression_statement expression_statement expression ')' . statement
+  221 iteration_statement: FOR '(' expression_statement expression_statement expression ')' . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -7147,7 +7135,7 @@ State 398
 
 State 399
 
-  217 selection_statement: IF '(' equality_expression ')' statement ELSE . statement
+  216 selection_statement: IF '(' equality_expression ')' statement ELSE . statement
 
     SIZEOF           shift, and go to state 87
     GOTO             shift, and go to state 121
@@ -7223,27 +7211,27 @@ State 401
 
 State 402
 
-  220 iteration_statement: DO statement WHILE '(' expression ')' ';' .
+  219 iteration_statement: DO statement WHILE '(' expression ')' ';' .
 
-    $default  reduce using rule 220 (iteration_statement)
+    $default  reduce using rule 219 (iteration_statement)
 
 
 State 403
 
-  224 iteration_statement: FOR '(' declaration expression_statement expression ')' statement .
+  223 iteration_statement: FOR '(' declaration expression_statement expression ')' statement .
 
-    $default  reduce using rule 224 (iteration_statement)
+    $default  reduce using rule 223 (iteration_statement)
 
 
 State 404
 
-  222 iteration_statement: FOR '(' expression_statement expression_statement expression ')' statement .
+  221 iteration_statement: FOR '(' expression_statement expression_statement expression ')' statement .
 
-    $default  reduce using rule 222 (iteration_statement)
+    $default  reduce using rule 221 (iteration_statement)
 
 
 State 405
 
-  217 selection_statement: IF '(' equality_expression ')' statement ELSE statement .
+  216 selection_statement: IF '(' equality_expression ')' statement ELSE statement .
 
-    $default  reduce using rule 217 (selection_statement)
+    $default  reduce using rule 216 (selection_statement)

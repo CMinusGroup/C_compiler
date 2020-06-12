@@ -41,8 +41,8 @@ main:                                   # @main
 	pushq	%rbx
 	.cfi_def_cfa_offset 16
 	.cfi_offset %rbx, -16
-	movl	$9, %edi
-	movl	$36, %esi
+	movl	$18, %edi
+	movl	$72, %esi
 	callq	gcd
 	movl	%eax, %ebx
 	movl	$3, %edi

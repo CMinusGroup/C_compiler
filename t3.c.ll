@@ -2,7 +2,8 @@
 source_filename = "t3.c"
 
 @i = internal global i32 0
-@0 = private unnamed_addr constant [14 x i8] c"\22hello,%d\\0D\22\00", align 1
+@0 = private unnamed_addr constant [9 x i8] c"hello,%d\00", align 1
+@1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 
 define i32 @go(i32 %0) {
 entry:
@@ -41,7 +42,8 @@ entry:
   store i32 %1, i32* @i, align 4
   %2 = load i32, i32* @i, align 4
   %3 = load i32, i32* @i, align 4
-  %call = call i32 (...) @printf(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @0, i32 0, i32 0), i32 %3)
+  %call = call i32 (...) @printf(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @0, i32 0, i32 0), i32 %3)
+  %return = call i32 (...) @printf(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @1, i32 0, i32 0))
   ret i32 0
 }
 

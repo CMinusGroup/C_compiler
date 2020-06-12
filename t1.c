@@ -8,7 +8,7 @@ int gcd(int a,int b){
 }
 
 int main(){
-    ans = gcd(9,36)*gcd(3,6);
+    ans = gcd(18,72)*gcd(3,6);
     println("ans = %d",ans);
     return 0;
 }

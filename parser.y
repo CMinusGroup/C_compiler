@@ -483,8 +483,7 @@ expression_statement
 	;
 
 selection_statement
-	: IF '(' equality_expression ')' statement					{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
-	| IF '(' equality_expression ')' statement ELSE statement	{$$ = treeCreate("selection_statement",7,$1,$2,$3,$4,$5,$6,$7);}
+	: IF '(' equality_expression ')' statement ELSE statement	{$$ = treeCreate("selection_statement",7,$1,$2,$3,$4,$5,$6,$7);}
 	| SWITCH '(' equality_expression ')' statement				{$$ = treeCreate("selection_statement",5,$1,$2,$3,$4,$5);}
 	;
 
@@ -560,7 +559,7 @@ int main(int argc, char* argv[]){
 	// string cmd = "llc "+argv[1]+" -o "+ argv[1]+".s & gcc "+argv[1]+".s -o "+argv[1]+".out"
 	system(cmd.c_str());
 
-    // treeNodeFree(root);
+    treeNodeFree(root);
 
     fclose(yyin);
 

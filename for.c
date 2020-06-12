@@ -1,6 +1,10 @@
 int main(){
-    int i = 0;
-    int b = 0;
-    println("hello,%d",i+b);
+    int i = 0 + 12/2 - 12*3;
+    while (i<180)
+    {
+        println("i = %d",i);
+        i+=10;
+
+    }
     return 0;
 }

@@ -54,6 +54,9 @@ main:                                   # @main
 	movl	%eax, %esi
 	xorl	%eax, %eax
 	callq	printf
+	movl	$.L__unnamed_2, %edi
+	xorl	%eax, %eax
+	callq	printf
 	xorl	%eax, %eax
 	popq	%rcx
 	.cfi_def_cfa_offset 8
@@ -68,7 +71,12 @@ main:                                   # @main
 	.type	.L__unnamed_1,@object   # @0
 	.section	.rodata.str1.1,"aMS",@progbits,1
 .L__unnamed_1:
-	.asciz	"\"hello,%d\\0D\""
-	.size	.L__unnamed_1, 14
+	.asciz	"hello,%d"
+	.size	.L__unnamed_1, 9
+
+	.type	.L__unnamed_2,@object   # @1
+.L__unnamed_2:
+	.asciz	"\n"
+	.size	.L__unnamed_2, 2
 
 	.section	".note.GNU-stack","",@progbits

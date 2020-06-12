@@ -39,7 +39,7 @@ void genfuncdef(node head ,Module* module );
 Value* assignment_exp(node head ,Module* m );
 Value* expression(node head ,Module* m );
 
-LLVM::Module::getValueSymbolTable()
+// LLVM::Module::getValueSymbolTable()
 
 template <typename T> static std::string Print(T* value_or_type) {
     std::string str;

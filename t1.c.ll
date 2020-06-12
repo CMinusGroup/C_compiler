@@ -31,7 +31,7 @@ else:                                             ; preds = %entry
 define i32 @main() {
 entry:
   %0 = load i32, i32* @ans, align 4
-  %1 = call i32 @gcd(i32 9, i32 36)
+  %1 = call i32 @gcd(i32 18, i32 72)
   %2 = call i32 @gcd(i32 3, i32 6)
   %3 = mul i32 %1, %2
   store i32 %3, i32* @ans, align 4
